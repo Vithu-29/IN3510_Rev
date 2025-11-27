@@ -1,0 +1,72 @@
+/* Chart Container Styling Requirements */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    max-height: 400px;
+}
+
+@media (min-width: 768px) {
+    .chart-container {
+        height: 350px;
+    }
+}
+
+/* Custom Scrollbar for a cleaner look */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5f5f4;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d6d3d1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a29e;
+}
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-item.active {
+    background-color: #f5f5f4;
+    /* stone-200 */
+    border-left: 4px solid #0d9488;
+    /* teal-600 */
+    font-weight: 600;
+}
+
+.nav-item-sub.active {
+    background-color: #f5f5f4;
+    /* stone-100 */
+    color: #0d9488;
+    font-weight: 600;
+}
+
+/* Small helper animation referenced in the original file */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 240ms ease-in-out;
+}
