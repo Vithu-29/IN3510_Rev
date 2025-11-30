@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile & Wireless Networks - Lecture 4 Study Guide</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Document Sizing - Fixed Width, Fluid Height */
+        .doc-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 10mm;
+        }
+
+        /* Diagram Containers */
+        .svg-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        /* Make SVGs responsive */
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+
+            body {
+                background-color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .doc-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+
+            /* Avoid breaking sections inside elements */
+            section,
+            li,
+            tr,
+            .svg-container {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-8 text-slate-800 font-sans print:p-0 print:bg-white">
+
+    <!-- Control Bar (Hidden when printing) -->
+    <div class="max-w-[210mm] mx-auto mb-6 flex justify-end no-print">
+        <button onclick="window.print()"
+            class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors cursor-pointer">
+            <i class="fas fa-print"></i>
+            <span>Print / Save as PDF</span>
+        </button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="doc-container shadow-2xl">
+
+        <!-- Header -->
+        <header class="border-b-4 border-blue-600 pb-4 mb-8">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 uppercase tracking-tight">Multiple Access Techniques
+                    </h1>
+                    <p class="text-blue-600 font-semibold text-lg">IN 3510 | Lecture 4 Comprehensive Notes</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT STARTS -->
+        <div class="space-y-8">
+
+            <!-- 1. Introduction to Multiple Access -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-users"></i> 1. The Need for Multiple Access
+                </h2>
+                <div class="bg-slate-50 p-4 rounded border border-slate-200 mb-4">
+                    <p class="text-sm text-slate-700 mb-2">
+                        Multiple access schemes allow many users to share a finite amount of radio spectrum
+                        simultaneously. The goal is to increase <b>capacity</b> without degrading performance.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-center text-xs font-bold text-white mt-3">
+                        <div class="bg-blue-600 p-2 rounded">FDMA<br><span
+                                class="font-normal opacity-75">Frequency</span></div>
+                        <div class="bg-green-600 p-2 rounded">TDMA<br><span class="font-normal opacity-75">Time</span>
+                        </div>
+                        <div class="bg-purple-600 p-2 rounded">CDMA<br><span class="font-normal opacity-75">Code</span>
+                        </div>
+                        <div class="bg-orange-600 p-2 rounded">SDMA<br><span class="font-normal opacity-75">Space</span>
+                        </div>
+                        <div class="bg-gray-600 p-2 rounded">PDMA<br><span
+                                class="font-normal opacity-75">Polarization</span></div>
+                    </div>
+                </div>
+
+                <div class="text-sm bg-yellow-50 border-l-4 border-yellow-400 p-3">
+                    <h4 class="font-bold text-yellow-800">Spectrum Allocation Example (Sri Lanka)</h4>
+                    <p>Frequencies are strictly allocated. Example: <b>1920-1980 MHz</b> (Uplink) and <b>2110-2170
+                            MHz</b> (Downlink) shared among providers like Mobitel, Airtel, Etisalat, etc.</p>
+                </div>
+            </section>
+
+            <!-- 2. Duplexing (FDD vs TDD) -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-exchange-alt"></i> 2. Duplexing Techniques
+                </h2>
+                <p class="text-sm mb-2"><b>Duplexing:</b> The ability to talk and listen simultaneously. Essential for
+                    two-way communication.</p>
+
+                <!-- SVG Diagram: FDD vs TDD -->
+                <div class="svg-container">
+                    <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+                        <!-- FDD Side -->
+                        <text x="175" y="30" text-anchor="middle" font-weight="bold" fill="#1e40af" font-size="14">FDD
+                            (Frequency Division)</text>
+                        <rect x="50" y="50" width="250" height="140" fill="#eff6ff" stroke="#bfdbfe" rx="8" />
+
+                        <!-- Frequency Band 1 -->
+                        <rect x="70" y="70" width="210" height="30" fill="#3b82f6" rx="4" />
+                        <text x="175" y="90" text-anchor="middle" fill="white" font-size="12">Forward Channel (freq
+                            f1)</text>
+
+                        <!-- Guard Band -->
+                        <text x="175" y="125" text-anchor="middle" fill="#64748b" font-size="10"
+                            font-style="italic">Frequency Separation</text>
+
+                        <!-- Frequency Band 2 -->
+                        <rect x="70" y="140" width="210" height="30" fill="#2563eb" rx="4" />
+                        <text x="175" y="160" text-anchor="middle" fill="white" font-size="12">Reverse Channel (freq
+                            f2)</text>
+
+                        <!-- TDD Side -->
+                        <text x="525" y="30" text-anchor="middle" font-weight="bold" fill="#166534" font-size="14">TDD
+                            (Time Division)</text>
+                        <rect x="400" y="50" width="250" height="140" fill="#f0fdf4" stroke="#bbf7d0" rx="8" />
+
+                        <!-- Single Frequency -->
+                        <rect x="420" y="100" width="210" height="40" fill="#e5e7eb" stroke="#9ca3af" rx="4" />
+                        <text x="525" y="90" text-anchor="middle" fill="#4b5563" font-size="12">Single Frequency
+                            (f1)</text>
+
+                        <!-- Time Slots inside -->
+                        <rect x="430" y="105" width="40" height="30" fill="#22c55e" />
+                        <text x="450" y="125" text-anchor="middle" fill="white" font-size="10">TX</text>
+                        <rect x="480" y="105" width="40" height="30" fill="#15803d" />
+                        <text x="500" y="125" text-anchor="middle" fill="white" font-size="10">RX</text>
+                        <rect x="530" y="105" width="40" height="30" fill="#22c55e" />
+                        <text x="550" y="125" text-anchor="middle" fill="white" font-size="10">TX</text>
+                        <rect x="580" y="105" width="40" height="30" fill="#15803d" />
+                        <text x="600" y="125" text-anchor="middle" fill="white" font-size="10">RX</text>
+
+                        <text x="525" y="160" text-anchor="middle" fill="#166534" font-size="10">Time switching
+                            (t)</text>
+                    </svg>
+                </div>
+
+                <table class="w-full text-sm border-collapse border border-slate-200 mt-4">
+                    <thead class="bg-slate-100">
+                        <tr>
+                            <th class="border p-2">Feature</th>
+                            <th class="border p-2 w-1/3">FDD (Frequency Division Duplexing)</th>
+                            <th class="border p-2 w-1/3">TDD (Time Division Duplexing)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border p-2 font-bold">Concept</td>
+                            <td class="border p-2">Uses two separate frequency bands: forward (BS → Mobile) and reverse
+                                (Mobile → BS).</td>
+                            <td class="border p-2">Uses same frequency but different time slots for forward and reverse
+                                links.</td>
+                        </tr>
+
+                        <tr>
+                            <td class="border p-2 font-bold">Hardware</td>
+                            <td class="border p-2 text-red-600">Requires a duplexer; transceiver must operate on two
+                                frequency bands.</td>
+                            <td class="border p-2 text-green-600">No duplexer needed; a simple switch is sufficient.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="border p-2 font-bold">Full Duplex</td>
+                            <td class="border p-2">Supports true full-duplex communication.</td>
+                            <td class="border p-2">Not true full-duplex (uplink/downlink alternate in time).</td>
+                        </tr>
+
+                        <tr>
+                            <td class="border p-2 font-bold">Interference / Coordination</td>
+                            <td class="border p-2">Requires strict frequency coordination with out-of-band users.</td>
+                            <td class="border p-2">Less complex frequency planning (uses only one band).</td>
+                        </tr>
+
+                        <tr>
+                            <td class="border p-2 font-bold">Latency</td>
+                            <td class="border p-2">Very low latency due to simultaneous TX/RX.</td>
+                            <td class="border p-2">Time latency present due to switching between time slots.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </section>
+
+            <!-- 3. Bandwidth Concepts -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-wave-square"></i> 3. Narrowband vs. Wideband
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols gap-6">
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">Coherence Bandwidth</h3>
+                        <p class="text-sm text-slate-700 mb-2">
+                            The range of frequencies over which the channel is considered "flat" (passes components with
+                            equal gain).
+                        </p>
+                        <p class="text-sm text-slate-700 mb-2">
+                            It represents the maximum frequency interval where two signal components experience similar
+                            or correlated fading.
+                        </p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded border border-blue-100">
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-slate-800">
+
+                            <li>
+                                <b>Narrowband System:</b> Signal BW < Coherence BW.<br>
+                                    <i>Result:</i> Non-selective (flat) fading – whole signal affected together.<br>
+                                    <i>Tech:</i> Narrowband FDMA (dedicated channel), Narrowband TDMA (shared via time
+                                    slots).
+                            </li>
+
+                            <li>
+                                <b>Wideband System:</b> Signal BW > Coherence BW.<br>
+                                <i>Result:</i> Frequency-selective fading – only parts of the signal fade.<br>
+                                <i>Tech:</i> CDMA (simultaneous access), Wideband TDMA (time-slot allocation).
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 4. Multiple Access Methods Visualized -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-th"></i> 4. FDMA, TDMA, CDMA Visualized
+                </h2>
+
+                <!-- SVG Diagram: Access Methods -->
+                <div class="svg-container">
+                    <svg viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Axes Labels -->
+                        <text x="400" y="240" text-anchor="middle" font-size="12" fill="#64748b">Time</text>
+                        <text x="15" y="125" text-anchor="middle" font-size="12" fill="#64748b"
+                            transform="rotate(-90 15,125)">Frequency</text>
+
+                        <!-- FDMA -->
+                        <g transform="translate(50, 20)">
+                            <text x="75" y="0" text-anchor="middle" font-weight="bold" font-size="12"
+                                fill="#1e40af">FDMA</text>
+                            <rect x="0" y="10" width="150" height="40" fill="#93c5fd" stroke="white" />
+                            <text x="75" y="35" text-anchor="middle" font-size="10" fill="white">User 1</text>
+                            <rect x="0" y="50" width="150" height="40" fill="#60a5fa" stroke="white" />
+                            <text x="75" y="75" text-anchor="middle" font-size="10" fill="white">User 2</text>
+                            <rect x="0" y="90" width="150" height="40" fill="#3b82f6" stroke="white" />
+                            <text x="75" y="115" text-anchor="middle" font-size="10" fill="white">User 3</text>
+                            <rect x="0" y="130" width="150" height="40" fill="#2563eb" stroke="white" />
+                            <text x="75" y="155" text-anchor="middle" font-size="10" fill="white">User 4</text>
+                        </g>
+
+                        <!-- TDMA -->
+                        <g transform="translate(300, 20)">
+                            <text x="75" y="0" text-anchor="middle" font-weight="bold" font-size="12"
+                                fill="#166534">TDMA</text>
+                            <rect x="0" y="10" width="37.5" height="160" fill="#86efac" stroke="white" />
+                            <text x="18" y="90" text-anchor="middle" font-size="10" fill="#064e3b"
+                                transform="rotate(-90 18,90)">User 1</text>
+                            <rect x="37.5" y="10" width="37.5" height="160" fill="#4ade80" stroke="white" />
+                            <text x="55" y="90" text-anchor="middle" font-size="10" fill="#064e3b"
+                                transform="rotate(-90 55,90)">User 2</text>
+                            <rect x="75" y="10" width="37.5" height="160" fill="#22c55e" stroke="white" />
+                            <text x="93" y="90" text-anchor="middle" font-size="10" fill="white"
+                                transform="rotate(-90 93,90)">User 3</text>
+                            <rect x="112.5" y="10" width="37.5" height="160" fill="#16a34a" stroke="white" />
+                            <text x="130" y="90" text-anchor="middle" font-size="10" fill="white"
+                                transform="rotate(-90 130,90)">User 4</text>
+                        </g>
+
+                        <!-- CDMA -->
+                        <g transform="translate(550, 20)">
+                            <text x="75" y="0" text-anchor="middle" font-weight="bold" font-size="12"
+                                fill="#7e22ce">CDMA</text>
+                            <rect x="0" y="10" width="150" height="160" fill="#d8b4fe" stroke="#6b21a8" stroke-width="2"
+                                fill-opacity="0.3" />
+                            <text x="75" y="50" text-anchor="middle" font-size="10" fill="#6b21a8">User 1 (Code
+                                A)</text>
+                            <text x="75" y="90" text-anchor="middle" font-size="10" fill="#6b21a8">User 2 (Code
+                                B)</text>
+                            <text x="75" y="130" text-anchor="middle" font-size="10" fill="#6b21a8">All share Time &
+                                Freq</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="bg-blue-50 p-4 rounded">
+                        <h4 class="font-bold text-blue-900">Logical Separations</h4>
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li><b>FDMA:</b> User assigned a unique frequency channel. No sharing of that frequency.
+                            </li>
+                            <li><b>TDMA:</b> Users share same frequency but use unique time slots.</li>
+                            <li><b>CDMA:</b> Users share frequency AND time. Separation via unique <b>Codes</b>.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4 border border-slate-200 rounded">
+                        <h4 class="font-bold">Combinations</h4>
+                        <p>Systems often combine access and duplexing methods:</p>
+                        <ul class="list-none mt-2 font-mono text-xs bg-gray-100 p-2 rounded">
+                            <li>FDMA/FDD</li>
+                            <li>FDMA/TDD</li>
+                            <li>TDMA/FDD</li>
+                            <li>TDMA/TDD</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. CDMA (Code Division Multiple Access) -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-code"></i> 5. CDMA Detailed
+                </h2>
+
+                <!-- Concept -->
+                <div class="mb-6">
+                    <h3 class="font-bold text-lg mb-2">Concept: Orthogonal Codes</h3>
+                    <p class="text-sm text-slate-700 mb-2">
+                        CDMA allows multiple users to transmit simultaneously on the same frequency by assigning each
+                        user a unique orthogonal <b>Walsh code</b> (chipping sequence).
+                    </p>
+
+                    <ul class="list-disc pl-5 text-sm text-slate-700 mb-3 space-y-1">
+                        <li>Encoded Signal = (Data Bit) × (User’s Walsh Code)</li>
+                        <li>All encoded signals are added → transmitted as one summed signal</li>
+                        <li>Receiver recovers data by multiplying with its own Walsh code (inner product)</li>
+                        <li>Orthogonality ensures no interference between users</li>
+                    </ul>
+
+                    <div class="bg-purple-50 p-4 rounded border border-purple-200 font-mono text-sm">
+                        <p><b>Encode:</b> Data × Code</p>
+                        <p><b>Decode:</b> (Received Sum × User Code)</p>
+                    </div>
+                </div>
+
+                <img src="images/cdma_work.png" alt="CDMA Diagram"
+                    class="w-full max-w-lg mx-auto mb-6 border border-gray-200 rounded">
+
+                <!-- Example from slides -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+
+                    <!-- Slide Example -->
+                    <div class="bg-gray-50 p-4 border border-gray-200 rounded">
+                        <h4 class="font-bold mb-2">Example (From Slides)</h4>
+
+                        <p class="text-xs font-mono mb-1">User A Code: (-1, -1, -1, -1)</p>
+                        <p class="text-xs font-mono mb-1">User B Code: (-1, +1, -1, +1)</p>
+
+                        <p class="text-xs mt-2 font-bold">Case: A = 1, B = 1</p>
+
+                        <p class="text-xs font-mono pl-2">A signal: (-1, -1, -1, -1)</p>
+                        <p class="text-xs font-mono pl-2">B signal: (-1, +1, -1, +1)</p>
+
+                        <p class="text-xs font-mono pl-2 border-t border-gray-300 mt-1">
+                            Sum: (-2, 0, -2, 0)
+                        </p>
+
+                        <p class="text-xs mt-2 text-green-700">
+                            <b>A decodes:</b> (-2×-1) + (0×-1) + (-2×-1) + (0×-1) = 4 → Bit 1
+                        </p>
+                    </div>
+
+                    <!-- Practice Question Solved -->
+                    <div class="bg-yellow-50 p-4 border border-yellow-200 rounded">
+                        <h4 class="font-bold mb-2">Practice Question (Solved)</h4>
+
+                        <p class="text-xs text-slate-600 mb-2">
+                            User A Code: (-1, 1, -1, 1) → Bit sequence: 1 0 0 <br>
+                            User B Code: (-1,-1, 1, 1) → Bit sequence: 1 1 0 <br>
+                            User C Code: (-1, 1, 1,-1) → Bit sequence: 1 0 1
+                        </p>
+
+                        <!-- Part A -->
+                        <p class="text-xs font-bold mt-2">a) Transmitted Summed Sequence (for first bits):</p>
+                        <div class="text-xs font-mono bg-white p-1 border mb-2">
+                            A: (-1, 1, -1, 1)<br>
+                            B: (-1,-1, 1, 1)<br>
+                            C: (-1, 1, 1,-1)<br>
+                            ---------------------<br>
+                            Sum: <b>(-3, 1, 1, 1)</b>
+                        </div>
+
+                        <!-- Part B -->
+                        <p class="text-xs font-bold">b) Decoding (Inner Product):</p>
+
+                        <ul class="text-xs font-mono bg-white p-2 border rounded space-y-1">
+                            <li><b>Rx A:</b> (-3,1,1,1) × (-1,1,-1,1) = 3 + 1 - 1 + 1 = <b>4 → Bit 1</b></li>
+                            <li><b>Rx B:</b> (-3,1,1,1) × (-1,-1,1,1) = 3 - 1 + 1 + 1 = <b>4 → Bit 1</b></li>
+                            <li><b>Rx C:</b> (-3,1,1,1) × (-1,1,1,-1) = 3 + 1 + 1 - 1 = <b>4 → Bit 1</b></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 pt-6 border-t border-slate-300 text-center text-xs text-slate-500">
+            Generated Comprehensive Guide • IN 3510 Mobile & Wireless Networks • Lecture 4
+        </div>
+    </div>
+
+</body>
+
+</html>
