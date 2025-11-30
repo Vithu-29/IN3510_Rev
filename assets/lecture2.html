@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile & Wireless Networks - Lecture 2 Study Guide</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Document Sizing - Fixed Width, Fluid Height */
+        .doc-container {
+            width: 210mm;
+            /* Keep A4 width for readability */
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 10mm;
+        }
+
+        /* Diagram Placeholder Styling */
+        .diagram-placeholder {
+            background-color: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+
+            body {
+                background-color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .doc-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+
+            /* Avoid breaking sections inside elements */
+            section,
+            li {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-8 text-slate-800 font-sans print:p-0 print:bg-white">
+
+    <!-- Control Bar (Hidden when printing) -->
+    <div class="max-w-[210mm] mx-auto mb-6 flex justify-end no-print">
+        <button onclick="window.print()"
+            class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors cursor-pointer">
+            <i class="fas fa-print"></i>
+            <span>Print / Save as PDF</span>
+        </button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="doc-container shadow-2xl">
+
+        <!-- Header -->
+        <header class="border-b-4 border-blue-600 pb-4 mb-8">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 uppercase tracking-tight">Wireless Communication</h1>
+                    <p class="text-blue-600 font-semibold text-lg">IN 3510 | Lecture 2 Comprehensive Notes</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT STARTS -->
+        <div class="space-y-8">
+
+            <!-- 1. Wireless Technology Hierarchy -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-layer-group"></i> 1. Types of Wireless Technologies
+                </h2>
+
+                <img src="images/tech_type.jpg" alt="Wireless Technology Hierarchy"
+                    class="w-full mx-auto mb-2 border border-slate-300 rounded">
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border-collapse border border-slate-200">
+                        <thead class="bg-slate-100">
+                            <tr>
+                                <th class="border p-2 text-left">Category</th>
+                                <th class="border p-2 text-left">Range</th>
+                                <th class="border p-2 text-left">Examples</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border p-2 font-bold text-slate-700">Proximity</td>
+                                <td class="border p-2">0 - 10 cm</td>
+                                <td class="border p-2">NFC, RFID</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2 font-bold text-purple-700">WPAN (Personal)</td>
+                                <td class="border p-2">10 - 100 m</td>
+                                <td class="border p-2">Bluetooth LE, ZigBee, Thread</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2 font-bold text-blue-700">WLAN (Local)</td>
+                                <td class="border p-2">100 - 1000 m</td>
+                                <td class="border p-2">802.11 a/b/g/n/ac (Wi-Fi)</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2 font-bold text-orange-700">WNAN (Neighborhood)</td>
+                                <td class="border p-2">~5 - 10 km</td>
+                                <td class="border p-2">Wi-SUN, ZigBee-NAN</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2 font-bold text-red-700">WWAN (Wide)</td>
+                                <td class="border p-2">Up to 100 km</td>
+                                <td class="border p-2">Cellular (2G-5G), LTE-MTC</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2 font-bold text-slate-700">LPWAN (Low Power)</td>
+                                <td class="border p-2">Long Range</td>
+                                <td class="border p-2">SIGFOX, LoRa</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 2. Elements of a Wireless Network -->
+            <section class="grid grid-cols-1 md:grid-cols gap-6">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-project-diagram"></i> 2. Elements of a Wireless Network
+                </h2>
+                <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+                    <img src="images/wireless_elements.png" alt="Wireless Network Elements"
+                        class="w-full mb-4 border border-slate-300 rounded">
+                    <h3 class="font-bold text-lg text-blue-800 mb-3"><i class="fas fa-network-wired"></i> Network
+                        Elements</h3>
+                    <ul class="space-y-3 text-sm mb-6">
+                        <li class="flex gap-2">
+                            <i class="fas fa-laptop text-slate-500 mt-1"></i>
+                            <div>
+                                <span class="font-bold block">Wireless Hosts</span>
+                                End devices (Laptops, PDAs, Phones). May be mobile or stationary.
+                            </div>
+                        </li>
+                        <li class="flex gap-2">
+                            <i class="fas fa-broadcast-tower text-slate-500 mt-1"></i>
+                            <div>
+                                <span class="font-bold block">Base Station</span>
+                                Relay connected to wired network. Responsible for sending packets to hosts in its "area"
+                                (e.g., Cell towers, Access Points).
+                            </div>
+                        </li>
+                        <li class="flex gap-2">
+                            <i class="fas fa-wave-square text-slate-500 mt-1"></i>
+                            <div>
+                                <span class="font-bold block">Wireless Link</span>
+                                Connects mobile to base station. Characterized by various data rates and transmission
+                                distances.
+                            </div>
+                        </li>
+                    </ul>
+                    <h3 class="font-bold text-lg text-blue-800 mb-3"><i class="fas fa-project-diagram"></i> Network
+                        Modes</h3>
+
+
+                    <div class="space-y-4 text-sm mt-2">
+                        <div>
+                            <span class="font-bold text-blue-700 block">Infrastructure Mode</span>
+                            <p>Base station connects mobiles into the wired network. Includes <b>Handoff</b> (mobile
+                                changes base station).</p>
+                        </div>
+                        <hr class="border-slate-300">
+                        <div>
+                            <span class="font-bold text-green-700 block">Ad-hoc Mode</span>
+                            <p>No base stations. Nodes transmit only to others within range. Nodes organize themselves
+                                into a network.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Physics of Wireless Links -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-atom"></i> 3. Link Characteristics & Propagation
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols gap-4 mb-6">
+                    <!-- Path Loss -->
+                    <div class="border p-4 rounded bg-white shadow-sm">
+                        <h4 class="font-bold text-red-600 mb-2">Decreased Signal Strength (Path Loss)</h4>
+                        <p class="text-xs text-slate-600">As a radio signal travels through space or materials, its
+                            strength becomes weaker.</p>
+                        <ul class="list-disc pl-5 text-xs text-slate-600">
+                            <li>Signal loses power the farther it travels.</li>
+                            <li>Walls, buildings, trees, and other obstacles absorb or block part of the signal.</li>
+                            <li>Higher frequency signals lose strength faster than lower frequencies.</li>
+                        </ul>
+                    </div>
+                    <!-- Multipath -->
+                    <div class="border p-4 rounded bg-white shadow-sm">
+                        <h4 class="font-bold text-red-600 mb-2">Multipath Fading</h4>
+                        <p class="text-xs text-slate-600">The <b>same signal</b> reaches the receiver through
+                            <b>multiple paths</b>
+                            (reflections from buildings, walls, ground etc.).
+                        </p>
+                        <ul class="list-disc pl-5 text-xs text-slate-600">
+                            <li>Some paths arrive in phase → signals add up → stronger signal (constructive
+                                interference)</li>
+                            <li>Some paths arrive out of phase → signals cancel each other → weaker signal (destructive
+                                interference)</li>
+                            <li>Causes sudden fluctuations in signal quality, even when the user is stationary.</li>
+                        </ul>
+                    </div>
+                    <!-- Interference -->
+                    <div class="border p-4 rounded bg-white shadow-sm">
+                        <h4 class="font-bold text-red-600 mb-2">Interference</h4>
+                        <p class="text-xs text-slate-600">Unwanted radio signals from other users, other cells, or
+                            external sources (e.g.,microwaves) affect the intended communication.</p>
+                        <ul class="list-disc pl-5 text-xs text-slate-600">
+                            <li><b>Different Users in the Same Cell:</b> When many users share the same frequency/time
+                                resources, they can interfere with each other.</li>
+                            <li><b>Users in Different Cells:</b> Signals from neighboring cells can overlap.</li>
+                            <li><b>External Interference (Unlicensed Bands):</b> Comes from devices like Wi-Fi routers,
+                                Bluetooth devices, microwave ovens, cordless phones, etc.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg mb-2">Radio Propagation Mechanisms</h3>
+                        <p class="text-sm text-slate-700">radio waves are generated by an antenna and they propagate in
+                            all directions as a straight line</p>
+                        <img src="images/prop.png" alt="Radio Propagation Mechanisms"
+                            class="w-full my-4 border border-slate-300 rounded">
+                        <ul class="list-disc pl-5 text-sm space-y-1 mt-2 text-slate-700">
+                            <li><b>Reflection:</b> Bouncing off large objects.</li>
+                            <li><b>Refraction:</b> Bending as it passes through mediums.</li>
+                            <li><b>Scattering:</b> Hitting small objects/rough surfaces.</li>
+                            <li><b>Absorption:</b> Signal energy absorbed by material.</li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 bg-blue-50 p-4 rounded">
+                        <h3 class="font-bold text-lg mb-2">Key Link Parameters</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li><b class="text-blue-900">Carrier Frequency:</b> <br>900MHz/1.9GHz (Cellular), 2.4/5.3GHz
+                                (Wi-Fi).</li>
+                            <li><b class="text-blue-900">Bandwidth:</b> <br>200kHz (GSM) vs 83.5MHz (802.11b).</li>
+                            <li><b class="text-blue-900">Data Rate:</b> <br>e.g., 11 Mbps (802.11b).</li>
+                            <li><b class="text-blue-900">Range</b></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Modulation -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-wave-square"></i> 4. Modulation
+                </h2>
+                <div class="flex gap-6 items-center">
+                    <div class="flex-1">
+                        <img src="images/modulation.png" alt="Modulation Diagram"
+                            class="w-full border border-slate-300 rounded">
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-lg font-medium text-slate-700 mb-4">
+                            "Adding information (e.g., voice) to a carrier electromagnetic (radio) signal."
+                        </p>
+                        <div class="text-sm bg-gray-100 p-3 rounded">
+                            <p><b>Modulating Wave:</b> The information signal.</p>
+                            <p><b>Carrier Wave:</b> The high-frequency transport signal.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Bluetooth -->
+            <section class="bg-slate-50 p-6 rounded-xl border border-blue-200">
+                <h2 class="flex items-center gap-2 text-2xl font-bold text-blue-900 mb-4">
+                    <i class="fab fa-bluetooth text-blue-600"></i> 5. Bluetooth Technology
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">Overview</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-slate-700">
+                            <li><b>What?:</b>Exchanging data over short distances using short-wavelength from fixed and
+                                mobile devices</li>
+                            <li><b>Purpose:</b> Cable replacement technology (Connect devices such as Handsets,
+                                peripherals).</li>
+                            <li><b>Standard:</b> Industry standard for WPANs.</li>
+                            <li><b>Spectrum:</b> ISM Band (2400-2480 MHz).</li>
+                            <li><b>Founders:</b> Ericsson, IBM, Intel, Nokia, Toshiba (1998).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">Key Features</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-slate-700">
+                            <li>Creating personal area networks(PANs) with high levels of security</li>
+                            <li>Low power & low cost (Single chip radio).</li>
+                            <li>Short range (~10 meters).</li>
+                            <li>Data rate: ~1 Mbps.</li>
+                            <li>Relatively fast, short packets</li>
+                            <li><b>Piconet:</b> Ad-hoc network of up to 8 devices.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-6 border-t border-blue-200 pt-4">
+                    <h3 class="font-bold text-lg mb-3">Common Applications</h3>
+                    <div class="grid grid-cols-3 gap-4 text-center text-sm">
+                        <div class="bg-white p-3 rounded shadow-sm">
+                            <i class="fas fa-sync text-blue-500 mb-2 text-xl"></i>
+                            <p>Data Synchronization</p>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm">
+                            <i class="fas fa-headphones text-blue-500 mb-2 text-xl"></i>
+                            <p>Cordless Headsets</p>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm">
+                            <i class="fas fa-mouse text-blue-500 mb-2 text-xl"></i>
+                            <p>Peripherals</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 pt-6 border-t border-slate-300 text-center text-xs text-slate-500">
+            Generated Study Guide • IN 3510 Mobile & Wireless Networks • Lecture 2
+        </div>
+    </div>
+
+</body>
+
+</html>
