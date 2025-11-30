@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile & Wireless Networks - Lecture 3 Comprehensive Guide</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Document Sizing - Fixed Width, Fluid Height */
+        .doc-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 10mm;
+        }
+
+        /* Diagram Containers */
+        .svg-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        /* Make SVGs responsive */
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+
+            body {
+                background-color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .doc-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+
+            /* Avoid breaking sections inside elements */
+            section,
+            li,
+            tr,
+            .svg-container {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-8 text-slate-800 font-sans print:p-0 print:bg-white">
+
+    <!-- Control Bar (Hidden when printing) -->
+    <div class="max-w-[210mm] mx-auto mb-6 flex justify-end no-print">
+        <button onclick="window.print()"
+            class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors cursor-pointer">
+            <i class="fas fa-print"></i>
+            <span>Print / Save as PDF</span>
+        </button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="doc-container shadow-2xl">
+
+        <!-- Header -->
+        <header class="border-b-4 border-blue-600 pb-4 mb-8">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 uppercase tracking-tight">RF Basics & Cellular</h1>
+                    <p class="text-blue-600 font-semibold text-lg">IN 3510 | Lecture 3 Comprehensive Notes</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT STARTS -->
+        <div class="space-y-8">
+
+            <!-- 1. Wireless System Design Factors -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-drafting-compass"></i> 1. Factors Affecting System Design
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-4 rounded border border-slate-200">
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-slate-700">
+                            <li><b>Frequency Allocations:</b> What range to operate? (Licensing needs).</li>
+                            <li><b>Multiple Access:</b> Sharing the medium without interference (FDMA, TDMA, CDMA).</li>
+                            <li><b>Antennas & Propagation:</b> Distances and channel errors.</li>
+                            <li><b>Signals Encoding:</b> Techniques to improve data rate.</li>
+                            <li><b>Error Correction:</b> Ensuring bandwidth/max data rate isn't wasted.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded flex items-center justify-center">
+                        <div class="text-center">
+                            <p class="font-bold text-blue-900 mb-2">Key Formula</p>
+                            <div
+                                class="text-xl bg-white px-4 py-2 rounded shadow-sm inline-block border border-blue-100">
+                                λ = c / f
+                            </div>
+                            <p class="text-xs mt-2 text-blue-700">Wavelength (λ) = Speed of Light (c) /
+                                Frequency (f)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Frequencies & Regulation -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-broadcast-tower"></i> 2. Frequencies for communication
+                </h2>
+
+                <img src="images/frequency.webp" alt="System Design Factors Diagram"
+                    class="w-full h-auto rounded border border-slate-200 shadow-sm" />
+
+                <!-- SVG Diagram: Frequency Spectrum -->
+                <div class="svg-container">
+                    <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background Line -->
+                        <line x1="50" y1="100" x2="750" y2="100" stroke="#94a3b8" stroke-width="2" />
+
+                        <!-- Sections -->
+                        <!-- VLF/LF/MF -->
+                        <rect x="50" y="80" width="150" height="40" fill="#e0f2fe" stroke="#3b82f6" rx="4" />
+                        <text x="125" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e40af">VLF
+                            / LF / MF</text>
+                        <text x="125" y="140" text-anchor="middle" font-size="10" fill="#64748b">twisted
+                            pair/coax</text>
+
+                        <!-- VHF/UHF -->
+                        <rect x="220" y="70" width="200" height="60" fill="#fef08a" stroke="#eab308" rx="4"
+                            stroke-width="2" />
+                        <text x="320" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#854d0e">VHF
+                            / UHF</text>
+                        <text x="320" y="125" text-anchor="middle" font-size="10" font-weight="bold"
+                            fill="#854d0e">Mobile / TV / GSM</text>
+                        <text x="320" y="150" text-anchor="middle" font-size="10" fill="#64748b">30 MHz - 3 GHz</text>
+
+                        <!-- SHF/EHF -->
+                        <rect x="440" y="80" width="150" height="40" fill="#fce7f3" stroke="#db2777" rx="4" />
+                        <text x="515" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#9d174d">SHF
+                            / EHF</text>
+                        <text x="515" y="140" text-anchor="middle" font-size="10"
+                            fill="#64748b">Satellite/Microwave</text>
+
+                        <!-- Infrared -->
+                        <rect x="610" y="80" width="140" height="40" fill="#ffedd5" stroke="#ea580c" rx="4" />
+                        <text x="680" y="105" text-anchor="middle" font-size="12" font-weight="bold"
+                            fill="#9a3412">Infrared</text>
+
+                        <!-- Arrows connecting -->
+                        <line x1="200" y1="100" x2="220" y2="100" stroke="#64748b" stroke-width="2" />
+                        <line x1="420" y1="100" x2="440" y2="100" stroke="#64748b" stroke-width="2" />
+                        <line x1="590" y1="100" x2="610" y2="100" stroke="#64748b" stroke-width="2" />
+
+                        <!-- Title -->
+                        <text x="400" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#334155">Radio
+                            Frequency Spectrum</text>
+                    </svg>
+                </div>
+
+                <div class="mb-6 overflow-x-auto">
+                    <table class="w-full text-xs text-left border-collapse border border-slate-200">
+                        <thead class="bg-slate-100 uppercase">
+                            <tr>
+                                <th class="border p-2">Band</th>
+                                <th class="border p-2">Frequency Range</th>
+                                <th class="border p-2">Wavelength</th>
+                                <th class="border p-2">Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border p-2 font-bold">VLF/LF/MF</td>
+                                <td class="border p-2">300 Hz - 3 MHz</td>
+                                <td class="border p-2">1 Mm - 100 m</td>
+                                <td class="border p-2">Twisted Pair, Coax</td>
+                            </tr>
+                            <tr class="bg-yellow-50">
+                                <td class="border p-2 font-bold text-blue-700">VHF/UHF</td>
+                                <td class="border p-2">30 MHz - 3 GHz</td>
+                                <td class="border p-2">10 m - 10 cm</td>
+                                <td class="border p-2"><b>Mobile Radio, TV, GSM</b></td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2 font-bold">SHF/EHF</td>
+                                <td class="border p-2">3 GHz - 300 GHz</td>
+                                <td class="border p-2">10 cm - 1 mm</td>
+                                <td class="border p-2">Satellite, Microwave</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2 font-bold">Infrared</td>
+                                <td class="border p-2">300 GHz - 400 THz</td>
+                                <td class="border p-2">1 mm - 750 nm</td>
+                                <td class="border p-2">Optical Transmission</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-book"></i> 3. Frequency Regulations
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">Regulation Issues</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                            <li>Frequencies from 9KHz to 300 MHZ in high demand (especially VHF: 30-300MHZ)</li>
+                            <li>Regional, national, and international issues</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">Unlicensed Bands</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                            <li><b>ISM Band (Industrial, Science, Medicine):</b> 2.4 GHz (Wi-Fi, Bluetooth).</li>
+                            <li><b>UNII Band:</b> 5.2 GHz.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">Regulators</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                            <li><b>FCC:</b> USA (www.fcc.gov)</li>
+                            <li><b>ETSI:</b> Europe (www.etsi.org)</li>
+                            <li><b>ITU:</b> International (www.itu.org)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Wireless Transmission Hardware -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-microchip"></i> 4. Transmission Hardware
+                </h2>
+
+                <div class="bg-slate-50 p-4 rounded border border-blue-200">
+                    <h3 class="font-bold text-blue-900 mb-2">Wireless communication systems consist of:</h3>
+                    <ul class="list-disc pl-5 text-sm space-y-1 text-blue-800">
+                        <li><b>Transmitters</b></li>
+                        <li><b>Antennas:</b> Radiates electromagnetic energy into air</li>
+                        <li><b>Receivers</b></li>
+                        <li>In some cases, transmitters and receivers are on same device, called transceivers.</li>
+                    </ul>
+                </div>
+
+                <!-- SVG Diagram: Transmitter -->
+                <div class="svg-container">
+                    <svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
+                            </marker>
+                        </defs>
+
+                        <!-- Source -->
+                        <rect x="20" y="80" width="80" height="40" fill="#ffffff" stroke="#334155" rx="4" />
+                        <text x="60" y="105" text-anchor="middle" font-size="12">Source</text>
+
+                        <!-- Arrow 1 -->
+                        <line x1="100" y1="100" x2="130" y2="100" stroke="#64748b" stroke-width="2"
+                            marker-end="url(#arrowhead)" />
+
+                        <!-- Amplifier 1 -->
+                        <rect x="140" y="80" width="80" height="40" fill="#f0fdf4" stroke="#16a34a" rx="4" />
+                        <text x="180" y="105" text-anchor="middle" font-size="12">Amplifier</text>
+
+                        <!-- Arrow 2 -->
+                        <line x1="220" y1="100" x2="250" y2="100" stroke="#64748b" stroke-width="2"
+                            marker-end="url(#arrowhead)" />
+
+                        <!-- Mixer -->
+                        <rect x="260" y="80" width="80" height="40" fill="#fffbeb" stroke="#d97706" rx="4" />
+                        <text x="300" y="105" text-anchor="middle" font-size="12">Mixer</text>
+
+                        <!-- Oscillator (Below Mixer) -->
+                        <rect x="260" y="175" width="80" height="30" fill="#fffbeb" stroke="#d97706" rx="4" />
+                        <text x="300" y="195" text-anchor="middle" font-size="12">Oscillator</text>
+                        <line x1="300" y1="170" x2="300" y2="140" stroke="#64748b" stroke-width="2"
+                            marker-end="url(#arrowhead)" />
+
+                        <!-- Arrow 3 -->
+                        <line x1="340" y1="100" x2="370" y2="100" stroke="#64748b" stroke-width="2"
+                            marker-end="url(#arrowhead)" />
+
+                        <!-- Filter -->
+                        <rect x="380" y="80" width="80" height="40" fill="#eff6ff" stroke="#2563eb" rx="4" />
+                        <text x="420" y="105" text-anchor="middle" font-size="12">Filter</text>
+
+                        <!-- Arrow 4 -->
+                        <line x1="460" y1="100" x2="490" y2="100" stroke="#64748b" stroke-width="2"
+                            marker-end="url(#arrowhead)" />
+
+                        <!-- Amplifier 2 -->
+                        <rect x="500" y="80" width="80" height="40" fill="#f0fdf4" stroke="#16a34a" rx="4" />
+                        <text x="540" y="105" text-anchor="middle" font-size="12">Amplifier</text>
+
+                        <!-- Arrow 5 -->
+                        <line x1="580" y1="100" x2="610" y2="100" stroke="#64748b" stroke-width="2"
+                            marker-end="url(#arrowhead)" />
+
+                        <!-- Antenna -->
+                        <path d="M620,100 L620,70 L610,60 L630,60 L620,70" fill="none" stroke="#dc2626"
+                            stroke-width="2" />
+                        <path d="M610,55 L630,55 M615,50 L625,50" stroke="#dc2626" stroke-width="2" />
+                        <text x="630" y="125" text-anchor="middle" font-size="12" fill="#dc2626">Antenna</text>
+
+                        <!-- Labels for frequencies (Example from lecture) -->
+                        <text x="120" y="70" text-anchor="middle" font-size="10" fill="#64748b">300 MHz</text>
+                        <text x="300" y="220" text-anchor="middle" font-size="10" fill="#64748b">600 MHz
+                            (Carrier)</text>
+                        <text x="420" y="70" text-anchor="middle" font-size="10" fill="#64748b">900 MHz (Sum)</text>
+                    </svg>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded border border-green-200">
+                    <h3 class="font-bold text-green-900 mb-2">Transmitter Block Diagram Logic</h3>
+                    <p class="text-sm mb-2 italic">Example: Creating a 900 MHz signal from a 300 MHz source.</p>
+                    <ol class="list-decimal pl-5 text-sm space-y-1 text-green-800">
+                        <li><b>Source:</b> Generates initial signal (e.g., 300 MHz).</li>
+                        <li><b>Amplifier 1:</b> Strengthens initial signal.</li>
+                        <li><b>Oscillator:</b> Creates carrier wave (e.g., 600 MHz).</li>
+                        <li><b>Mixer:</b> Combines Source + Oscillator (300 + 600 = 900 MHz). Performs modulation.</li>
+                        <li><b>Filter:</b> Selects the correct frequency.</li>
+                        <li><b>Amplifier 2:</b> Strengthens final signal for the Antenna.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- 5. Cellular Network Architecture -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-network-wired"></i> 5. Cellular Architecture
+                </h2>
+
+                <!-- SVG Diagram: Cellular Network -->
+                <div class="svg-container">
+                    <svg viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Cell 1 -->
+                        <polygon points="100,20 140,40 140,80 100,100 60,80 60,40" fill="#f1f5f9" stroke="#94a3b8"
+                            stroke-dasharray="4" />
+                        <!-- BTS 1 -->
+                        <path d="M100,90 L100,50 M90,90 L110,90 M95,50 L105,50" stroke="#0f172a" stroke-width="2" />
+                        <text x="100" y="115" text-anchor="middle" font-size="10" font-weight="bold">Cell 1 (BTS)</text>
+
+                        <!-- Cell 2 -->
+                        <polygon points="100,120 140,140 140,180 100,200 60,180 60,140" fill="#f1f5f9" stroke="#94a3b8"
+                            stroke-dasharray="4" />
+                        <!-- BTS 2 -->
+                        <path d="M100,190 L100,150 M90,190 L110,190 M95,150 L105,150" stroke="#0f172a"
+                            stroke-width="2" />
+                        <text x="100" y="215" text-anchor="middle" font-size="10" font-weight="bold">Cell 2 (BTS)</text>
+
+                        <!-- Connections to MSC -->
+                        <line x1="120" y1="60" x2="250" y2="110" stroke="#2563eb" stroke-width="2" />
+                        <line x1="120" y1="160" x2="250" y2="110" stroke="#2563eb" stroke-width="2" />
+
+                        <!-- MSC -->
+                        <rect x="250" y="75" width="100" height="70" fill="#dbeafe" stroke="#1d4ed8" rx="4" />
+                        <text x="300" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e3a8a">MTSC
+                            / MSC</text>
+                        <text x="300" y="125" text-anchor="middle" font-size="10" fill="#1e3a8a">Switching Center</text>
+
+                        <!-- Databases -->
+                        <rect x="250" y="165" width="45" height="30" fill="#fef3c7" stroke="#d97706" />
+                        <text x="272.5" y="185" text-anchor="middle" font-size="10" font-weight="bold">HLR</text>
+
+                        <rect x="305" y="165" width="45" height="30" fill="#fef3c7" stroke="#d97706" />
+                        <text x="327.5" y="185" text-anchor="middle" font-size="10" font-weight="bold">VLR</text>
+
+                        <!-- PSTN Cloud -->
+                        <path
+                            d="M420,110 Q420,80 450,80 Q450,60 490,60 Q530,60 530,90 Q560,90 560,120 Q560,150 530,150 Q530,170 490,170 Q450,170 440,150 Q410,150 420,110"
+                            fill="#f3f4f6" stroke="#4b5563" />
+                        <text x="490" y="120" text-anchor="middle" font-size="14" font-weight="bold"
+                            fill="#374151">PSTN</text>
+                        <text x="490" y="140" text-anchor="middle" font-size="10" fill="#6b7280">Public Switched
+                            Telephone
+                            Network</text>
+
+                        <!-- Connection MSC to PSTN -->
+                        <line x1="350" y1="110" x2="420" y2="110" stroke="#000" stroke-width="2" />
+
+                    </svg>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-white p-3 rounded shadow-sm border border-slate-200">
+                        <span class="block font-bold text-blue-600 mb-1">BTS</span>
+                        <b>Base Transceiver Station</b>. The antenna tower that communicates wirelessly with the mobile
+                        user.
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm border border-slate-200">
+                        <span class="block font-bold text-blue-600 mb-1">MTSC / MSC</span>
+                        <b>Mobile Switching Center</b>. The "brain" managing calls, switching, and handoffs. Connects to
+                        PSTN.
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm border border-slate-200">
+                        <span class="block font-bold text-blue-600 mb-1">Databases</span>
+                        <ul class="list-disc pl-4 mt-1 text-xs">
+                            <li><b>HLR (Home Location Register):</b> Permanent subscriber data.</li>
+                            <li><b>VLR (Visitor Location Register):</b> Temporary data for roaming users.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Evolution of Generations -->
+            <section class="bg-slate-50 p-6 rounded-xl border border-blue-200">
+                <h2 class="flex items-center gap-2 text-2xl font-bold text-blue-900 mb-4">
+                    <i class="fas fa-signal"></i> 6. Evolution: 1G to 6G
+                </h2>
+
+                <hr class="border-t border-slate-300" />
+                <div class="space-y-6">
+                    <!-- 0G -->
+                    <div class="flex gap-4 items-center">
+                        <div class="w-24 flex-shrink-0 font-bold text-4xl text-slate-300">0G</div>
+                        <div>
+                            <h3 class="font-bold text-lg">Pre-Cellular / 0th Generation Wireless (1940s–1960s)</h3>
+                            <ul class="list-disc pl-5 text-sm text-slate-700">
+
+                                <li><b>Early Use:</b> Mobile radio telephones used for military communication in the
+                                    early
+                                    20th century.</li>
+
+                                <li><b>Car-Based Mobile Radios (Mid-1940s):</b>
+                                    <ul class="list-disc pl-5">
+                                        <li>Used a single large transmitter on a tall building.</li>
+                                        <li>Single channel used for both sending and receiving.</li>
+                                        <li>Required “push-to-talk” button — press to transmit, release to receive.</li>
+                                        <li>Used in taxis, police cars, CB radios.</li>
+                                    </ul>
+                                </li>
+
+                                <li><b>IMTS (Improved Mobile Telephone System) – 1960s:</b>
+                                    <ul class="list-disc pl-5">
+                                        <li>Introduced two-channel system (uplink + downlink).</li>
+                                        <li>Enabled full-duplex communication (no push-to-talk).</li>
+                                        <li>Had 23 channels operating in the 150–450 MHz range.</li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="border-t border-slate-300" />
+
+                    <!-- 1G -->
+                    <div class="flex gap-4 items-center">
+                        <div class="w-24 flex-shrink-0 font-bold text-4xl text-slate-300">1G</div>
+                        <div>
+                            <h3 class="font-bold text-lg">First Generation (Early 1980s)</h3>
+                            <ul class="list-disc pl-5 text-sm text-slate-700">
+                                <li><b>Technology:</b> Analog signals (AMPS).</li>
+                                <li><b>Speed:</b> Up to 2.4 kbps.</li>
+                                <li><b>Drawbacks:</b> Poor voice quality, no security, poor battery, large phones
+                                    ("Brick phones").</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="border-t border-slate-300" />
+
+                    <!-- 2G -->
+                    <div class="flex gap-4 items-center">
+                        <div class="w-24 flex-shrink-0 font-bold text-4xl text-slate-300">2G</div>
+                        <div>
+                            <h3 class="font-bold text-lg">Second Generation Wireless (Late 1980s – 1991)</h3>
+                            <ul class="list-disc pl-5 text-sm text-slate-700">
+                                <li><b>Technology:</b> Digital transmission; based on GSM, also includes GSM, IS-95
+                                    (CDMA), PACS (low-tier PCS).</li>
+                                <li><b>Launch:</b> First commercial launch in Finland in 1991.</li>
+                                <li><b>Speed:</b> Data rates up to 64 kbps.</li>
+                                <li><b>Key Features:</b>
+                                    <ul class="list-disc pl-5">
+                                        <li>Supports SMS, picture messaging, and MMS.</li>
+                                        <li>Provides better speech quality and higher network capacity than 1G.</li>
+                                        <li>Supports terminal mobility, personal mobility, and service profile
+                                            management (PCS).</li>
+                                    </ul>
+                                </li>
+                                <li><b>Drawbacks:</b>
+                                    <ul class="list-disc pl-5">
+                                        <li>Requires strong digital signal; weak coverage leads to poor performance.
+                                        </li>
+                                        <li>Cannot handle complex/high-bandwidth data such as video.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="border-t border-slate-300" />
+
+                    <!-- 2.5G -->
+                    <div class="flex gap-4 items-center">
+                        <div class="w-24 flex-shrink-0 font-bold text-4xl text-slate-300">2.5G</div>
+                        <div>
+                            <h3 class="font-bold text-lg">GPRS Era</h3>
+                            <ul class="list-disc pl-5 text-sm text-slate-700">
+                                <li><b>Overview:</b> Bridge between 2G and 3G. Combined 2G with GPRS.</li>
+                                <li><b>Speed:</b> 64 - 144 kbps.</li>
+                                <li><b>Features:</b> Web browsing, Email, Camera phones.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="border-t border-slate-300" />
+
+                    <!-- B5G / Future -->
+                    <div class="mt-4 p-4 bg-blue-100 rounded text-sm">
+                        <h4 class="font-bold text-blue-900">Future: B5G (Beyond 5G) & 6G</h4>
+                        <ul class="list-disc pl-5 mt-2 text-blue-900">
+                            <li><b>Speed:</b> 100 Gbps to 1 Tbps.</li>
+                            <li><b>Latency:</b> As low as 0.1 ms.</li>
+                            <li><b>Reliability:</b> Ultra-reliable communication.</li>
+                            <li><b>Connectivity:</b> Supports ~100 devices per cubic meter.</li>
+                            <li><b>Coverage:</b> Extended via satellite integration.</li>
+                            <li><b>Security:</b> Ultra-high security systems.</li>
+                            <li><b>Power:</b> Ultra-low power consumption.</li>
+                            <li><b>Scalability:</b> Highly scalable network architecture.</li>
+                        </ul>
+                    </div>
+                    <img src="images/evolution.png" alt="6G Future Vision"
+                        class="w-full h-auto rounded border border-slate-200 shadow-sm" />
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 pt-6 border-t border-slate-300 text-center text-xs text-slate-500">
+            Generated Comprehensive Guide • IN 3510 Mobile & Wireless Networks • Lecture 3
+        </div>
+    </div>
+
+</body>
+
+</html>
