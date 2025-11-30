@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile & Wireless Networks - Lecture 5 Study Guide</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Document Sizing - Fixed Width, Fluid Height */
+        .doc-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 10mm;
+        }
+
+        /* Diagram Containers */
+        .svg-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        /* Make SVGs responsive */
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+
+            body {
+                background-color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .doc-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+
+            /* Avoid breaking sections inside elements */
+            section,
+            li,
+            tr,
+            .svg-container {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-8 text-slate-800 font-sans print:p-0 print:bg-white">
+
+    <!-- Control Bar (Hidden when printing) -->
+    <div class="max-w-[210mm] mx-auto mb-6 flex justify-end no-print">
+        <button onclick="window.print()"
+            class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors cursor-pointer">
+            <i class="fas fa-print"></i>
+            <span>Print / Save as PDF</span>
+        </button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="doc-container shadow-2xl">
+
+        <!-- Header -->
+        <header class="border-b-4 border-blue-600 pb-4 mb-8">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 uppercase tracking-tight">Multiple Access (Part 2)</h1>
+                    <p class="text-blue-600 font-semibold text-lg">IN 3510 | Lecture 5 Comprehensive Notes</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT STARTS -->
+        <div class="space-y-8">
+
+            <!-- 1. Logical Separation in CDMA -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-project-diagram"></i> 1. Logical Separation (CDMA)
+                </h2>
+                <p class="text-sm text-slate-700 mb-2">
+                    How Code Division Multiple Access (CDMA) is combined with duplexing techniques. Note that in CDMA,
+                    the "Code" dimension is key.
+                </p>
+
+                <!-- SVG Diagram: CDMA/FDD vs CDMA/TDD -->
+                <div class="svg-container">
+                    <svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
+                        <!-- CDMA/FDD -->
+                        <text x="175" y="30" text-anchor="middle" font-weight="bold" fill="#1e40af" font-size="14">CDMA
+                            / FDD</text>
+                        <rect x="50" y="50" width="250" height="150" fill="#eff6ff" stroke="#bfdbfe" rx="4" />
+
+                        <!-- Axis Labels -->
+                        <text x="40" y="125" text-anchor="middle" font-size="12" fill="#64748b"
+                            transform="rotate(-90 40,125)">Code</text>
+                        <text x="175" y="215" text-anchor="middle" font-size="12" fill="#64748b">Frequency (f)</text>
+
+                        <!-- Bands -->
+                        <rect x="60" y="60" width="230" height="30" fill="#10b981" stroke="white" />
+                        <text x="175" y="80" text-anchor="middle" fill="white" font-size="10">User 1 (Forward |
+                            Reverse)</text>
+
+                        <rect x="60" y="100" width="230" height="30" fill="#10b981" stroke="white" opacity="0.5" />
+                        <text x="175" y="120" text-anchor="middle" fill="#064e3b" font-size="10">...</text>
+
+                        <rect x="60" y="140" width="230" height="30" fill="#10b981" stroke="white" />
+                        <text x="175" y="160" text-anchor="middle" fill="white" font-size="10">User n (Forward |
+                            Reverse)</text>
+
+                        <!-- Split line representing Frequency Separation -->
+                        <line x1="175" y1="60" x2="175" y2="170" stroke="white" stroke-width="2" stroke-dasharray="4" />
+                        <text x="175" y="185" text-anchor="middle" font-size="8" fill="#047857">Freq Split</text>
+
+
+                        <!-- CDMA/TDD -->
+                        <text x="525" y="30" text-anchor="middle" font-weight="bold" fill="#166534" font-size="14">CDMA
+                            / TDD</text>
+                        <rect x="400" y="50" width="250" height="150" fill="#f0fdf4" stroke="#bbf7d0" rx="4" />
+
+                        <!-- Axis Labels -->
+                        <text x="390" y="125" text-anchor="middle" font-size="12" fill="#64748b"
+                            transform="rotate(-90 390,125)">Code</text>
+                        <text x="525" y="215" text-anchor="middle" font-size="12" fill="#64748b">Time (t)</text>
+
+                        <!-- Bands -->
+                        <rect x="410" y="60" width="230" height="30" fill="#10b981" stroke="white" />
+                        <text x="525" y="80" text-anchor="middle" fill="white" font-size="10">User 1 (Forward |
+                            Reverse)</text>
+
+                        <rect x="410" y="100" width="230" height="30" fill="#10b981" stroke="white" opacity="0.5" />
+                        <text x="525" y="120" text-anchor="middle" fill="#064e3b" font-size="10">...</text>
+
+                        <rect x="410" y="140" width="230" height="30" fill="#10b981" stroke="white" />
+                        <text x="525" y="160" text-anchor="middle" fill="white" font-size="10">User n (Forward |
+                            Reverse)</text>
+
+                        <!-- Split line representing Time Separation -->
+                        <line x1="525" y1="60" x2="525" y2="170" stroke="white" stroke-width="2" stroke-dasharray="4" />
+                        <text x="525" y="185" text-anchor="middle" font-size="8" fill="#047857">Time Split</text>
+                    </svg>
+                </div>
+            </section>
+
+            <!-- 2. The 3D View & Systems -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-cube"></i> 2. Multiplexing Dimensions & Systems
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <!-- SVG Diagram: 3D Access Techniques (Simplified 2D grid representation) -->
+                        <div class="border border-slate-200 p-2 rounded bg-slate-50">
+                            <h4 class="text-center font-bold text-sm mb-2 text-slate-700">Separation Methods</h4>
+                            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                                <div class="bg-orange-100 p-2 rounded border border-orange-200">
+                                    <span class="block font-bold text-orange-800">FDMA</span>
+                                    Split by Frequency
+                                    <div class="flex gap-1 mt-1 justify-center h-4">
+                                        <div class="w-1 bg-orange-400"></div>
+                                        <div class="w-1 bg-orange-400"></div>
+                                        <div class="w-1 bg-orange-400"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-green-100 p-2 rounded border border-green-200">
+                                    <span class="block font-bold text-green-800">TDMA</span>
+                                    Split by Time
+                                    <div class="flex flex-col gap-1 mt-1 items-center h-4 w-full">
+                                        <div class="h-1 w-4 bg-green-500"></div>
+                                        <div class="h-1 w-4 bg-green-500"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-purple-100 p-2 rounded border border-purple-200">
+                                    <span class="block font-bold text-purple-800">CDMA</span>
+                                    Split by Code
+                                    <div class="mt-1 font-mono text-[8px]">101.. 011..</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold text-sm mb-2">Common Systems & Techniques</h4>
+                        <table class="w-full text-xs border-collapse border border-slate-200">
+                            <thead class="bg-slate-100">
+                                <tr>
+                                    <th class="border p-1">System</th>
+                                    <th class="border p-1">Technique</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border p-1">AMPS (1G)</td>
+                                    <td class="border p-1">FDMA / FDD</td>
+                                </tr>
+                                <tr>
+                                    <td class="border p-1 font-bold text-blue-700">GSM (2G)</td>
+                                    <td class="border p-1 font-bold">TDMA / FDD</td>
+                                </tr>
+                                <tr>
+                                    <td class="border p-1">USDC</td>
+                                    <td class="border p-1">TDMA / FDD</td>
+                                </tr>
+                                <tr>
+                                    <td class="border p-1">DECT (Cordless)</td>
+                                    <td class="border p-1">FDMA / TDD</td>
+                                </tr>
+                                <tr>
+                                    <td class="border p-1">IS-95</td>
+                                    <td class="border p-1">CDMA / FDD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <img src="images/fdma_tdma_cdma.png" alt="3D Multiplexing Diagram"
+                        class="mt-4 md:col-span-2 rounded border border-slate-200" />
+                </div>
+            </section>
+
+            <!-- 3. FDMA Deep Dive & Calculation -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-wave-square"></i> 3. FDMA Capacity & AMPS
+                </h2>
+
+                <!-- FDMA Overview -->
+                <div class="bg-orange-50 p-4 rounded border-l-4 border-orange-400 mb-4">
+                    <h3 class="font-bold text-orange-900">FDMA Overview</h3>
+                    <ul class="text-sm mt-2 list-disc pl-5 text-orange-800 space-y-1">
+                        <li>Each transmitter is allocated a dedicated frequency channel with a specific bandwidth.</li>
+                        <li>All transmitters can operate simultaneously and continuously.</li>
+                        <li>FDMA can be used with both analog and digital signals, usually in narrowband systems.</li>
+                        <li>Requires high-performance RF filters and duplexers to separate transmit and receive
+                            frequencies.</li>
+                        <li>Continuous transmission requires fewer overhead bits (synchronization, framing) compared to
+                            TDMA.</li>
+                        <li>System complexity is lower than TDMA but needs proper RF filtering to minimize adjacent
+                            channel interference.</li>
+                        <li>Example: AMPS (Advanced Mobile Phone System) uses FDMA with 30 kHz channel bandwidth.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-orange-50 p-4 rounded border-l-4 border-orange-400 mb-4">
+                    <h3 class="font-bold text-orange-900">FDMA Capacity Formula</h3>
+                    <p class="text-sm my-2">The number of channels (N) in an FDMA system is given by:</p>
+                    <div class="text-center font-mono text-lg bg-white p-2 rounded shadow-sm">
+                        N = (B<sub>t</sub> - 2B<sub>guard</sub>)/B<sub>ch</sub>
+                    </div>
+                    <ul class="text-xs mt-2 list-disc pl-4 text-orange-800">
+                        <li>B<sub>t</sub> : Total spectrum allocation.</li>
+                        <li>B<sub>guard</sub> : Guard band (Unused part of the radio spectrum between radio bands, for
+                            the purpose of preventing interference).</li>
+                        <li>B<sub>ch</sub> : Bandwidth of a single channel.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-4 border border-slate-200 rounded shadow-sm">
+                    <h4 class="font-bold text-slate-800 mb-2">Example Calculation: AMPS System</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <p><b>Given:</b></p>
+                            <ul class="list-disc pl-5 text-slate-600">
+                                <li>System: FDMA/FDD (Analog)</li>
+                                <li>Total Bandwidth ( B<sub>t</sub> ) : 12.5 MHz</li>
+                                <li>Guard Band ( B<sub>guard</sub> ) : 10 kHz</li>
+                                <li>Channel BW ( B<sub>ch</sub> ): 30 kHz</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded font-mono text-xs">
+                            <p>N = (12.5 x 10^6 - 2 x 10 x 10^3) / (30 x 10^3)</p>
+                            <p>N = (12,500,000 - 20,000) / 30,000</p>
+                            <p>N = 12,480,000 / 30,000</p>
+                            <p class="font-bold text-blue-600 text-sm mt-1">N = 416 Channels</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. TDMA Deep Dive & Calculation -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-clock"></i> 4. TDMA Capacity & GSM
+                </h2>
+
+                <div class="bg-green-50 p-4 rounded border-l-4 border-green-400 mb-4">
+                    <h3 class="font-bold text-green-900">TDMA Capacity Formula</h3>
+                    <p class="text-sm my-2">TDMA increases capacity by m times (number of time slots):</p>
+                    <div class="text-center font-mono text-lg bg-white p-2 rounded shadow-sm">
+                        N = m(B<sub>tot</sub> - 2B<sub>guard</sub>)/B<sub>ch</sub>
+                    </div>
+                    <ul class="text-xs mt-2 list-disc pl-4 text-green-800">
+                        <li>N : Number of TDMA channel slots.</li>
+                        <li>m : Max number of TDMA users supported on each B<sub>ch</sub></li>
+                        <li>B<sub>tot</sub> : Total spectrum allocation.</li>
+                        <li>B<sub>guard</sub> : Guard band</li>
+                        <li>B<sub>ch</sub> : Bandwidth of a single channel.</li>
+                    </ul>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- GSM User Calculation -->
+                    <div class="bg-white p-4 border border-slate-200 rounded shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-2">Ex 1: GSM Users</h4>
+                        <div class="text-sm">
+                            <p><b>Given:</b> B<sub>tot</sub>=25 MHz, B<sub>ch</sub>=200 kHz, m=8 slots. (Assume no guard
+                                band).
+                            </p>
+                            <div class="bg-slate-50 p-2 rounded font-mono text-xs mt-2">
+                                <p>N = (8 * 25,000,000) / 200,000</p>
+                                <p>N = 200,000,000 / 200,000</p>
+                                <p class="font-bold text-green-600">N = 1000 Simultaneous Users</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GSM Timing Calculation -->
+                    <div class="bg-white p-4 border border-slate-200 rounded shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-2">Ex 2: GSM Timing</h4>
+                        <div class="text-xs space-y-2">
+                            <p><b>Given:</b> Data Rate = 270.833 kbps, Bits/Slot = 156.25, Slots/Frame = 8.</p>
+                            <ul class="space-y-1">
+                                <li><b>(a) Bit Duration (T<sub>b</sub>):</b><br> 1 / 270.833 kbps = 3.692 μs</li>
+                                <li><b>(b) Slot Duration (T<sub>slot</sub>):</b><br> 156.25 * 3.692 μs = 0.577 ms
+                                </li>
+                                <li><b>(c) Frame Duration (T<sub>f</sub>):</b><br> 8 * 0.577 ms = 4.615 ms</li>
+                                <li><b>(d) Wait Time:</b><br> Same as Frame Duration = 4.615 ms</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Spread Spectrum & Multiplexing -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-layer-group"></i> 5. Multiplexing Dimensions
+                </h2>
+
+                <p class="text-sm text-slate-700 mb-2">
+                    Multiplexing allows multiple users to share a communication medium efficiently with minimal
+                    interference.
+                    It can happen in 4 dimensions: <b>Space (S<sub>i</sub>), Time (t), Frequency (f), and Code (c)</b>.
+                </p>
+
+                <div class="bg-blue-50 p-4 rounded border border-blue-100 mb-4 text-sm text-slate-800 space-y-2">
+                    <p><b>Spread Spectrum:</b> A method where the transmitted signal frequency is deliberately varied,
+                        resulting in a much wider bandwidth than the original signal.</p>
+                    <p><b>Advantages:</b></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Reduces the effect of <b>catastrophic interference</b> from other signals on the same
+                            frequency.</li>
+                        <li>Makes signals harder to intercept, improving confidentiality.</li>
+                    </ul>
+                    <p><b>Conventional Wireless Problems:</b></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Constant-frequency signals are easily interfered with.</li>
+                        <li>Constant-frequency signals are easy to intercept.</li>
+                    </ul>
+                    <p><b>Multiplexing Goal:</b> Efficiently share a medium among multiple users while minimizing
+                        interference. Guard spaces or guard bands are often required to prevent overlap between users.
+                    </p>
+                </div>
+
+
+                <!-- SVG Diagram: Multiplexing Dimensions -->
+                <div class="svg-container">
+                    <svg viewBox="0 0 750 220" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Frequency Multiplex -->
+                        <g transform="translate(20, 20)">
+                            <text x="75" y="0" text-anchor="middle" font-weight="bold" font-size="12">Frequency
+                                Mux</text>
+                            <text x="75" y="15" text-anchor="middle" font-size="10" fill="#64748b">Channels sit
+                                side-by-side</text>
+                            <!-- Axis -->
+                            <line x1="10" y1="120" x2="140" y2="120" stroke="black" marker-end="url(#arrow)" />
+                            <text x="145" y="125" font-size="10">f</text>
+                            <line x1="10" y1="120" x2="10" y2="30" stroke="black" marker-end="url(#arrow)" />
+                            <text x="10" y="25" font-size="10">t</text>
+
+                            <!-- Bars -->
+                            <rect x="20" y="30" width="20" height="80" fill="#fca5a5" stroke="black" />
+                            <rect x="50" y="30" width="20" height="80" fill="#fcd34d" stroke="black" />
+                            <rect x="80" y="30" width="20" height="80" fill="#93c5fd" stroke="black" />
+                            <rect x="110" y="30" width="20" height="80" fill="#d8b4fe" stroke="black" />
+                        </g>
+
+                        <!-- Time Multiplex -->
+                        <g transform="translate(200, 20)">
+                            <text x="75" y="0" text-anchor="middle" font-weight="bold" font-size="12">Time Mux</text>
+                            <text x="75" y="15" text-anchor="middle" font-size="10" fill="#64748b">Whole freq, sliced
+                                time</text>
+                            <!-- Axis -->
+                            <line x1="10" y1="120" x2="140" y2="120" stroke="black" />
+                            <text x="145" y="125" font-size="10">f</text>
+                            <line x1="10" y1="120" x2="10" y2="30" stroke="black" />
+                            <text x="10" y="25" font-size="10">t</text>
+
+                            <!-- Bars (Horizontal) -->
+                            <rect x="20" y="30" width="120" height="15" fill="#fca5a5" stroke="black" />
+                            <rect x="20" y="50" width="120" height="15" fill="#fcd34d" stroke="black" />
+                            <rect x="20" y="70" width="120" height="15" fill="#93c5fd" stroke="black" />
+                            <rect x="20" y="90" width="120" height="15" fill="#d8b4fe" stroke="black" />
+                        </g>
+
+                        <!-- Code Multiplex -->
+                        <g transform="translate(380, 20)">
+                            <text x="75" y="0" text-anchor="middle" font-weight="bold" font-size="12">Code Mux</text>
+                            <text x="75" y="15" text-anchor="middle" font-size="10" fill="#64748b">Stacked in Code
+                                space</text>
+                            <!-- Axis -->
+                            <line x1="10" y1="120" x2="140" y2="120" stroke="black" />
+                            <text x="145" y="125" font-size="10">f</text>
+                            <line x1="10" y1="120" x2="10" y2="30" stroke="black" />
+                            <text x="10" y="25" font-size="10">t</text>
+                            <line x1="10" y1="120" x2="50" y2="80" stroke="black" />
+                            <text x="50" y="75" font-size="10">c</text>
+
+                            <!-- Stacked Blocks -->
+                            <path d="M20,110 L130,110 L140,100 L30,100 Z" fill="#fca5a5" stroke="black" opacity="0.8" />
+                            <path d="M25,105 L135,105 L145,95 L35,95 Z" fill="#fcd34d" stroke="black" opacity="0.8" />
+                            <path d="M30,100 L140,100 L150,90 L40,90 Z" fill="#93c5fd" stroke="black" opacity="0.8" />
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="overflow-x-auto mt-4">
+                    <table class="min-w-full border border-gray-300 text-xs">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border px-3 py-2 text-left">Multiplexing Type</th>
+                                <th class="border px-3 py-2 text-left">How It Works</th>
+                                <th class="border px-3 py-2 text-left">Advantages</th>
+                                <th class="border px-3 py-2 text-left">Disadvantages</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <!-- Frequency Multiplex -->
+                            <tr>
+                                <td class="border px-3 py-2 font-bold text-red-700">Frequency Multiplex (FDM)</td>
+                                <td class="border px-3 py-2">
+                                    Spectrum is divided into multiple frequency bands.
+                                    Each channel uses a specific band constantly.
+                                </td>
+                                <td class="border px-3 py-2">
+                                    • No dynamic coordination needed<br>
+                                    • Supports analog signals
+                                </td>
+                                <td class="border px-3 py-2">
+                                    • Bandwidth wasted if traffic uneven<br>
+                                    • Inflexible<br>
+                                    • Needs guard bands
+                                </td>
+                            </tr>
+
+                            <!-- Time Multiplex -->
+                            <tr>
+                                <td class="border px-3 py-2 font-bold text-yellow-700">Time Multiplex (TDM)</td>
+                                <td class="border px-3 py-2">
+                                    Each channel gets full spectrum but only for a fixed timeslot.
+                                </td>
+                                <td class="border px-3 py-2">
+                                    • Only one carrier at a time<br>
+                                    • High throughput with many users
+                                </td>
+                                <td class="border px-3 py-2">
+                                    • Requires precise synchronization
+                                </td>
+                            </tr>
+
+                            <!-- Time & Frequency Multiplex -->
+                            <tr>
+                                <td class="border px-3 py-2 font-bold text-green-700">Time + Frequency Multiplex (e.g.,
+                                    GSM)</td>
+                                <td class="border px-3 py-2">
+                                    Each channel gets a specific frequency band for a fixed time interval.
+                                </td>
+                                <td class="border px-3 py-2">
+                                    • More secure against tapping<br>
+                                    • Reduces frequency-selective interference
+                                </td>
+                                <td class="border px-3 py-2">
+                                    • Requires precise coordination
+                                </td>
+                            </tr>
+
+                            <!-- Code Multiplex -->
+                            <tr>
+                                <td class="border px-3 py-2 font-bold text-blue-700">Code Multiplex (CDM/CDMA)</td>
+                                <td class="border px-3 py-2">
+                                    Each channel uses a unique code; all channels share the same spectrum
+                                    simultaneously.
+                                </td>
+                                <td class="border px-3 py-2">
+                                    • Excellent bandwidth efficiency<br>
+                                    • No need for synchronization between users<br>
+                                    • Strong interference protection
+                                </td>
+                                <td class="border px-3 py-2">
+                                    • Complex signal regeneration<br>
+                                    • Requires spread spectrum technology
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 pt-6 border-t border-slate-300 text-center text-xs text-slate-500">
+            Generated Comprehensive Guide • IN 3510 Mobile & Wireless Networks • Lecture 5
+        </div>
+    </div>
+
+</body>
+
+</html>
