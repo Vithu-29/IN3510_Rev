@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile & Wireless Networks - Lecture 1 Comprehensive Guide</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind-config.js"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Document Sizing - Fixed Width, Fluid Height (Same as Lecture 2) */
+        .doc-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 10mm;
+        }
+
+        /* Diagram Placeholder Styling */
+        .diagram-placeholder {
+            background-color: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 10mm;
+            }
+
+            body {
+                background-color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .doc-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+
+            /* Avoid breaking sections inside elements */
+            section,
+            li,
+            tr {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-8 text-slate-800 font-sans print:p-0 print:bg-white">
+
+    <!-- Control Bar (Hidden when printing) -->
+    <div class="max-w-[210mm] mx-auto mb-10 flex justify-end no-print">
+        <button onclick="window.print()"
+            class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded shadow transition-colors cursor-pointer">
+            <i class="fas fa-print"></i>
+            <span>Print / Save as PDF</span>
+        </button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="doc-container shadow-2xl">
+
+        <!-- Header -->
+        <header class="border-b-4 border-blue-600 pb-4 mb-8">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 uppercase tracking-tight">Introduction to Wireless
+                        Communication</h1>
+                    <p class="text-blue-600 font-semibold text-lg">IN 3510 | Lecture 1 Comprehensive Notes</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT STARTS -->
+        <div class="space-y-8">
+
+            <!-- 1. Fundamental Definitions -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-book"></i> 1. Fundamental Definitions
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-4 rounded border border-slate-200">
+                        <h3 class="font-bold text-blue-900 mb-2">Wireless Communication</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-slate-700">
+                            <li>Transfer of information between two or more points that are <b>not physically
+                                    connected</b>.</li>
+                            <li>Uses <b>electromagnetic waves</b> (Radio, Microwave, IR) in open space instead of
+                                wires, cables or fiber optics.</li>
+                            <li><i>Key Physics:</i> <b>c = f × λ</b> (Speed of light = Frequency × Wavelength).
+                                <ul class="list-disc pl-5 mt-1 text-xs text-slate-600">
+                                    <li>c = 3x10^8 m/s</li>
+                                    <li>Higher frequency → Shorter wavelength → More data capacity but more
+                                        attenuation/interference.</li>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded border border-slate-200">
+                        <h3 class="font-bold text-blue-900 mb-2">Mobile Computing</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-slate-700">
+                            <li>Using a computer while on the move.</li>
+                            <li>Enabling access to network services <b>anytime, anywhere</b>.</li>
+                            <li>Involves displaying, collecting, and transferring info from a mobile device to an
+                                information system.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. History & Evolution -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-history"></i> 2. History
+                </h2>
+
+                <div class="mb-6">
+                    <h3 class="font-bold text-lg mb-2">Timeline</h3>
+                    <div class="flex items-center gap-4 text-sm bg-white p-4 rounded shadow-sm border border-gray-200">
+                        <div class="text-center">
+                            <span class="block font-bold text-blue-600">1896</span>
+                            <span class="text-xs">Marconi (Wireless Telegraph)</span>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400"></i>
+                        <div class="text-center">
+                            <span class="block font-bold text-blue-600">1914</span>
+                            <span class="text-xs">First Voice over Radio</span>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400"></i>
+                        <div class="text-center">
+                            <span class="block font-bold text-blue-600">1960s</span>
+                            <span class="text-xs">Satellites Launched</span>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400"></i>
+                        <div class="text-center">
+                            <span class="block font-bold text-blue-600">Today</span>
+                            <span class="text-xs">Cellular, Wi-Fi, IoT</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Types & Importance -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-book"></i> 3. Types & Importance of Wireless Communication
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-4 rounded border border-slate-200">
+                        <h3 class="font-bold text-lg mb-2">Wireless Communication Types</h3>
+                        <img src="images/wireless_type.png" alt="Mobile Device Evolution"
+                            class="w-full rounded shadow-sm border border-slate-200 mb-4">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">Why mobile & wireless communication?</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                            <li><b>Anywhere/Anytime Connectivity:</b> The core benefit.</li>
+                            <li><b>Infrastructure:</b> Connects areas without pre-existing cables.</li>
+                            <li><b>Cost Effective:</b> Often cheaper/easier to setup than laying cables.</li>
+                            <li><b>Enable new applications</b></li>
+                            <li><b>Easy to setup</b></li>
+                            <li><b>Enable mobility:</b> Relationship of the wireless industry with globalization.</li>
+                            <li><b>Ad-hoc Networks:</b> Instant networking without infrastructure.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded">
+                        <h3 class="font-bold text-lg mb-2">Business Evolution</h3>
+                        <p class="text-xs mb-2">Evolution from simple Web Sites to full Mobility:</p>
+                        <ol class="list-decimal pl-5 text-sm space-y-1 text-slate-700">
+                            <li><b>HTML Web Sites:</b> Basic info.</li>
+                            <li><b>e-Commerce:</b> Purchasing added.</li>
+                            <li><b>e-Business:</b> Added CRM, SCM (Supply Chain).</li>
+                            <li><b>m-Business:</b> Mobility + Self-serve + No latency.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Wired vs Wireless Comparison -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-balance-scale"></i> 4. Wired vs. Wireless
+                </h2>
+                <table class="w-full text-sm border-collapse border border-slate-200 shadow-sm">
+                    <thead>
+                        <tr class="bg-slate-100">
+                            <th class="border p-3 text-left">Feature</th>
+                            <th class="border p-3 text-left w-1/3">Wired Networks</th>
+                            <th class="border p-3 text-left w-1/3">Wireless Networks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border p-2 font-bold">Bandwidth</td>
+                            <td class="border p-2 text-green-700">High</td>
+                            <td class="border p-2 text-red-600">Low</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Reliability</td>
+                            <td class="border p-2 text-green-700">Low variability (Stable)</td>
+                            <td class="border p-2 text-red-600">High variability (Unstable)</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Interference</td>
+                            <td class="border p-2">Low</td>
+                            <td class="border p-2">High (Hidden Terminal Problem)</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Latency</td>
+                            <td class="border p-2">Low</td>
+                            <td class="border p-2">Higher</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">System</td>
+                            <td class="border p-2">High power & high resource machines</td>
+                            <td class="border p-2">Low power & low resource</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Security</td>
+                            <td class="border p-2">Requires physical access</td>
+                            <td class="border p-2">Requires proximity (Broadcast)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 5. Spectrum & Frequencies -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-wave-square"></i> 5. The Electromagnetic Spectrum
+                </h2>
+
+
+                <div class="overflow-x-auto mt-4">
+                    <table class="w-full text-sm text-left border-collapse border border-slate-200">
+                        <thead class="bg-slate-100 uppercase text-xs">
+                            <tr>
+                                <th class="border p-2">Type</th>
+                                <th class="border p-2">Frequency Range</th>
+                                <th class="border p-2">Usage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border p-2 font-bold">Radio Waves</td>
+                                <td class="border p-2">3 kHz – 300 GHz</td>
+                                <td class="border p-2">AM/FM Radio, TV</td>
+                            </tr>
+                            <tr class="bg-yellow-50">
+                                <td class="border p-2 font-bold text-blue-700">Microwaves <span
+                                        class="text-[10px] bg-yellow-200 px-1 rounded ml-1">Sweetspot</span></td>
+                                <td class="border p-2 font-bold">300 MHz – 300 GHz</td>
+                                <td class="border p-2"><b>GSM, 3G, Wi-Fi, Satellite</b></td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2 font-bold">Infrared</td>
+                                <td class="border p-2">300 GHz – 400 THz</td>
+                                <td class="border p-2">Short range, remote controls (10nm - 1mm)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 6. Applications Matrix -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-th"></i> 6. Applications Matrix
+                </h2>
+                <p class="text-sm mb-4">Mobile applications categorize interactions between Consumers (C), Business (B),
+                    Government (G), and Employees (E).</p>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <span class="block font-bold text-blue-600">B2B</span>
+                        Business ↔ Business
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <span class="block font-bold text-blue-600">B2C / C2B</span>
+                        Business ↔ Consumer
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <span class="block font-bold text-blue-600">B2E / E2B</span>
+                        Business ↔ Employee
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <span class="block font-bold text-blue-600">B2G / G2B</span>
+                        Business ↔ Govt
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <span class="block font-bold text-blue-600">G2C / C2G</span>
+                        Govt ↔ Citizen
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <span class="block font-bold text-blue-600">G2E / E2G</span>
+                        Govt ↔ Employee
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <span class="block font-bold text-blue-600">G2G</span>
+                        Govt ↔ Govt
+                    </div>
+                </div>
+
+                <div class="mt-4 p-4 bg-gray-50 rounded text-sm border-l-4 border-blue-400">
+                    <h4 class="font-bold mb-1">Key Application Types:</h4>
+                    <ul class="list-disc pl-5 grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <li><b>M-Commerce:</b> Mobile purchasing.
+                            <ul class="list-disc pl-5 mt-1 text-xs text-slate-600">
+                                <li>Positional commerce (p-commerce) </li>
+                                <li>Voice commerce (v-commerce)</li>
+                            </ul>
+                        </li>
+                        <li><b>LBS (Location Based Services):</b> "Positional commerce".</li>
+                        <li><b>Telematics:</b> Vehicle communication.</li>
+                        <li><b>Wireless Sensor Networks:</b> IoT applications.</li>
+                        <li><b>Mobile agent apps :</b>Siri, Google assistant</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 7. Infrastructure & WAP -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-server"></i> 7. Architecture & WAP
+                </h2>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                    <div>
+                        <h3 class="font-bold text-lg text-blue-900 mb-2">Core Components</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex gap-2">
+                                <i class="fas fa-mobile-alt mt-1 text-gray-500"></i>
+                                <div><b>Mobile Device:</b> Cell phone, PDA, Laptop.</div>
+                            </li>
+                            <li class="flex gap-2">
+                                <i class="fas fa-layer-group mt-1 text-gray-500"></i>
+                                <div><b>Middleware:</b> Bridges OS and Apps (Service discovery, adaptation).</div>
+                            </li>
+                            <li class="flex gap-2">
+                                <i class="fas fa-random mt-1 text-gray-500"></i>
+                                <div><b>Wireless Gateway:</b> Protocol translator (WAP ↔ HTTP). Crucial for legacy
+                                    systems.</div>
+                            </li>
+                            <li class="flex gap-2">
+                                <i class="fas fa-database mt-1 text-gray-500"></i>
+                                <div><b>Web Server:</b> Hosts content (HTML/XML).</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-orange-50 p-4 rounded border border-orange-200">
+                        <h3 class="font-bold text-lg text-orange-800 mb-2">WAP (Legacy Protocol)</h3>
+                        <p class="text-sm mb-2"><i>Wireless Application Protocol.</i> An early standard to access info
+                            on small screens.</p>
+                        <img src="images/wap.png" alt="WAP Architecture Diagram"
+                            class="w-full mb-3 rounded shadow-sm border border-orange-200">
+                        <ol class="list-decimal pl-5 text-sm space-y-1 text-orange-900">
+                            <li>Mobile Browser sends WAP request.</li>
+                            <li><b>WAP Gateway</b> intercepts and translates to HTTP.</li>
+                            <li>Web Server responds with content.</li>
+                            <li>Gateway converts back to WAP for device.</li>
+                        </ol>
+                        <p class="text-xs mt-2 text-orange-700"><i>*Modern phones use full HTML/HTTP directly.</i></p>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- 8. Wireless Hierarchy (Detailed) -->
+            <section class="bg-slate-50 p-6 rounded-xl border border-blue-200">
+                <h2 class="flex items-center gap-2 text-2xl font-bold text-blue-900 mb-4">
+                    <i class="fas fa-globe"></i> 8. The Wireless Landscape
+                </h2>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="mb-4 md:mb-0">
+                        <img src="images/wireless_hierarchy.png" alt="Wireless Network Hierarchy Diagram"
+                            class="w-full rounded shadow-sm border border-blue-200">
+                    </div>
+                    <!-- PAN & LAN -->
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <h3 class="font-bold">WPAN (Personal Area)</h3>
+                            <p class="text-sm text-slate-600">Range: 0-10m (Room/House)</p>
+                            <ul class="text-xs mt-1 list-disc pl-4 text-slate-500">
+                                <li><b>Bluetooth:</b> 1 Mbps</li>
+                                <li><b>RFID/UWB</b></li>
+                            </ul>
+                        </div>
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h3 class="font-bold">WLAN (Local Area)</h3>
+                            <p class="text-sm text-slate-600">Range: ~100m (Building/Campus)</p>
+                            <ul class="text-xs mt-1 list-disc pl-4 text-slate-500">
+                                <li><b>Wi-Fi (IEEE 802.11b):</b> 11 Mbps</li>
+                                <li>802.11 a/g/n</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- MAN & WAN -->
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-orange-500 pl-4">
+                            <h3 class="font-bold">WMAN (Metro Area)</h3>
+                            <p class="text-sm text-slate-600">Range: 5-15km (City)</p>
+                            <ul class="text-xs mt-1 list-disc pl-4 text-slate-500">
+                                <li><b>WiMAX (802.16):</b> ~70 Mbps</li>
+                                <li><b>WLL (Wireless Local Loop):</b> Connects homes to PSTN (Last mile).</li>
+                            </ul>
+                        </div>
+                        <div class="border-l-4 border-red-500 pl-4">
+                            <h3 class="font-bold">WWAN (Wide Area)</h3>
+                            <p class="text-sm text-slate-600">Range: 50km+ (National/Global)</p>
+                            <ul class="text-xs mt-1 list-disc pl-4 text-slate-500">
+                                <li><b>Cellular:</b> GSM (9.6 Kbps), 3G (2 Mbps), 4G/5G.</li>
+                                <li><b>Satellite:</b> Motorola Iridium (64 Kbps), GPS.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
