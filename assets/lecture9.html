@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile & Wireless Networks - Lecture 9 Study Guide</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Document Sizing - Fixed Width, Fluid Height */
+        .doc-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 10mm;
+        }
+
+        /* Diagram Containers */
+        .svg-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        /* Make SVGs responsive */
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media print {
+            @page {
+                size: A3;
+                margin: 10mm;
+            }
+
+            body {
+                background-color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .doc-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+
+            /* Avoid breaking sections inside elements */
+            section,
+            li,
+            tr,
+            .svg-container {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-8 text-slate-800 font-sans print:p-0 print:bg-white">
+
+    <!-- Control Bar (Hidden when printing) -->
+    <div class="max-w-[210mm] mx-auto mb-6 flex justify-end no-print">
+        <button onclick="window.print()"
+            class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors cursor-pointer">
+            <i class="fas fa-print"></i>
+            <span>Print / Save as PDF</span>
+        </button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="doc-container shadow-2xl">
+
+        <!-- Header -->
+        <header class="border-b-4 border-blue-600 pb-4 mb-8">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 uppercase tracking-tight">WSN Applications & WPANs</h1>
+                    <p class="text-blue-600 font-semibold text-lg">IN 3510 | Lecture 9 Comprehensive Notes</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT STARTS -->
+        <div class="space-y-8">
+
+            <!-- 1. WSN Applications Overview -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-satellite-dish"></i> 1. WSN Application Domains
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="bg-green-50 p-4 rounded border border-green-200">
+                        <h3 class="font-bold text-green-900 mb-2">Environmental</h3>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Forest fire detection (FireBug).</li>
+                            <li>Flood detection.</li>
+                            <li>Precision Agriculture.</li>
+                            <li>Pollution monitoring (Air/Water).</li>
+                            <li>Habitat monitoring (Great Duck Island).</li>
+                        </ul>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded border border-red-200">
+                        <h3 class="font-bold text-red-900 mb-2">Military</h3>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Battlefield surveillance.</li>
+                            <li>Targeting & Battle damage assessment.</li>
+                            <li>Nuclear/Biological/Chemical attack detection.</li>
+                            <li>Monitoring friendly forces/ammo.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded border border-blue-200">
+                        <h3 class="font-bold text-blue-900 mb-2">Health & Home</h3>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Telemonitoring (physiological data).</li>
+                            <li>Tracking doctors/patients/drugs.</li>
+                            <li>Home/Office automation (Smart environments).</li>
+                        </ul>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded border border-yellow-200">
+                        <h3 class="font-bold text-yellow-900 mb-2">Automotive & Commercial Applications</h3>
+
+                        <!-- Automotive Applications -->
+                        <div class="mb-3">
+                            <h4 class="font-semibold text-yellow-800 text-sm mb-1">Automotive Applications</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>Reduces wiring effects in vehicles.</li>
+                                <li>Measurements in chambers and rotating parts.</li>
+                                <li>Remote technical inspections.</li>
+                                <li>Condition monitoring (e.g., at bearings).</li>
+                            </ul>
+                        </div>
+
+                        <!-- Other Commercial Applications -->
+                        <div>
+                            <h4 class="font-semibold text-yellow-800 text-sm mb-1">Other Commercial Applications</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>Environmental control in office buildings (estimated energy savings: $55
+                                    billion/year).</li>
+                                <li>Interactive museums.</li>
+                                <li>Detecting and monitoring car thefts.</li>
+                                <li>Inventory management and tracking.</li>
+                                <li>Vehicle tracking and detection.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 2. WPAN: Bluetooth 5 -->
+            <section class="py-4">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fab fa-bluetooth"></i> 2. WPAN: Bluetooth Evolution (Bluetooth 5)
+                </h2>
+
+                <!-- Intro -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-blue-50 p-4 rounded border border-blue-100 text-sm text-blue-900">
+                        <h3 class="font-semibold mb-2">Introduction</h3>
+                        <ul class="list-disc pl-5 text-xs space-y-1">
+                            <li>Bluetooth widely deployed for ~20 years.</li>
+                            <li>Bluetooth 5 released in Dec 2016.</li>
+                            <li>Focus: Improve range, speed, broadcast capacity, coexistence.</li>
+                            <li>Optimized for IoT (home, industrial, outdoor coverage).</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded border border-slate-100 text-sm">
+                        <h3 class="font-semibold mb-2">Why it matters for IoT</h3>
+                        <ul class="list-disc pl-5 text-xs space-y-1 text-slate-700">
+                            <li>Improved range & reliability for large-area IoT.</li>
+                            <li>Larger advertisement payloads for beacons.</li>
+                            <li>Lower power consumption via improved PHY.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Major improvements -->
+                <h3 class="font-bold text-blue-900 mb-2">Bluetooth 5 — Major Improvements</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm mb-4">
+                    <div class="p-3 rounded border bg-green-50">
+                        <strong>2× Speed</strong>
+                        <p class="text-xs mt-1">2 Mbps PHY → faster transfers, lower airtime.</p>
+                    </div>
+
+                    <div class="p-3 rounded border bg-green-50">
+                        <strong>4× Range</strong>
+                        <p class="text-xs mt-1">Long-range (coded PHY) for home/industrial coverage.</p>
+                    </div>
+
+                    <div class="p-3 rounded border bg-green-50">
+                        <strong>+20 dBm Power</strong>
+                        <p class="text-xs mt-1">Higher TX power (region dependent).</p>
+                    </div>
+
+                    <div class="p-3 rounded border bg-green-50">
+                        <strong>CSA #2</strong>
+                        <p class="text-xs mt-1">Better interference handling.</p>
+                    </div>
+
+                    <div class="p-3 rounded border bg-green-50">
+                        <strong>8× Advertising</strong>
+                        <p class="text-xs mt-1">Multiple advertising sets with different intervals.</p>
+                    </div>
+
+                    <div class="p-3 rounded border bg-green-50">
+                        <strong>255-byte Payload</strong>
+                        <p class="text-xs mt-1">Larger advertisements (vs 31 bytes).</p>
+                    </div>
+
+                    <div class="p-3 rounded border bg-green-50">
+                        <strong>High Duty Non-Connectable</strong>
+                        <p class="text-xs mt-1">Fast & frequent beacon broadcasts.</p>
+                    </div>
+
+                    <div class="p-3 rounded border bg-green-50">
+                        <strong>Slot Availability Mask</strong>
+                        <p class="text-xs mt-1">Better coexistence with LTE/MWS systems.</p>
+                    </div>
+                </div>
+
+                <!-- Technical notes -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="p-3 rounded bg-blue-50 text-sm">
+                        <h4 class="font-semibold mb-2">PHY & Energy Notes</h4>
+                        <ul class="list-disc pl-5 text-xs space-y-1">
+                            <li>2 Mbps PHY reduces airtime → lower power.</li>
+                            <li>Long-range = coded PHY + higher link budget.</li>
+                            <li>TX power limited by regulations.</li>
+                        </ul>
+                    </div>
+
+                    <div class="p-3 rounded bg-blue-50 text-sm">
+                        <h4 class="font-semibold mb-2">Advertising & Payload</h4>
+                        <ul class="list-disc pl-5 text-xs space-y-1">
+                            <li>Multiple advertisement sets.</li>
+                            <li>255-byte payload = richer metadata & URLs.</li>
+                            <li>High-duty broadcast for alerts/proximity.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Use cases -->
+                <h3 class="font-bold text-blue-900 mb-2">Use-Cases</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                    <div class="p-3 rounded bg-pink-100">
+                        <strong>Home/Building IoT</strong>
+                        <p class="text-xs mt-1">Smart locks, sensors, indoor navigation.</p>
+                    </div>
+
+                    <div class="p-3 rounded bg-pink-100">
+                        <strong>Industrial/Outdoor</strong>
+                        <p class="text-xs mt-1">Tracking, monitoring, long-range sensing.</p>
+                    </div>
+
+                    <div class="p-3 rounded bg-pink-100">
+                        <strong>Beaconing</strong>
+                        <p class="text-xs mt-1">URLs, proximity data, location-aware apps.</p>
+                    </div>
+
+                    <div class="p-3 rounded bg-pink-100">
+                        <strong>Low-Power IoT</strong>
+                        <p class="text-xs mt-1">Reduced airtime → longer battery life.</p>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- 3. WPAN: Bluetooth 6 -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fab fa-bluetooth"></i> 3. WPAN: Bluetooth 6.0 & 6.1 Features
+                </h2>
+
+                <!-- Bluetooth 6.0 Overview -->
+                <div class="bg-blue-50 p-4 border-l-4 border-blue-500 rounded mb-6">
+                    <h3 class="font-bold text-blue-900 text-lg">Bluetooth 6.0: Key Enhancements</h3>
+                    <p class="text-sm text-blue-800 mt-1">
+                        Bluetooth 6.0 introduces major enhancements for secure ranging, faster discovery,
+                        efficient advertising, and improved support for time-sensitive data.
+                    </p>
+                </div>
+
+                <!-- Grid Features -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Channel Sounding -->
+                    <div class="bg-pink-100 p-4 border border-slate-200 rounded shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-2">1. Bluetooth Channel Sounding</h4>
+                        <ul class="list-disc pl-5 text-sm text-slate-700 space-y-2">
+                            <li>Enables <b>secure fine ranging</b> between Bluetooth devices.</li>
+                            <li>Essential for applications like <b>digital keys</b>, <b>asset tracking</b>, and secure
+                                location-based access.</li>
+                            <li>Provides accuracy and security improvements over RSSI-based methods.</li>
+                        </ul>
+                    </div>
+
+                    <!-- DBAF -->
+                    <div class="bg-green-50 p-4 border border-slate-200 rounded shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-2">2. Decision-Based Advertising Filtering (DBAF)</h4>
+                        <ul class="list-disc pl-5 text-sm text-slate-700 space-y-2">
+                            <li>Improves efficiency for scanners dealing with <b>extended advertising</b>.</li>
+                            <li>Enables devices to filter advertisements based on predefined rules.</li>
+                            <li>Reduces power usage and avoids processing unnecessary packets.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Monitoring Advertisers -->
+                    <div class="bg-yellow-50 p-4 border border-slate-200 rounded shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-2">3. Monitoring Advertisers</h4>
+                        <ul class="list-disc pl-5 text-sm text-slate-700 space-y-2">
+                            <li>Addresses issues in <b>device discovery</b> and <b>connection establishment</b>.</li>
+                            <li>Useful in dynamic environments where devices frequently move in and out of range.</li>
+                            <li>Improves overall Bluetooth LE efficiency in multi-device environments.</li>
+                        </ul>
+                    </div>
+
+                    <!-- ISOAL Enhancement -->
+                    <div class="bg-blue-50 p-4 border border-slate-200 rounded shadow-sm">
+                        <h4 class="font-bold text-slate-800 mb-2">4. ISOAL Enhancement</h4>
+                        <ul class="list-disc pl-5 text-sm text-slate-700 space-y-2">
+                            <li>Improves handling of <b>time-sensitive data</b> (audio, control systems).</li>
+                            <li>New framing mode reduces latency dramatically.</li>
+                            <li>Better segmentation allows more efficient use of PDU space → fewer packets required.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Frame Space Update -->
+                    <div class="bg-slate-50 p-4 border border-slate-200 rounded shadow-sm md:col-span-2">
+                        <h4 class="font-bold text-slate-800 mb-2">5. Frame Space Update</h4>
+                        <ul class="list-disc pl-5 text-sm text-slate-700 space-y-2">
+                            <li>Earlier versions used a fixed <b>Inter-Frame Space (IFS) of 150 μs</b>.</li>
+                            <li>Bluetooth 6.0 introduces <b>negotiable IFS</b>.</li>
+                            <li><b>Shorter IFS → Higher throughput</b> in fast-processing devices.</li>
+                            <li><b>Longer IFS → Supports slower devices</b> for better compatibility.</li>
+                            <li><b>Better coexistence</b> with other wireless technologies due to flexible timing.</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- Bluetooth 6.1 Additions -->
+                <div class="bg-green-50 p-4 border-l-4 border-green-500 rounded mt-8">
+                    <h3 class="font-bold text-green-900 text-lg">Bluetooth 6.1 Enhancements</h3>
+
+                    <ul class="list-disc pl-5 text-sm text-green-800 mt-2 space-y-2">
+                        <li><b>Increased Device Privacy:</b> Stronger protections against tracking and unauthorized
+                            identification.</li>
+                        <li><b>Improved Power Efficiency:</b> Optimized scanning, advertising, and connection behavior
+                            for longer battery life.</li>
+                        <li><b>Link Layer (LL) Extended Features:</b> More robust control over timing, connection
+                            parameters, and scheduling.</li>
+                    </ul>
+                </div>
+            </section>
+
+
+            <!-- 4. WPAN: ZigBee -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-project-diagram"></i> 4. WPAN: ZigBee (IEEE 802.15.4)
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-3">
+
+                    <!-- Left Column -->
+                    <div>
+                        <h3 class="font-bold text-blue-800 mb-2">What is ZigBee?</h3>
+                        <ul class="text-sm text-slate-700 mb-3 list-disc pl-5 space-y-1">
+                            <li><b>ZigBee</b> is a low-power wireless technology designed for control and sensor
+                                networks.</li>
+                            <li>Uses a <b>mesh network</b> where data can hop through intermediate devices for longer
+                                range.</li>
+                            <li>Based on the <b>IEEE 802.15.4</b> standard (PHY + MAC).</li>
+                            <li>Created by the <b>ZigBee Alliance</b>.</li>
+                            <li>Alliance members include <b>Philips, Motorola, Intel, HP</b> and others.</li>
+                        </ul>
+                        <div class="bg-yellow-50 p-4 border border-yellow-200 rounded shadow-sm md:col-span-2">
+                            <h4 class="font-bold text-slate-800 mb-2">Key Characteristics</h4>
+                            <ul class="text-sm list-disc pl-5 space-y-1">
+                                <li>Very low power consumption (battery lasts months to years).</li>
+                                <li>Supports large networks (>65,000 nodes).</li>
+                                <li>Low cost & simple implementation.</li>
+                                <li>Low data rate (~250 Kbps).</li>
+                                <li>Reliable short-range communication.</li>
+                                <li>128-bit AES security.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Architecture + Image -->
+                    <div>
+                        <img src="images/zigbee_archi.png" alt="ZigBee Architecture"
+                            class="w-full md:w-4/5 mx-auto rounded border-black border mb-3">
+                        <div class="bg-blue-50 p-4 border border-blue-200 rounded shadow-sm md:col-span-2">
+                            <h4 class="font-bold text-slate-800 mb-2">ZigBee Architecture</h4>
+                            <ul class="text-sm list-disc pl-5 space-y-2 mb-3">
+                                <li>
+                                    <b>Network & Application Support Layer (NWK + APS):</b>
+                                    Handles routing, device discovery, security, and provides services needed by
+                                    applications.
+                                </li>
+                                <li>
+                                    <b>MAC (Medium Access Control) Layer:</b>
+                                    Manages channel access, beaconing, and reliable frame delivery between devices.
+                                </li>
+                                <li>
+                                    <b>PHY (Physical) Layer:</b>
+                                    Responsible for modulation, demodulation, frequency selection, and
+                                    transmitting/receiving radio signals.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-green-50 p-4 border border-green-200 rounded shadow-sm md:col-span-2 mb-6">
+                    <h4 class="font-bold text-slate-800 mb-2">Applications</h4>
+                    <ul class="text-sm list-disc pl-5 space-y-1">
+                        <li>Home automation (smart lighting, security, HVAC).</li>
+                        <li>Industrial control & monitoring.</li>
+                        <li>Commercial building automation.</li>
+                        <li>Government & utility monitoring systems.</li>
+                    </ul>
+                </div>
+            </section>
+
+
+            <section>
+                <h2 class="flex items-center gap-2 text-2xl font-bold text-blue-900 mb-4">
+                    <i class="fas fa-bolt"></i> 5. ZigBee Device Types & Topologies
+                </h2>
+                <!-- ZigBee Device Types & Topologies -->
+                <h4 class="font-bold text-slate-800 mb-2">ZigBee Device Types</h4>
+
+                <!-- Device Types -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 text-xs mb-6">
+
+                    <!-- Coordinator -->
+                    <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                        <b>ZigBee Coordinator (ZC)</b>
+                        <ul class="list-disc pl-4 mt-1 space-y-1">
+                            <li>Root of the ZigBee network tree.</li>
+                            <li>Responsible for network creation & management.</li>
+                            <li>Stores complete network information (routing tables, device list).</li>
+                            <li>Acts as bridge to other networks.</li>
+                            <li>Holds and distributes security keys.</li>
+                            <li><b>Only one coordinator per ZigBee network.</b></li>
+                        </ul>
+                    </div>
+
+                    <!-- FFD -->
+                    <div class="bg-yellow-50 p-3 rounded border border-yellow-200">
+                        <b>Full Function Device (FFD)</b>
+                        <ul class="list-disc pl-4 mt-1 space-y-1">
+                            <li>Can act as a router or a coordinator.</li>
+                            <li>Forwards/relays data for other devices.</li>
+                            <li>Supports all ZigBee topologies (Star, Tree, Mesh).</li>
+                            <li>Requires less memory than Coordinator.</li>
+                            <li>Lower manufacturing cost than ZC.</li>
+                            <li>Used for mains-powered or always-active devices.</li>
+                        </ul>
+                    </div>
+
+                    <!-- RFD -->
+                    <div class="bg-gray-100 p-3 rounded border border-gray-200">
+                        <b>Reduced Function Device (RFD)</b>
+                        <ul class="list-disc pl-4 mt-1 space-y-1">
+                            <li>Simple end devices (e.g., sensors, switches).</li>
+                            <li><b>Cannot act as router</b> — no data relaying.</li>
+                            <li>Very low memory and computation needs.</li>
+                            <li>Cheapest ZigBee device type.</li>
+                            <li>Typically battery-powered; supports sleep mode.</li>
+                            <li>Communicates only with its parent (usually FFD or ZC).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Network Topologies -->
+                <h4 class="font-bold text-slate-800 mb-2">ZigBee Network Topologies</h4>
+                <img src="images/zigbee_topology.png" alt="ZigBee Topologies Diagram"
+                    class="mx-auto mb-4 border border-slate-200 rounded">
+
+                <ul class="text-sm bg-green-50 p-3 rounded border border-green-200 list-disc pl-5 space-y-2">
+                    <li>
+                        <b>Star Topology:</b> All RFDs communicate only with the Coordinator (ZC). Simple, low power,
+                        used in home
+                        automation.
+                    </li>
+                    <li>
+                        <b>Peer-to-Peer (Tree) Topology:</b> FFDs form a hierarchical network. Devices can communicate
+                        through parent routers.
+                        Supports routing and multi-hop communication.
+                    </li>
+                    <li>
+                        <b>Mesh Topology:</b> Most robust. Multiple paths exist between nodes. Self-healing — if one
+                        node fails, data adapts
+                        and finds another route.
+                    </li>
+                </ul>
+            </section>
+
+
+            <section>
+                <h2 class="flex items-center gap-2 text-2xl font-bold text-blue-900 mb-4">
+                    <i class="fas fa-balance-scale"></i> 6. ZigBee vs Bluetooth
+                </h2>
+
+                <table class="w-full text-xs text-left border-collapse border border-slate-300">
+                    <thead class="bg-slate-200">
+                        <tr>
+                            <th class="border p-2">Feature</th>
+                            <th class="border p-2 w-1/3">Bluetooth (Classic / BLE)</th>
+                            <th class="border p-2 w-1/3">ZigBee</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td class="border p-2 font-bold">Power Profile</td>
+                            <td class="border p-2">Days – Months</td>
+                            <td class="border p-2">Years (Very low power)</td>
+                        </tr>
+
+                        <tr>
+                            <td class="border p-2 font-bold">Complexity</td>
+                            <td class="border p-2">Higher (More protocols)</td>
+                            <td class="border p-2">Simple (Designed for sensors)</td>
+                        </tr>
+
+                        <tr>
+                            <td class="border p-2 font-bold">Nodes per Network</td>
+                            <td class="border p-2">7 Active (Classic)</td>
+                            <td class="border p-2">&gt; 65,000 Nodes</td>
+                        </tr>
+
+                        <tr>
+                            <td class="border p-2 font-bold">Latency</td>
+                            <td class="border p-2">~10 seconds (pairing & discovery)</td>
+                            <td class="border p-2">30 ms – 1 s</td>
+                        </tr>
+
+                        <tr>
+                            <td class="border p-2 font-bold">Range</td>
+                            <td class="border p-2">~10 m (typical)</td>
+                            <td class="border p-2">70–300 m (depending on power)</td>
+                        </tr>
+
+                        <tr>
+                            <td class="border p-2 font-bold">Extendibility</td>
+                            <td class="border p-2">No (limited network size)</td>
+                            <td class="border p-2">Yes (Mesh routing)</td>
+                        </tr>
+
+                        <tr>
+                            <td class="border p-2 font-bold">Data Rate</td>
+                            <td class="border p-2">1–3 Mbps</td>
+                            <td class="border p-2">250 Kbps</td>
+                        </tr>
+
+                        <tr>
+                            <td class="border p-2 font-bold">Security</td>
+                            <td class="border p-2">64-bit / 128-bit Encryption</td>
+                            <td class="border p-2">128-bit AES + App Layer Security</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2 class="flex items-center gap-2 text-2xl font-bold text-blue-900 mb-4">
+                    <i class="fas fa-balance-scale"></i> 6. Bluetooth vs Wi-Fi vs ZigBee
+                </h2>
+
+                <table class="w-full text-xs text-left border-collapse border border-slate-300">
+                    <thead class="bg-slate-200">
+                        <tr>
+                            <th class="border p-2 font-bold">Parameter</th>
+                            <th class="border p-2 w-1/4 font-bold">Bluetooth® Low Energy (BLE)</th>
+                            <th class="border p-2 w-1/4 font-bold">Wi-Fi®</th>
+                            <th class="border p-2 w-1/4 font-bold">Zigbee®</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td class="border p-2 font-bold">Data Rate</td>
+                            <td class="border p-2">1 – 3 Mbps</td>
+                            <td class="border p-2">300 Mbps</td>
+                            <td class="border p-2">20kb/s, 40 kb/s, 250kb/s</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Frequency Band</td>
+                            <td class="border p-2">2.4 GHz</td>
+                            <td class="border p-2">2.4 GHz and 5 GHz</td>
+                            <td class="border p-2">868/915 MHz, 2.4 GHz</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Range</td>
+                            <td class="border p-2">10m</td>
+                            <td class="border p-2">190 m</td>
+                            <td class="border p-2">100m</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Security</td>
+                            <td class="border p-2">E0 Stream cipher</td>
+                            <td class="border p-2">WEP, WPA authentication, 128-bit Advanced Encryption Standard (AES),
+                                VPN, Firewall</td>
+                            <td class="border p-2">128-bit AES</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Risk of Data Collision</td>
+                            <td class="border p-2">High</td>
+                            <td class="border p-2"></td>
+                            <td class="border p-2">Medium</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Maximum Number of Nodes</td>
+                            <td class="border p-2">8</td>
+                            <td class="border p-2">2,007</td>
+                            <td class="border p-2">&gt;65,000</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Power Efficiency</td>
+                            <td class="border p-2">Acceptable to Good</td>
+                            <td class="border p-2">Varies</td>
+                            <td class="border p-2">Excellent</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Of Note</td>
+                            <td class="border p-2">Once paired, connecting is automatic.</td>
+                            <td class="border p-2">Connecting is automatic once it is set up.</td>
+                            <td class="border p-2">Mesh capability creates greater signal reliability</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Applications</td>
+                            <td class="border p-2">To replace wiring in handheld devices.</td>
+                            <td class="border p-2">The main connectivity resource for home, work, retail, and more.</td>
+                            <td class="border p-2">Power-sipping applications; remote sensor and wireless controls</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Benefits</td>
+                            <td class="border p-2">Convenience, Cost, connect to Android, Blackberry, iOS, Tizen, and
+                                Windows.</td>
+                            <td class="border p-2">Most widely used wireless connectivity solution. Connect to iOS and
+                                Android.</td>
+                            <td class="border p-2">Reliable, Low Power, Cost effective, “Assemble and Forget”</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Draw-backs:</td>
+                            <td class="border p-2">Short range</td>
+                            <td class="border p-2">Not always reliable. Higher power consumption</td>
+                            <td class="border p-2">Not mainstream for connection to smartphones, etc.</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">IEEE</td>
+                            <td class="border p-2">IEEE 802.15.1</td>
+                            <td class="border p-2">IEEE 802.11n</td>
+                            <td class="border p-2">IEEE 802.15.4</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Markets</td>
+                            <td class="border p-2">Mainly for portables. Widely adopted in consumer markets, retail</td>
+                            <td class="border p-2">Ubiquitous; Widely adopted in nearly every market. Replaces cables in
+                                work areas or homes.</td>
+                            <td class="border p-2">Better known in Industrial markets, smart homes, smart lighting.</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Attractiveness as a hacking target:</td>
+                            <td class="border p-2">Low to medium</td>
+                            <td class="border p-2">High</td>
+                            <td class="border p-2">Low</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Find ready-to-connect modules at:</td>
+                            <td class="border p-2">mouser.com, adafruit.com, sparkfun.com</td>
+                            <td class="border p-2">mouser.com, adafruit.com, sparkfun.com</td>
+                            <td class="border p-2">mouser.com, adafruit.com, sparkfun.com</td>
+                        </tr>
+                        <tr>
+                            <td class="border p-2 font-bold">Learn more at:</td>
+                            <td class="border p-2">[www.bluetooth.com](https://www.bluetooth.com)</td>
+                            <td class="border p-2">www.wi-fi.org</td>
+                            <td class="border p-2">[www.zigbee.com](https://www.zigbee.com)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 pt-6 border-t border-slate-300 text-center text-xs text-slate-500">
+            Generated Comprehensive Guide • IN 3510 Mobile & Wireless Networks • Lecture 9
+        </div>
+    </div>
+
+</body>
+
+</html>
