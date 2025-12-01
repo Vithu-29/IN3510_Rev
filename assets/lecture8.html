@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile & Wireless Networks - Lecture 8 Study Guide</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Document Sizing - Fixed Width, Fluid Height */
+        .doc-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 10mm;
+        }
+
+        /* Diagram Containers */
+        .svg-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        /* Make SVGs responsive */
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media print {
+            @page {
+                size: A3;
+                margin: 10mm;
+            }
+
+            body {
+                background-color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .doc-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+
+            /* Avoid breaking sections inside elements */
+            li,
+            tr,
+            .svg-container {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-8 text-slate-800 font-sans print:p-0 print:bg-white">
+
+    <!-- Control Bar (Hidden when printing) -->
+    <div class="max-w-[210mm] mx-auto mb-6 flex justify-end no-print">
+        <button onclick="window.print()"
+            class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors cursor-pointer">
+            <i class="fas fa-print"></i>
+            <span>Print / Save as PDF</span>
+        </button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="doc-container shadow-2xl">
+
+        <!-- Header -->
+        <header class="border-b-4 border-blue-600 pb-4 mb-8">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 uppercase tracking-tight">4G Networks & WSN</h1>
+                    <p class="text-blue-600 font-semibold text-lg">IN 3510 | Lecture 8 Comprehensive Notes</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT STARTS -->
+        <div class="space-y-8">
+
+            <!-- 1. 4G / LTE Introduction -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-signal"></i> 1. 4G & LTE Overview
+                </h2>
+
+                <!-- 4G Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">What is 4G?</h3>
+                        <p class="text-sm text-slate-700 mb-3">
+                            4G (Fourth Generation) provides true mobile broadband with
+                            high-speed IP-based services anywhere, anytime. Defined by WWRF,
+                            it delivers:
+                        </p>
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200 text-sm">
+                            <span class="block font-bold text-blue-900 mb-1">Key Specifications:</span>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li><b>Speed While Moving:</b> ~100 Mbps</li>
+                                <li><b>Speed While Stationary:</b> ~1 Gbps</li>
+                                <li><b>Network Type:</b> Fully Packet-Switched (All-IP)</li>
+                                <li><b>Access:</b> Seamless Wi-Fi + Cellular integration</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- MAGIC -->
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">The MAGIC Concept</h3>
+                        <p class="text-xs text-slate-500 mb-2">4G capabilities are described by the acronym MAGIC:</p>
+                        <ul class="text-sm space-y-1 bg-gray-50 p-3 rounded border">
+                            <li><b>M</b>obile Multimedia</li>
+                            <li><b>A</b>nytime Anywhere</li>
+                            <li><b>G</b>lobal Mobility Support</li>
+                            <li><b>I</b>ntegrated Wireless Solutions</li>
+                            <li><b>C</b>ustomized Personal Services</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Features of 4G -->
+                <div class="mt-6 bg-green-50 p-4 rounded border border-green-200">
+                    <h3 class="font-bold text-green-900 text-sm mb-2">Features of 4G Technology</h3>
+                    <ul class="list-disc pl-5 text-sm space-y-1">
+                        <li>Very high data rates (100 Mbps – 1 Gbps)</li>
+                        <li>High Quality of Service (QoS) and reliability</li>
+                        <li>Enhanced security mechanisms</li>
+                        <li>Low latency for real-time applications</li>
+                        <li>Supports HD video streaming, gaming, video calls</li>
+                        <li>Mobile broadband everywhere (Anytime, Anywhere)</li>
+                    </ul>
+                </div>
+
+                <!-- LTE -->
+                <div class="mt-6 p-4 bg-yellow-50 rounded border border-yellow-200">
+                    <h4 class="font-bold text-yellow-900 text-sm">LTE (Long Term Evolution)</h4>
+                    <p class="text-xs mt-1">
+                        LTE is an advanced 4G mobile broadband standard. Based on UMTS but
+                        redesigned for <b>All-IP</b> performance. It offers higher data rates,
+                        low latency, and simplified architecture for faster deployment.
+                    </p>
+                </div>
+
+                <!-- LTE Advantages -->
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-purple-50 p-4 rounded border border-purple-200">
+                        <h3 class="font-bold text-purple-900 text-sm mb-2">Advantages of LTE for Network Operators</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>High network throughput</li>
+                            <li>Low latency → faster response</li>
+                            <li>Simplified all-IP architecture</li>
+                            <li>Lower operational costs</li>
+                            <li>Easy upgrade path from 3G</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded border border-indigo-200">
+                        <h3 class="font-bold text-indigo-900 text-sm mb-2">Advantages for End Users</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>Faster downloads & uploads</li>
+                            <li>Better video streaming & gaming</li>
+                            <li>Improved app responsiveness</li>
+                            <li>Better voice/video call quality (VoLTE)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- LTE Radio Technologies -->
+                <div class="mt-6 bg-blue-50 p-4 rounded border border-blue-200">
+                    <h3 class="font-bold text-blue-900 text-sm mb-2">Major LTE Radio Technologies</h3>
+                    <ul class="list-disc pl-5 text-sm space-y-1">
+                        <li><b>OFDM</b> for Downlink – better spectral efficiency</li>
+                        <li><b>SC-FDMA</b> for Uplink – reduces handset power consumption</li>
+                        <li><b>MIMO</b> – increases capacity and throughput</li>
+                        <li>Improved battery life due to efficient RF usage</li>
+                    </ul>
+                </div>
+
+                <!-- Drawbacks -->
+                <div class="mt-6 bg-red-50 p-4 rounded border border-red-200">
+                    <h3 class="font-bold text-red-900 text-sm mb-2">Drawbacks of 4G</h3>
+                    <ul class="list-disc pl-5 text-sm space-y-1">
+                        <li>Higher battery consumption compared to 3G</ li>
+                        <li>Requires complex and expensive hardware</li>
+                        <li>Challenging deployment & infrastructure cost</li>
+                        <li>Not fully compatible with older devices</li>
+                    </ul>
+                </div>
+
+                <!-- Comparison 3G vs 4G -->
+                <div class="mt-6 bg-gray-50 p-4 rounded border border-gray-300">
+                    <h3 class="font-bold text-gray-900 text-sm mb-3">Comparison: 3G vs 4G</h3>
+                    <table class="w-full text-xs">
+                        <tr class="border-b">
+                            <th class="p-2 text-left">Parameter</th>
+                            <th class="p-2 text-left">3G</th>
+                            <th class="p-2 text-left">4G</th>
+                        </tr>
+                        <tr>
+                            <td class="p-2">Data Rate</td>
+                            <td class="p-2">0.5–3 Mbps</td>
+                            <td class="p-2">2–100+ Mbps (up to 1 Gbps peak)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2">Bandwidth</td>
+                            <td class="p-2">5–20 MHz</td>
+                            <td class="p-2">Up to 100 MHz</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2">Frequency Band</td>
+                            <td class="p-2">1.6–2 GHz</td>
+                            <td class="p-2">2–8 GHz</td>
+                        </tr>
+                        <tr>
+                            <td class="p-2">Tech</td>
+                            <td class="p-2">UMTS / W-CDMA</td>
+                            <td class="p-2">LTE / OFDM / MIMO</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Applications -->
+                <div class="mt-6 bg-teal-50 p-4 rounded border border-teal-200">
+                    <h3 class="font-bold text-teal-900 text-sm mb-2">Applications of 4G</h3>
+                    <ul class="list-disc pl-5 text-sm space-y-1">
+                        <li>HD video streaming (YouTube, Netflix)</li>
+                        <li>Real-time gaming & cloud gaming</li>
+                        <li>High-speed mobile internet access</li>
+                        <li>VoLTE (High-quality voice & video calls)</li>
+                        <li>IoT and smart home connectivity</li>
+                        <li>Video conferencing (Zoom, Teams)</li>
+                        <li>Augmented reality applications</li>
+                    </ul>
+                </div>
+
+            </section>
+
+
+            <!-- 2. LTE Architecture -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-network-wired"></i> 2. LTE Network Architecture
+                </h2>
+
+                <p class="text-sm text-slate-700 mb-3">
+                    LTE uses a <b>flat, simplified, all-IP architecture</b>. Unlike 3G, LTE removes the RNC;
+                    its functions are moved into the <b>eNodeB</b>, reducing latency and increasing efficiency.
+                    LTE is divided into:
+                    <b>E-UTRAN (radio)</b> and <b>EPC (core network)</b>.
+                </p>
+
+                <img src="images/LTE-network-architecture.png" alt="LTE Architecture Diagram"
+                    class="w-full max-w-xl mx-auto mb-6 rounded border border-slate-200 shadow">
+
+                <!-- Main Components -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+
+                    <!-- eNodeB -->
+                    <div class="bg-blue-50 p-4 rounded border border-blue-200">
+                        <span class="block font-bold text-blue-900 mb-1">eNodeB (Evolved NodeB)</span>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>Handles all <b>radio functions</b> (RRC, scheduling, handover decisions).</li>
+                            <li>Performs <b>inter-cell mobility</b> and admission control.</li>
+                            <li>No RNC — provides a <b>flat architecture</b> with lower latency.</li>
+                            <li>Manages uplink SC-FDMA and downlink OFDM signals.</li>
+                        </ul>
+                    </div>
+
+                    <!-- MME -->
+                    <div class="bg-yellow-50 p-4 rounded border border-yellow-200">
+                        <span class="block font-bold text-yellow-900 mb-1">MME (Mobility Management Entity)</span>
+                        <p class="font-medium mb-1 text-xs">Control Plane Only</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><b>NAS signaling</b> between UE ↔ Core Network.</li>
+                            <li><b>NAS layer functions:</b> manages session establishment & maintains UE communication
+                                continuity.</li>
+                            <li><b>NAS security</b> – integrity protection & encryption of NAS messages.</li>
+                            <li><b>Gateway selection</b> – selects appropriate SGW & PGW for UE data sessions.</li>
+                            <li><b>MME selection</b> during inter-MME handovers.</li>
+                            <li><b>SGSN selection</b> for 2G/3G inter-RAT handovers.</li>
+                            <li><b>Roaming management</b> for visiting subscribers.</li>
+                            <li><b>Authentication</b> of the user.</li>
+                            <li><b>Authorization</b> for services & access.</li>
+                            <li><b>Warning message transfer</b> (ETWS/CMAS), including choosing correct eNodeB.</li>
+                        </ul>
+                    </div>
+
+                    <!-- SGW -->
+                    <div class="bg-green-50 p-4 rounded border border-green-200">
+                        <span class="block font-bold text-green-900 mb-1">S-GW (Serving Gateway)</span>
+                        <p class="font-medium mb-1 text-xs">User Plane</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><b>Local mobility anchor</b> for inter-eNodeB handovers.</li>
+                            <li><b>Mobility anchoring</b> for inter-3GPP mobility (e.g., LTE ↔ UMTS/GSM).</li>
+                            <li><b>Packet routing & forwarding</b> between eNodeB and PDN-GW.</li>
+                            <li><b>Transport-level packet marking</b> (uplink & downlink).</li>
+                            <li><b>Accounting</b> for inter-operator charging based on usage.</li>
+                        </ul>
+                    </div>
+
+                    <!-- PGW -->
+                    <div class="bg-purple-50 p-4 rounded border border-purple-200">
+                        <span class="block font-bold text-purple-900 mb-1">P-GW (PDN Gateway)</span>
+                        <p class="font-medium mb-1 text-xs">User Plane</p>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li><b>Main connection point</b> to external networks (Internet, IMS, corporate PDNs).</li>
+                            <li><b>UE IP address allocation</b> for each data session.</li>
+                            <li><b>Lawful interception</b> support for regulatory needs.</li>
+                            <li><b>DHCPv4 & DHCPv6</b> (server and client functions).</li>
+                            <li><b>Transport-level packet marking</b> in UL & DL.</li>
+                            <li><b>UL/DL service-level rate enforcement</b> (QoS enforcement).</li>
+                            <li><b>Packet screening</b> / filtering (firewall, deep packet inspection).</li>
+                            <li><b>Mobility anchor</b> for non-3GPP access (Wi-Fi, WiMAX).</li>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+                <!-- Summary Diagram / Mapping -->
+                <div class="mt-6 bg-slate-100 p-4 rounded border">
+                    <h3 class="font-bold text-slate-800 mb-2 text-sm">LTE Architecture Summary</h3>
+                    <ul class="list-disc pl-5 text-sm space-y-1">
+                        <li><b>E-UTRAN:</b> UE ↔ eNodeB (radio layer).</li>
+                        <li><b>EPC:</b> MME (control), S-GW (user), P-GW (user).</li>
+                        <li>Flat all-IP architecture → <b>lower latency & higher throughput</b>.</li>
+                        <li>RNC is removed → simplified design.</li>
+                        <li>Supports seamless mobility (intra-LTE & inter-RAT).</li>
+                    </ul>
+                </div>
+            </section>
+
+
+            <section class="space-y-6">
+
+                <h2 class="flex items-center gap-2 text-2xl font-bold text-blue-800 border-b border-slate-200 pb-2">
+                    <i class="fas fa-satellite"></i> 3. Sensor Networks
+                </h2>
+
+                <!-- Sensor Definition -->
+                <div class="bg-blue-50 p-4 rounded border border-blue-200">
+                    <h3 class="font-bold text-blue-900 mb-2">Sensor</h3>
+                    <ul class="list-disc pl-5 text-sm space-y-1">
+                        <li>A sensor produces an output (signal) according to a physical input quantity.</li>
+                        <li>Acts as an input device providing data to a main control system.</li>
+                    </ul>
+                </div>
+
+                <!-- Sensor Network (Image + Text Side by Side) -->
+                <div class="bg-green-50 p-4 rounded border border-green-200">
+                    <div class="flex flex-col md:flex-row md:items-start md:gap-6">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-green-900 mb-2">Sensor Network</h3>
+                            <ul class="list-disc text-sm pl-5 space-y-1">
+                                <li>Large networks of simple sensors.</li>
+                                <li>Usually deployed randomly.</li>
+                                <li>Highly prone to failures.</li>
+                                <li>Communicate using broadcast paradigms.</li>
+                                <li>Collect and send information to a base station.</li>
+                                <li>Focus on <b>power conservation</b> over QoS.</li>
+                            </ul>
+                            <p class="mt-2 text-sm">Wireless sensor networks perform large-scale physical measurements
+                                using many sensors that send data wirelessly to a base station.</p>
+                        </div>
+                        <img src="images/sensor_network.png" alt="Sensor Network Diagram"
+                            class="w-full md:w-1/2 rounded border border-slate-200 shadow mt-4 md:mt-0">
+                    </div>
+                </div>
+
+                <!-- Types of Sensor Networks -->
+                <div class="bg-amber-50 p-4 rounded border border-amber-200">
+                    <h3 class="font-bold text-amber-900 mb-2">Types of Sensor Networks</h3>
+                    <ul class="list-disc text-sm pl-5 space-y-1">
+                        <li><b>Static:</b> Sensors remain in place after deployment.</li>
+                        <li><b>Dynamic:</b> Sensors can move on their own or via an external force.</li>
+                    </ul>
+                </div>
+
+                <!-- Sensor Node Components -->
+                <div class="bg-purple-50 p-4 rounded border border-purple-200">
+                    <div class="flex flex-col md:flex-row md:items-start md:gap-6">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-purple-900 mb-2">Sensor Node Components</h3>
+                            <ul class="list-disc text-sm pl-5 space-y-1">
+                                <li>Sensing unit</li>
+                                <li>Processing unit</li>
+                                <li>Storage</li>
+                                <li>Transceiver</li>
+                                <li>Power unit</li>
+                                <li>Optional: Localization, Mobility, Energy Scavenging</li>
+                            </ul>
+                        </div>
+                        <img src="images/sensor_node.png" alt="Sensor Node Diagram"
+                            class="w-full md:w-1/2 rounded border border-slate-200 shadow mt-4 md:mt-0">
+                    </div>
+                </div>
+
+                <!-- Localization -->
+                <div class="bg-indigo-50 p-4 rounded border border-indigo-200 text-sm">
+                    <h3 class="font-bold text-indigo-900 mb-1">Localization in WSN</h3>
+                    <p>Localization determines the geographical location of sensor nodes within a wireless sensor
+                        network.</p>
+                </div>
+
+                <!-- Sensor Characteristics -->
+                <div class="bg-pink-50 p-4 rounded border border-pink-200">
+                    <h3 class="font-bold text-pink-900 mb-2">Sensor Characteristics</h3>
+                    <ul class="list-disc text-sm pl-5 space-y-1">
+                        <li>Low power consumption</li>
+                        <li>Autonomous operation</li>
+                        <li>High volumetric deployment</li>
+                        <li>Environment adaptive (e.g., vehicle collision avoidance)</li>
+                        <li>Low cost</li>
+                    </ul>
+                </div>
+
+                <!-- Transceiver Unit -->
+                <div class="bg-yellow-50 p-4 rounded border border-yellow-200">
+                    <h3 class="font-bold text-yellow-900 mb-2">Transceiver Unit</h3>
+                    <ul class="list-disc text-sm pl-5 space-y-1">
+                        <li><b>Radio Frequency (RF):</b> Larger, more expensive, may cause interference, supports
+                            omni-directional or directional antennas.</li>
+                        <li><b>Optical (Smart Dust):</b> Requires line-of-sight, no interference, extremely small.</li>
+                    </ul>
+                </div>
+
+                <!-- Motes -->
+                <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                    <div class="flex flex-col md:flex-row md:items-start md:gap-6">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-gray-900 mb-2">What Are Motes?</h3>
+                            <p class="mb-2">Motes are the building blocks of Wireless Sensor Networks.</p>
+                            <ul class="list-disc text-sm pl-5 space-y-1">
+                                <li>Mini low-power computer</li>
+                                <li>Connected to one or more sensors (temperature, sound, vibration, pressure, etc.)
+                                </li>
+                                <li>Communicates using a radio link</li>
+                            </ul>
+                        </div>
+                        <img src="images/mote.png" alt="Sensor Mote Diagram"
+                            class="w-full md:w-1/2 rounded border border-slate-200 shadow mt-4 md:mt-0">
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- 4. Wireless Sensor Networks (WSN) -->
+            <section class="bg-white p-4 rounded-md">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-wifi"></i> 4. Wireless Sensor Networks (WSN)
+                </h2>
+
+                <!-- Definition -->
+                <div class="bg-blue-50 p-3 rounded border border-blue-100 mb-4">
+                    <div class="flex flex-col md:flex-row md:items-start md:gap-6">
+                        <p class="text-sm text-slate-700 ">
+                            <strong>Wireless Sensor Network —</strong>
+                            “A wireless network consisting of spatially distributed autonomous devices using sensors to
+                            cooperatively monitor
+                            physical or environmental conditions (temperature, sound, vibration, pressure, motion,
+                            pollutants, etc.) at different locations.”
+                        </p>
+                        <img src="images/wsn.png" alt="Wireless Sensor Network Diagram"
+                            class="w-full md:w-1/2 rounded border border-slate-200 shadow mt-4 md:mt-0">
+                    </div>
+                </div>
+
+                <!-- Overview + Formation & Research Focus -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="space-y-3">
+                        <div class="bg-green-50 p-3 rounded border border-green-100">
+                            <h4 class="font-semibold text-green-900 text-sm">Overview</h4>
+                            <ul class="list-disc pl-5 text-xs mt-1 text-green-800 space-y-1">
+                                <li>Formed by hundreds or thousands of <strong>motes</strong> that communicate and
+                                    forward data hop-by-hop.</li>
+                                <li>Designed for low-power, autonomous operation and high-volume deployment.</li>
+                                <li>Research focus: <strong>energy-aware</strong> computing and distributed algorithms.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-indigo-50 p-3 rounded border border-indigo-100">
+                            <h4 class="font-semibold text-indigo-900 text-sm">Key Characteristics</h4>
+                            <ul class="list-disc pl-5 text-xs mt-1 text-indigo-800 space-y-1">
+                                <li>Low power consumption (sleep/wake cycles).</li>
+                                <li>Prone to failures — nodes must self-organize and recover.</li>
+                                <li>Broadcast communication paradigm; data collected to a base station.</li>
+                                <li>Prioritize power conservation over strict QoS.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="bg-gray-50 p-3 rounded border border-gray-100">
+                            <h4 class="font-semibold text-gray-900 text-sm">TinyOS (WSN OS)</h4>
+                            <p class="text-xs mt-1 text-gray-800">
+                                TinyOS is an open-source, component-based OS for wireless embedded sensor networks
+                                (developed at UC Berkeley with Intel Research).
+                                It emphasizes low complexity and power conservation, is written in
+                                <strong>nesC</strong>, and is tailored for motes and Tiny hardware.
+                            </p>
+                            <p class="text-xs mt-2 text-gray-600"><strong>Note:</strong> historically referenced stable
+                                version: TinyOS 2.1.2 (Aug 2012).</p>
+                        </div>
+
+                        <div class="bg-amber-50 p-3 rounded border border-amber-100">
+                            <h4 class="font-semibold text-amber-900 text-sm">Typical Targets / Motes</h4>
+                            <ul class="list-disc pl-5 text-xs mt-1 text-amber-800 space-y-1">
+                                <li>mica, mica2, mica2dot, micaz</li>
+                                <li>telosb, pc-rene2, micaz, Mica2 (popular mote)</li>
+                                <li><em>Mica2</em>: 8-bit AVR controller, FSK radio, data-logger flash — widely used in
+                                    early deployments.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applications -->
+                <div class="border-t pt-4 mb-4">
+                    <h4 class="font-bold text-sm mb-2">WSN Applications</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                        <div class="bg-white border p-2 rounded text-center">Environmental / Habitat Monitoring</div>
+                        <div class="bg-white border p-2 rounded text-center">Acoustic Detection</div>
+                        <div class="bg-white border p-2 rounded text-center">Seismic Detection</div>
+                        <div class="bg-white border p-2 rounded text-center">Military Surveillance</div>
+                        <div class="bg-white border p-2 rounded text-center">Inventory Tracking</div>
+                        <div class="bg-white border p-2 rounded text-center">Medical Monitoring</div>
+                        <div class="bg-white border p-2 rounded text-center">Smart Spaces</div>
+                        <div class="bg-white border p-2 rounded text-center">Process Monitoring</div>
+                    </div>
+                </div>
+
+                <!-- Example Projects (image + description side-by-side) -->
+                <div class="grid grid-cols-1 gap-4">
+                    <!-- Great Duck Island -->
+                    <article
+                        class="flex flex-col md:flex-row items-start gap-4 p-3 rounded border border-slate-100 bg-green-50">
+                        <div class="text-xs">
+                            <h5 class="font-semibold text-slate-900">Habitat Monitoring — Great Duck Island</h5>
+                            <p class="mt-1 text-slate-700">
+                                Intel Research Lab (Berkeley) collaborated with College of the Atlantic to deploy WSN on
+                                Great Duck Island (Maine, 2002).
+                                Purpose: monitor microclimates around nesting burrows (Leach's Storm Petrel). Goal:
+                                provide a habitat-monitoring kit for researchers.
+                            </p>
+                            <p class="mt-1 text-slate-500"><small>Project URL historically:
+                                    <code>greatduckisland.net</code></small></p>
+                        </div>
+                    </article>
+
+                    <!-- FireBug -->
+                    <article
+                        class="flex flex-col md:flex-row items-start gap-4 p-3 rounded border border-slate-100 bg-green-50">
+                        <div class="text-xs">
+                            <h5 class="font-semibold text-slate-900">FireBug — Wildfire Instrumentation</h5>
+                            <p class="mt-1 text-slate-700">
+                                FireBug is a GPS-enabled wireless thermal sensor network (TinyOS-based) for wildfire
+                                monitoring. Motes self-organize to collect real-time data
+                                used for predictive analysis of fire behavior. Architecture includes sensor layer,
+                                processing, and a command center (UC Berkeley project).
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- BP / Intel Experiment -->
+                    <article
+                        class="flex flex-col md:flex-row items-start gap-4 p-3 rounded border border-slate-100 bg-green-50">
+                        <div class="text-xs">
+                            <h5 class="font-semibold text-slate-900">BP Experiment — Preventive Maintenance (North Sea)
+                            </h5>
+                            <p class="mt-1 text-slate-700">
+                                Collaboration between Intel &amp; BP: sensor networks deployed on an oil tanker to
+                                support preventive maintenance.
+                                The system collected data reliably and recovered from errors — recognized among top IT
+                                projects (2004).
+                            </p>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Tiny summary + quick facts -->
+                <div class="mt-4 p-3 rounded border border-slate-100 bg-slate-50 text-xs">
+                    <h4 class="font-semibold text-sm mb-1">Quick facts</h4>
+                    <ul class="list-disc pl-5 space-y-1 text-slate-700">
+                        <li>WSNs are built from motes (sensor + processing + transceiver + power) cooperating to monitor
+                            environments.</li>
+                        <li>Primary challenges: energy management, fault tolerance, localization, and efficient data
+                            aggregation.</li>
+                        <li>Representative hardware: Mica2, Micaz, TelosB; common OS: TinyOS (nesC).</li>
+                    </ul>
+                </div>
+            </section>
+
+
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 pt-6 border-t border-slate-300 text-center text-xs text-slate-500">
+            Generated Comprehensive Guide • IN 3510 Mobile & Wireless Networks • Lecture 8
+        </div>
+    </div>
+
+</body>
+
+</html>
