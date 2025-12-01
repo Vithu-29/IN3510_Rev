@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile & Wireless Networks - Lecture 7 Study Guide</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Document Sizing - Fixed Width, Fluid Height */
+        .doc-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 10mm;
+        }
+
+        /* Diagram Containers */
+        .svg-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        /* Make SVGs responsive */
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media print {
+            @page {
+                size: A3;
+                margin: 10mm;
+            }
+
+            body {
+                background-color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .doc-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+
+            /* Avoid breaking sections inside elements */
+            section,
+            li,
+            tr,
+            .svg-container {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-8 text-slate-800 font-sans print:p-0 print:bg-white">
+
+    <!-- Control Bar (Hidden when printing) -->
+    <div class="max-w-[210mm] mx-auto mb-6 flex justify-end no-print">
+        <button onclick="window.print()"
+            class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors cursor-pointer">
+            <i class="fas fa-print"></i>
+            <span>Print / Save as PDF</span>
+        </button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="doc-container shadow-2xl">
+
+        <!-- Header -->
+        <header class="border-b-4 border-blue-600 pb-4 mb-8">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 uppercase tracking-tight">Frequency Reuse & 3G</h1>
+                    <p class="text-blue-600 font-semibold text-lg">IN 3510 | Lecture 7 Comprehensive Notes</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT STARTS -->
+        <div class="space-y-8">
+
+            <!-- 1. Frequency Reuse Concept -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-recycle"></i> 1. Frequency Reuse
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- LEFT SIDE -->
+                    <div>
+                        <p class="text-sm text-slate-700 mb-3">
+                            <b>Definition:</b> Frequency reuse is the practice of assigning the same frequency bands to
+                            multiple
+                            cells in a cellular network, as long as the cells are placed far enough apart to avoid
+                            harmful
+                            interference.
+                        </p>
+
+                        <div class="bg-blue-50 p-4 rounded border border-blue-200 mb-4">
+                            <h4 class="font-bold text-blue-900 mb-2">Key Concepts</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li><b>Channel Groups:</b> Each cell is assigned a group of radio channels.</li>
+                                <li><b>No Adjacent Reuse:</b> Neighboring cells must use different channel groups to
+                                    prevent interference.</li>
+                                <li><b>Footprint:</b> The coverage area of each cell, defined by a boundary where
+                                    signals remain reliable.</li>
+                                <li><b>Reuse in Distant Cells:</b> The same channels can be reused in cells that are
+                                    sufficiently far apart.</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 p-4 rounded border border-blue-200">
+                            <h4 class="font-bold text-blue-900 mb-2">Why Frequency Reuse?</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li><b>Increases Capacity:</b> Enables more users to be served without needing new
+                                    spectrum.</li>
+                                <li><b>Efficient Spectrum Use:</b> Makes better use of limited radio frequency
+                                    resources.</li>
+                                <li><b>Lower Cost:</b> Minimizes need for additional spectrum licenses.</li>
+                                <li><b>Essential for Large-Scale Networks:</b> Supports nationwide coverage efficiently.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT SIDE -->
+                    <div>
+                        <img src="images/freq-reuse.webp" alt="Frequency Reuse Diagram"
+                            class="w-full h-auto rounded border border-slate-300 shadow-sm">
+
+                        <p class="text-center text-xs text-slate-500 italic mt-2">
+                            Example: 7-cell reuse pattern. Cells marked with the same letter reuse the same frequency
+                            set.
+                        </p>
+
+                        <div class="bg-blue-50 p-4 rounded border border-blue-200 mt-4">
+                            <h4 class="font-bold text-blue-900 mb-2">Frequency Reuse in 5G</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                <li>5G uses very high frequencies such as millimeter wave (mmWave).</li>
+                                <li>These bands have short range and higher susceptibility to interference.</li>
+                                <li>Frequent and tighter reuse is needed to maintain coverage and capacity.</li>
+                                <li>Small cells make reuse more effective in dense areas.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- 2. Cluster Size & Geometry -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-shapes"></i> 2. Cluster Geometry
+                </h2>
+
+                <div class="bg-slate-50 p-4 rounded border-l-4 border-slate-400 mb-4">
+                    <h3 class="font-bold text-slate-900">Cluster Size Formula (N)</h3>
+                    <p class="text-sm my-2">
+                        For hexagonal cells, cluster size N is determined by non-negative integers i and j:
+                    </p>
+                    <div class="text-center font-mono text-lg bg-white p-2 rounded shadow-sm">
+                        N = i<sup>2</sup> + ij + j<sup>2</sup>
+                    </div>
+                    <p class="text-xs mt-2 text-slate-700">Possible values: <b>1, 3, 4, 7, 9, 12, 13, 19, 21...</b></p>
+                    <p class="text-xs mt-2 text-slate-700">N = Cells per cluster</p>
+                    <p class="text-xs mt-2 text-slate-700">1 / N = Frequency reuse factor</p>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border-collapse border border-slate-200 text-center">
+                        <thead class="bg-slate-100">
+                            <tr>
+                                <th class="border p-2">i</th>
+                                <th class="border p-2">j</th>
+                                <th class="border p-2">Cluster Size (N)</th>
+                                <th class="border p-2">Reuse Ratio (D/R)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border p-2">1</td>
+                                <td class="border p-2">1</td>
+                                <td class="border p-2 font-bold">3</td>
+                                <td class="border p-2">√(3 * 3) = 3.0</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2">2</td>
+                                <td class="border p-2">0</td>
+                                <td class="border p-2 font-bold">4</td>
+                                <td class="border p-2">√(3 * 4) ≈ 3.46</td>
+                            </tr>
+                            <tr class="bg-yellow-50">
+                                <td class="border p-2">2</td>
+                                <td class="border p-2">1</td>
+                                <td class="border p-2 font-bold">7</td>
+                                <td class="border p-2">√(3 * 7) ≈ 4.58</td>
+                            </tr>
+                            <tr>
+                                <td class="border p-2">2</td>
+                                <td class="border p-2">2</td>
+                                <td class="border p-2 font-bold">12</td>
+                                <td class="border p-2">√(3 * 12) = 6.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 p-4 bg-white border border-slate-200 rounded">
+                    <h4 class="font-bold text-sm mb-2">Key Relationships</h4>
+                    <ul class="list-none space-y-2 text-sm">
+                        <li class="flex items-center gap-2">
+                            <span class="bg-gray-200 px-2 py-1 rounded font-mono text-xs">d = R√3</span>
+                            <span><b>Distance between centers of adjacent cells</b>. (D=Frequency reuse distance)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="bg-gray-200 px-2 py-1 rounded font-mono text-xs">Q = D/R = √(3N)</span>
+                            <span><b>Co-channel reuse ratio</b>. (D=Frequency reuse distance, R=Cell radius)</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="bg-gray-200 px-2 py-1 rounded font-mono text-xs">C = M/N * K</span>
+                            <span><b>Total Channel Capacity</b>. (M=Total Channels, K=Total Cells)</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 3. Interference Types -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-signal"></i> 3. Interference
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Co-Channel Interference -->
+                    <div class="bg-red-50 p-4 rounded border border-red-200">
+                        <h4 class="font-bold text-red-900 mb-2">1. Co-Channel Interference</h4>
+                        <p class="text-sm text-red-800 mb-2">
+                            Interference from cells that reuse the <b>same frequency band</b> (co-channel cells).
+                        </p>
+                        <ul class="list-disc pl-5 text-xs text-red-800 space-y-1">
+                            <li>Cannot be removed by increasing transmit power (also increases interference).</li>
+                            <li>Depends on the <b>reuse distance (D)</b> between co-channel cells.</li>
+                            <li><b>Smaller cluster size (N) → smaller D → stronger interference.</b></li>
+                            <li>Measured using the co-channel reuse ratio: <b>Q = D / R = √(3N)</b>.</li>
+                            <li>Larger Q = lower interference.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Adjacent Channel Interference -->
+                    <div class="bg-orange-50 p-4 rounded border border-orange-200">
+                        <h4 class="font-bold text-orange-900 mb-2">2. Adjacent Channel Interference</h4>
+                        <p class="text-sm text-orange-800 mb-2">
+                            Interference caused by signals on <b>neighboring frequency channels</b>.
+                        </p>
+                        <ul class="list-disc pl-5 text-xs text-orange-800 space-y-1">
+                            <li>Occurs due to imperfect analog/digital filters (frequency leakage).</li>
+                            <li>Can come from the same base station or nearby mobile users.</li>
+                            <li>Reduced by using <b>guard bands</b> between channels.</li>
+                            <li>Also reduced by <b>careful frequency allocation</b> to avoid adjacent channels in the
+                                same cell.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Problem with Small Cluster Size -->
+                <div class="bg-yellow-50 p-4 rounded border border-yellow-200 mt-6">
+                    <h4 class="font-bold text-yellow-900 mb-2">Problem with Smaller Cluster Size</h4>
+                    <p class="text-sm text-yellow-800 mb-1">
+                        Smaller cluster size (N) increases capacity but also increases interference.
+                    </p>
+                    <ul class="list-disc pl-5 text-xs text-yellow-800 space-y-1">
+                        <li>Co-channel cells become closer → co-channel interference increases.</li>
+                        <li>Reuse distance (D) decreases → lower signal quality.</li>
+                        <li>Coverage becomes less reliable, especially at cell edges.</li>
+                    </ul>
+                </div>
+                <!-- Frequency Reuse Example -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 mb-6">
+                    <h4 class="font-bold text-blue-900 mb-2">Frequency Reuse Example</h4>
+
+                    <div class="bg-white p-4 rounded shadow-sm mb-4">
+                        <p class="text-sm font-bold mb-2">Problem:</p>
+                        <p class="text-xs text-slate-700">
+                            Find the minimum distance (D) between the centers of two cells using the same frequency
+                            band,
+                            given:
+                            <br> Cell Radius (R) = 1 km
+                            <br> Frequency Reuse Factor (N) = 12
+                        </p>
+                    </div>
+
+                    <div class="text-sm font-mono bg-gray-100 p-4 rounded">
+                        <p class="mb-2"><b>Formula:</b> D / R = √(3N)</p>
+                        <p class="mb-2"><b>Rearranging:</b> D = √(3N) * R</p>
+                        <p class="mb-2"><b>Substitution:</b> D = √(3 * 12) * 1</p>
+                        <p class="mb-2"><b>Calculation:</b> D = √36 * 1</p>
+                        <p class="font-bold text-green-700">Answer: D = 6 km</p>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- 4. 3G Networks -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-network-wired"></i> 4. 3G Networks
+                </h2>
+
+                <!-- Overview -->
+                <div class="mb-6">
+                    <h3 class="font-bold text-lg mb-2">Overview</h3>
+                    <p class="text-sm text-slate-700 leading-relaxed">
+                        <b>3G (Third Generation)</b> wireless systems were introduced in the early 2000s with the global
+                        standard defined by the <b>ITU-T</b> under <b>IMT-2000 (International Mobile
+                            Telecommunications-2000)</b>.
+                        3G significantly improved data speeds (144 kbps – 2 Mbps), enabling smartphones, multimedia
+                        applications, and mobile internet. Most regions adopted <b>UMTS / W-CDMA</b>, while others used
+                        <b>CDMA2000</b>.
+                    </p>
+                </div>
+
+                <!-- Evolution from GSM to 3G -->
+                <div class="bg-blue-50 p-4 rounded border border-blue-200 mb-6">
+                    <h3 class="font-bold text-blue-900 mb-4">GSM Evolution to 3G</h3>
+
+                    <!-- Flex container -->
+                    <div class="flex flex-row gap-6 items-start">
+
+                        <!-- Image section -->
+                        <img src="images/gsm_to_3g.png" alt="GSM to 3G Evolution Diagram"
+                            class="w-1/2 h-auto rounded border border-slate-300 shadow-sm">
+
+                        <!-- Text section -->
+                        <ul class="list-disc pl-5 text-sm text-blue-900 space-y-1 md:w-1/2">
+                            <li><b>GSM (CSD)</b> – 9.6 kbps (circuit-switched, one time slot).</li>
+                            <li><b>HSCSD</b> – Uses up to 4 timeslots → ~50 kbps (good for real-time but inefficient).
+                            </li>
+                            <li><b>GPRS</b> – Packet-switched, up to ~115 kbps (no resource lock-up).</li>
+                            <li><b>EDGE</b> – Uses 8PSK → 3× faster than GPRS, up to ~384 kbps.</li>
+                            <li><b>EGPRS</b> – GPRS + EDGE combined for improved performance.</li>
+                            <li><b>UMTS / W-CDMA (3G)</b> reused GSM/GPRS core network for smooth migration.</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <!-- CDMA and W-CDMA -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 text-sm">
+
+                    <!-- CDMA vs W-CDMA Table -->
+                    <div class="bg-purple-50 p-4 rounded border border-purple-200">
+                        <h4 class="font-bold text-purple-900 mb-2">CDMA vs W-CDMA</h4>
+                        <p class="text-xs mb-2 text-purple-900">
+                            CDMA is a 2G/3G digital spread-spectrum technology, while W-CDMA (UMTS) is a true 3G system
+                            with wider bandwidth and higher capacity.
+                        </p>
+                        <table class="w-full text-xs">
+                            <tr class="border-b border-purple-300">
+                                <th class="text-left p-1">Feature</th>
+                                <th class="text-left p-1">CDMA (IS-95 / CDMA2000)</th>
+                                <th class="text-left p-1">W-CDMA (UMTS)</th>
+                            </tr>
+                            <tr>
+                                <td class="p-1">Generation</td>
+                                <td class="p-1">2G / 3G</td>
+                                <td class="p-1">3G</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1">Bandwidth</td>
+                                <td class="p-1">1.25 MHz</td>
+                                <td class="p-1">5 MHz</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1">Chip Rate</td>
+                                <td class="p-1">1.2288 Mcps</td>
+                                <td class="p-1">3.84 Mcps</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1">Data Rate</td>
+                                <td class="p-1">~384 kbps</td>
+                                <td class="p-1">~2 Mbps</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1">Modulation</td>
+                                <td class="p-1">BPSK, QPSK</td>
+                                <td class="p-1">QPSK, 16QAM, 64QAM</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1">Frame Length</td>
+                                <td class="p-1">Variable (5–20 ms)</td>
+                                <td class="p-1">Fixed 10 ms</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1">Power Control</td>
+                                <td class="p-1">800 Hz</td>
+                                <td class="p-1">1500 Hz (faster)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1">Channelization</td>
+                                <td class="p-1">Walsh Codes</td>
+                                <td class="p-1">OVSF Codes</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1">Timing</td>
+                                <td class="p-1">Requires GPS sync</td>
+                                <td class="p-1">Asynchronous (no GPS)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-1">Capacity</td>
+                                <td class="p-1">Lower</td>
+                                <td class="p-1">Higher</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Features of 3G -->
+                    <div class="bg-green-50 p-4 rounded border border-green-200">
+                        <h4 class="font-bold text-green-900 mb-2">Features of 3G Technology</h4>
+                        <ul class="list-disc pl-5 text-xs text-green-900 space-y-1">
+                            <li>Faster communication (144 kbps – 2 Mbps).</li>
+                            <li>Supports high-speed web browsing and secure connections.</li>
+                            <li>Video calling, video conferencing, video streaming.</li>
+                            <li>Supports 3D gaming and multimedia downloads.</li>
+                            <li>Large capacity and broadband capabilities.</li>
+                            <li>Soft handover → smoother movement between cells.</li>
+                            <li>Better Quality of Service (QoS) for data and multimedia.</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- Drawbacks -->
+                <div class="bg-red-50 p-4 rounded border border-red-200 mt-6">
+                    <h4 class="font-bold text-red-900 mb-2">Drawbacks of 3G</h4>
+                    <ul class="list-disc pl-5 text-xs text-red-800 space-y-1">
+                        <li>Very high license fees for spectrum and infrastructure rollout.</li>
+                        <li>Expensive 3G phones and larger device size in early stages.</li>
+                        <li>High bandwidth requirement and complex technology.</li>
+                        <li>Slow deployment and limited coverage during early years.</li>
+                        <li>Battery consumption was significantly higher than 2G.</li>
+                    </ul>
+                </div>
+
+                <!-- Issues -->
+                <div class="bg-yellow-50 p-4 rounded border border-yellow-200 mt-4">
+                    <h4 class="font-bold text-yellow-900 mb-2">Issues in 3G Wireless Systems</h4>
+                    <ul class="list-disc pl-5 text-xs text-yellow-900 space-y-1">
+                        <li>High initial investment for 3G service licenses.</li>
+                        <li>Multiple 3G standards (W-CDMA, CDMA2000, TD-SCDMA) caused fragmentation.</li>
+                        <li>Inefficient for rapidly increasing mobile data demands.</li>
+                        <li>Requires wider spectrum (5 MHz per carrier).</li>
+                        <li>Lack of coverage during early deployment phase.</li>
+                        <li>Competition from emerging 4G (LTE) made 3G lifespan shorter.</li>
+                    </ul>
+                </div>
+
+            </section>
+
+
+            <!-- 5. UMTS -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-network-wired"></i> 5. UMTS
+                </h2>
+
+                <!-- Overview -->
+                <div class="mb-6">
+                    <h3 class="font-bold text-lg mb-2">Overview</h3>
+                    <p class="text-sm text-slate-700 leading-relaxed">
+                        <b>UMTS (Universal Mobile Telecommunications System)</b> is the 3G family standardized by 3GPP
+                        under
+                        <b>IMT-2000</b>. It is an umbrella term for mobile access technologies such as <b>W-CDMA
+                            (FDD)</b>,
+                        <b>TD-SCDMA</b> and W-CDMA in TDD modes. UMTS supports both <b>circuit-switched (CS)</b> and
+                        <b>packet-switched (PS)</b> services and enables multimedia, mobile internet and higher data
+                        rates.
+                    </p>
+                </div>
+
+                <!-- Architecture diagram -->
+                <img src="images/umts_archi.png" alt="UMTS Network Architecture Diagram"
+                    class="w-full h-auto rounded border border-slate-300 shadow-sm mb-4">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 text-sm">
+
+                    <!-- Key domains & components -->
+                    <div class="bg-slate-50 p-4 rounded border border-slate-200">
+                        <h4 class="font-bold text-slate-900 mb-2">UMTS Domains & Key Components</h4>
+                        <ul class="list-disc pl-5 space-y-2 text-slate-800">
+                            <li><b>User Equipment (UE):</b> Mobile device and USIM. Has identities such as <b>IMSI,
+                                    MSISDN, IMEI</b>.</li>
+                            <li><b>UTRAN (UMTS Terrestrial Radio Access Network):</b> Node B (base station) + RNC (Radio
+                                Network
+                                Controller). Handles radio access, mobility and radio resource management.</li>
+                            <li><b>Core Network (CN):</b> Split into <i>Circuit-Switched (MSC/VLR/GMSC)</i> and
+                                <i>Packet-Switched (SGSN/GGSN)</i> subsystems.
+                            </li>
+                            <li><b>Support Databases:</b> <b>HLR</b> (subscriber data), <b>AuC</b> (auth keys),
+                                <b>EIR</b> (device check).
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Radio & transport specifics -->
+                    <div class="bg-blue-50 p-4 rounded border border-blue-200">
+                        <h4 class="font-bold text-blue-900 mb-2">Radio / Spectrum / Data Rates</h4>
+                        <ul class="list-disc pl-5 space-y-2 text-blue-900">
+                            <li><b>Air interface:</b> Wideband CDMA (W-CDMA) commonly uses 5 MHz carriers (chip rate
+                                3.84 Mcps).</li>
+                            <li><b>Typical UMTS data rates:</b>
+                                <span class="block text-xs text-slate-700">rural ≈ 144 kbps | urban outdoor ≈ 384 kbps |
+                                    indoor/low-range ≈ 2048 kbps</span>
+                            </li>
+                            <li><b>Frequency bands:</b> Paired FDD bands (e.g. uplink/downlink pairs around 1900/2100
+                                MHz; other regions use different pairs).</li>
+                            <li><b>Duplex modes:</b> FDD (frequency-duplex W-CDMA) and TDD variants (time-duplex).</li>
+                            <li><b>Enhancements:</b> <b>HSPA</b> (HSDPA/HSUPA) improves downlink/uplink throughput and
+                                latency (commonly referred to as 3.5G).</li>
+                        </ul>
+                    </div>
+
+                    <!-- UTRAN: Node B & RNC -->
+                    <div class="bg-amber-50 p-4 rounded border border-amber-200">
+                        <h4 class="font-bold text-amber-900 mb-2">UTRAN — Node B & RNC Responsibilities</h4>
+                        <ul class="list-disc pl-5 space-y-2 text-amber-900 text-xs">
+                            <li><b>Node B (Base station):</b> RF transmit/receive, physical layer processing,
+                                modulation/demodulation,
+                                power control on the air interface.</li>
+                            <li><b>RNC (Radio Network Controller):</b> Radio Resource Management (RRM), admission
+                                control, handover
+                                control (including <b>soft handover</b>), channel allocation, power control settings,
+                                ciphering and
+                                segmentation/reassembly of packets.</li>
+                            <li><b>RNS (Radio Network Subsystem):</b> One or more Node Bs controlled by an RNC; RNC–RNC
+                                interface is <b>Iur</b>.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Core network: SGSN / GGSN / MSC -->
+                    <div class="bg-indigo-50 p-4 rounded border border-indigo-200">
+                        <h4 class="font-bold text-indigo-900 mb-2">Core Network — Packet & Circuit Functions</h4>
+                        <ul class="list-disc pl-5 space-y-2 text-indigo-900 text-xs">
+                            <li><b>SGSN (Serving GPRS Support Node):</b> Mobility & session management in PS domain.
+                                Creates PDP contexts,
+                                enforces QoS for data sessions, interacts with MSC/VLR and generates billing records
+                                (CDRs).</li>
+                            <li><b>GGSN (Gateway GPRS Support Node):</b> Gateway/router to external IP networks
+                                (Internet, corporate networks).
+                                Maintains mappings of IP addresses to subscriber PDP contexts and forwards IP packets to
+                                the correct SGSN.</li>
+                            <li><b>MSC / VLR / GMSC:</b> Circuit-switched switching, mobility for voice calls, and
+                                gateway to PSTN/PLMN.</li>
+                            <li><b>Subscriber DBs:</b> <b>HLR</b> (home subscriber info, services), <b>AuC</b>
+                                (authentication keys),
+                                <b>EIR</b> (blacklist/white list devices).
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Interfaces, identities, and QoS -->
+                    <div class="bg-emerald-50 p-4 rounded border border-emerald-200">
+                        <h4 class="font-bold text-emerald-900 mb-2">Important Interfaces, Identities & QoS</h4>
+                        <ul class="list-disc pl-5 space-y-2 text-emerald-900 text-xs">
+                            <li><b>Key interfaces:</b> <b>Uu</b> (UE ↔ UTRAN), <b>Iub</b> (RNC ↔ Node B), <b>Iur</b>
+                                (RNC ↔ RNC),
+                                <b>Iu-PS</b>/<b>Iu-CS</b> (UTRAN ↔ PS/CS core).
+                            </li>
+                            <li><b>Subscriber & device identities:</b> IMSI, TMSI, MSISDN, IMEI, IMEISV, P-TMSI, TLLI
+                                (used in different domains).</li>
+                            <li><b>QoS & Bearers:</b> Radio Access Bearers (RABs) & PDP contexts define
+                                guaranteed/assured QoS for services.
+                                QoS classes include conversational, streaming, interactive and background.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Security, mobility & VHE -->
+                    <div class="bg-rose-50 p-4 rounded border border-rose-200">
+                        <h4 class="font-bold text-rose-900 mb-2">Security, Mobility & Virtual Home Environment</h4>
+                        <ul class="list-disc pl-5 space-y-2 text-rose-900 text-xs">
+                            <li><b>Security:</b> Authentication (AuC/HLR), integrity protection and ciphering on radio
+                                links, and device
+                                checking via EIR.</li>
+                            <li><b>Mobility:</b> Fast handover techniques (soft handover in W-CDMA), inter-RNC handover,
+                                and roaming across PLMNs.</li>
+                            <li><b>Virtual Home Environment (VHE):</b> Allows subscriber service profiles and
+                                preferences to follow the user
+                                across different networks and terminals (personalized service environment).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Enhancements and migration -->
+                    <div class="bg-gray-50 p-4 rounded border border-gray-200 md:col-span-2">
+                        <h4 class="font-bold text-slate-900 mb-2">Enhancements, Migration</h4>
+                        <div class="space-y-2 text-xs text-slate-800">
+                            <p><b>HSPA (HSDPA / HSUPA):</b> Incremental upgrades to UMTS that substantially improve data
+                                throughput and reduce latency.
+                                HSPA often marketed as 3.5G.</p>
+
+                            <p><b>Backward compatibility:</b> UMTS reuses GSM core network elements making migration
+                                easier for operators.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-12 pt-6 border-t border-slate-300 text-center text-xs text-slate-500">
+        Generated Comprehensive Guide • IN 3510 Mobile & Wireless Networks • Lecture 7
+    </div>
+    </div>
+
+</body>
+
+</html>
