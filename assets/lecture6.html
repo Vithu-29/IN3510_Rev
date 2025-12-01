@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile & Wireless Networks - Lecture 6 Study Guide</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Document Sizing - Fixed Width, Fluid Height */
+        .doc-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 10mm;
+        }
+
+        /* Diagram Containers */
+        .svg-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        /* Make SVGs responsive */
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media print {
+            @page {
+                size: A3;
+                margin: 10mm;
+            }
+
+            body {
+                background-color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .doc-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+
+            /* Avoid breaking sections inside elements */
+            section,
+            li,
+            tr,
+            .svg-container {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-8 text-slate-800 font-sans print:p-0 print:bg-white">
+
+    <!-- Control Bar (Hidden when printing) -->
+    <div class="max-w-[210mm] mx-auto mb-6 flex justify-end no-print">
+        <button onclick="window.print()"
+            class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors cursor-pointer">
+            <i class="fas fa-print"></i>
+            <span>Print / Save as PDF</span>
+        </button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="doc-container shadow-2xl">
+
+        <!-- Header -->
+        <header class="border-b-4 border-blue-600 pb-4 mb-8">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 uppercase tracking-tight">Spread Spectrum Technology
+                    </h1>
+                    <p class="text-blue-600 font-semibold text-lg">IN 3510 | Lecture 6 Comprehensive Notes</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT STARTS -->
+        <div class="space-y-8">
+
+            <!-- 1. The Fading Landscape -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-mountain"></i> 1. The Fading Landscape
+                </h2>
+                <p class="text-slate-700 mb-2">
+                    Fading refers to signal fluctuations due to channel conditions. It is categorized into Large Scale
+                    (distance/obstacles) and Small Scale (interference/multipath).
+                </p>
+
+                <!-- SVG Diagram: Fading Hierarchy -->
+                <div class="svg-container">
+                    <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Root -->
+                        <rect x="300" y="10" width="100" height="40" fill="#1e3a8a" rx="4" />
+                        <text x="350" y="35" text-anchor="middle" fill="white" font-weight="bold">Fading</text>
+
+                        <!-- Level 1 Branches -->
+                        <line x1="350" y1="50" x2="175" y2="80" stroke="#64748b" stroke-width="2" />
+                        <line x1="350" y1="50" x2="525" y2="80" stroke="#64748b" stroke-width="2" />
+
+                        <!-- Level 1 Nodes -->
+                        <rect x="100" y="80" width="150" height="40" fill="#bfdbfe" rx="4" />
+                        <text x="175" y="105" text-anchor="middle" fill="#1e3a8a" font-weight="bold">Large Scale</text>
+
+                        <rect x="450" y="80" width="150" height="40" fill="#bbf7d0" rx="4" />
+                        <text x="525" y="105" text-anchor="middle" fill="#064e3b" font-weight="bold">Small Scale</text>
+
+                        <!-- Level 2 (Large Scale) -->
+                        <line x1="175" y1="120" x2="100" y2="150" stroke="#64748b" stroke-width="1" />
+                        <line x1="175" y1="120" x2="250" y2="150" stroke="#64748b" stroke-width="1" />
+
+                        <rect x="50" y="150" width="100" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+                        <text x="100" y="170" text-anchor="middle" font-size="12">Path Loss</text>
+                        <rect x="200" y="150" width="100" height="30" fill="#eff6ff" rx="4" stroke="#bfdbfe" />
+                        <text x="250" y="170" text-anchor="middle" font-size="12">Shadowing</text>
+
+                        <!-- Level 2 (Small Scale) -->
+                        <line x1="525" y1="120" x2="400" y2="150" stroke="#64748b" stroke-width="1" />
+                        <line x1="525" y1="120" x2="525" y2="150" stroke="#64748b" stroke-width="1" />
+                        <line x1="525" y1="120" x2="650" y2="150" stroke="#64748b" stroke-width="1" />
+
+                        <rect x="350" y="150" width="100" height="30" fill="#f0fdf4" rx="4" stroke="#bbf7d0" />
+                        <text x="400" y="170" text-anchor="middle" font-size="12">Fast Fading</text>
+                        <rect x="475" y="150" width="100" height="30" fill="#f0fdf4" rx="4" stroke="#bbf7d0" />
+                        <text x="525" y="170" text-anchor="middle" font-size="12">Slow Fading</text>
+                        <rect x="600" y="150" width="100" height="30" fill="#dcfce7" rx="4" stroke="#16a34a" />
+                        <text x="650" y="170" text-anchor="middle" font-size="12" font-weight="bold">Multipath</text>
+
+                        <!-- Level 3 (Multipath) -->
+                        <line x1="650" y1="180" x2="600" y2="210" stroke="#64748b" stroke-width="1" />
+                        <line x1="650" y1="180" x2="700" y2="210" stroke="#64748b" stroke-width="1" />
+
+                        <rect x="550" y="210" width="100" height="30" fill="#fff" stroke="#16a34a" rx="4" />
+                        <text x="600" y="230" text-anchor="middle" font-size="12">Flat Fading</text>
+                        <rect x="660" y="210" width="100" height="30" fill="#fff" stroke="#16a34a" rx="4" />
+                        <text x="710" y="230" text-anchor="middle" font-size="12">Selective</text>
+                    </svg>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols gap-6 ">
+                    <div class="bg-blue-50 p-4 rounded">
+                        <h4 class="font-bold text-blue-900 mb-2">Large Scale Fading</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li><b>Definition:</b> Slow variation of received signal strength caused by distance and
+                                large obstacles (buildings, hills, terrain).</li>
+
+                            <li><b>Path Loss:</b> Signal weakens as it travels long distances; energy spreads out →
+                                lower power at the receiver.</li>
+
+                            <li><b>Shadowing:</b> Additional loss when obstacles block the signal. Depends on surface
+                                type and signal frequency.</li>
+
+                            <li><b>Frequency Effect:</b> Higher frequencies have lower penetration and higher absorption
+                                → shorter range, more sensitive to obstacles.</li>
+
+                            <li><b>Note:</b> High-frequency signals (e.g., microwave links) are line-of-sight and easily
+                                blocked but support directional communication.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded">
+                        <h4 class="font-bold text-green-900 mb-2">Small Scale (Rayleigh) Fading</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-2">
+
+                            <li><b>Definition:</b> Rapid fluctuations in signal strength and phase over short distances
+                                and short time periods. Common in almost all wireless systems.</li>
+
+                            <li><b>Fast Fading:</b> Caused by reflections and movement of the transmitter/receiver.
+                                Creates rapid amplitude changes → leads to <b>Inter Symbol Interference (ISI)</b>.</li>
+
+                            <li><b>Slow Fading:</b> Caused by large obstacles blocking the signal (shadowing). Reduces
+                                SNR and is often countered using <b>error correction</b> and <b>diversity
+                                    techniques</b>.</li>
+
+                            <li><b>Multipath Fading:</b> Occurs when the signal reaches the receiver through multiple
+                                paths with different delays, causing phase distortion and ISI.</li>
+
+                            <li>
+                                <b>Types of Multipath Fading:</b>
+                                <ul class="list-disc pl-5 mt-1 text-xs">
+                                    <li><b>Flat Fading:</b> All frequency components affected equally; causes amplitude
+                                        fluctuations.</li>
+                                    <li><b>Selective Fading:</b> Only certain frequencies are affected more than others.
+                                        Can be reduced using <b>OFDM</b>.</li>
+                                </ul>
+                            </li>
+
+                            <li><b>Diversity Techniques:</b> Same signal is sent through different paths (time, space,
+                                frequency, or polarization) to improve reliability.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 2. Multipath Delay Spread Calculation -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-calculator"></i> 2. Multipath Delay Spread
+                </h2>
+
+                <ul class="list-disc pl-5 space-y-1 text-slate-700">
+                    <li>Multiple copies of the signal arrive at different times due to reflections.</li>
+                    <li>This timing difference can cause <b>signal smearing</b> and <b>Inter-Symbol Interference
+                            (ISI)</b>.</li>
+                    <li>The <b>power delay profile</b> shows the average received power as a function of time delay.
+                    </li>
+                </ul>
+
+                <div class="flex flex-col mt-4  gap-6">
+                    <img src="images/delay_spread.png" alt="Multipath Delay Diagram"
+                        class="w-full  rounded border border-slate-300 shadow-sm" />
+
+                    <div class="flex-1 bg-yellow-50 p-4 rounded border border-yellow-200 text-xm">
+                        <h3 class="font-bold text-yellow-900 mb-2">Example Problem</h3>
+                        <p class="mb-2"><b>Given:</b></p>
+                        <ul class="font-mono text-xs list-none space-y-1 mb-3">
+                            <li>0 µs: 0.01 W</li>
+                            <li>1 µs: 0.1 W</li>
+                            <li>2 µs: 0.1 W</li>
+                            <li>5 µs: 1.0 W</li>
+                        </ul>
+                        <p class="mb-1"><b>Step 1: Total Power</b> = 0.01 + 0.1 + 0.1 + 1 = 1.21 W</p>
+                        <p class="mb-1"><b>Step 2: Calculate <span style="text-decoration: overline;">τ</span></b></p>
+                        <p class="font-mono text-xs pl-2">{0(0.01) + 1(0.1) + 2(0.1) + 5(1)} / 1.21 = 5.3 / 1.21 = 4.38
+                            μs</p>
+                        <p class="mb-1 mt-2"><b>Step 3: Calculate <span
+                                    style="text-decoration: overline;">τ<sup>2</sup></span></b></p>
+                        <p class="font-mono text-xs pl-2">{0^2(0.01) + 1^2(0.1) + 2^2(0.1) + 5^2(1)} / 1.21 = 25.5 /
+                            1.21 = 21.07 μs<sup>2</sup></p>
+                        <p class="mb-1 mt-2"><b>Step 4: RMS Spread</b></p>
+                        <p class="font-mono text-xs pl-2">√{21.07 - (4.38)^2} = √(21.07 - 19.18) = 1.373 μs</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-expand-arrows-alt"></i> 3. Spread Spectrum (SS)
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols gap-6 items-center">
+
+                    <!-- LEFT SIDE CONTENT -->
+                    <div>
+                        <p class=" text-slate-700 mb-4">
+                            Spread Spectrum is a technique where a narrowband signal (BW = B) is intentionally spread
+                            over a
+                            much wider bandwidth (BW = B<sub>ss</sub>) using a unique code. This makes the signal more
+                            secure
+                            and resistant to interference.
+                        </p>
+
+                        <img src="images/spread_spectrum.png" alt="Spread Spectrum Diagram"
+                            class="w-full rounded border border-slate-300 shadow-sm mb-4" />
+
+                        <h4 class="font-bold text-blue-900 mb-2">Why Spread the Signal?</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-1 text-blue-800 mb-4">
+                            <li><b>Frequency-dependent fading:</b> A narrowband signal can be wiped out during deep
+                                fades.</li>
+                            <li><b>Interference protection:</b> Wideband signals are less affected by narrowband
+                                jammers.</li>
+                            <li><b>Security:</b> Without the spreading code, the signal appears like noise.</li>
+                        </ul>
+
+                        <div class="bg-purple-50 p-4 rounded border border-purple-200">
+                            <h4 class="font-bold text-purple-900 mb-2">Goals of Spread Spectrum</h4>
+                            <ul class="list-disc pl-5 text-sm space-y-1 text-purple-800">
+                                <li><b>Prevent Eavesdropping:</b> The spreading code hides the original message.</li>
+                                <li><b>Prevent Jamming:</b> Signal becomes highly resistant to intentional interference.
+                                </li>
+                                <li><b>Multiple Access:</b> Different users use different codes → CDMA.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center">
+                        <div class="text-center font-mono  bg-gray-50 p-4 rounded border border-gray-200">
+                            <p class="mb-2 font-bold">Processing Gain (N)</p>
+                            <p class="text-xl mb-2">
+                                N = B<sub>ss</sub> / B
+                                = 10log<sub>10</sub>( B<sub>ss</sub> / B )
+                            </p>
+                            <p class="text-xs text-gray-500">
+                                Higher Processing Gain → Better resistance to noise & interference.
+                            </p>
+                        </div>
+                    </div>
+                    <img src="images/spread_de.png" alt="Spread Spectrum Waveform"
+                        class="w-full rounded border border-slate-300 shadow-sm" />
+
+                </div>
+            </section>
+
+
+            <!-- 4. FHSS vs DSSS -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-random"></i> 4. Techniques: FHSS vs DSSS
+                </h2>
+
+                <!-- Types of Spread Spectrum -->
+                <div class="mt-6 bg-yellow-50 p-4 rounded border border-yellow-200">
+                    <h4 class="font-bold text-yellow-900 mb-2">Types of Spread Spectrum Techniques</h4>
+
+                    <div class="space-y-3 text-yellow-800">
+                        <div>
+                            <p class="font-semibold">1. Frequency Hopping Spread Spectrum (FHSS)</p>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li>Carrier frequency rapidly hops over many frequencies.</li>
+                                <li>Hopping pattern determined by a pseudorandom code.</li>
+                                <li>Resistant to narrowband interference.</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold">2. Direct Sequence Spread Spectrum (DSSS)</p>
+                            <ul class="list-disc pl-5 text-sm space-y-1">
+                                <li>Original signal multiplied by a high-rate pseudorandom chip sequence.</li>
+                                <li>Spreads signal across a wide bandwidth.</li>
+                                <li>Used in CDMA and Wi-Fi (802.11b).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <img src="images/fhss_dfss_dia.png" alt="FHSS vs DSSS Overview"
+                    class="w-full rounded border border-slate-300 shadow-sm my-6" />
+
+                <!-- SVG Diagram: FHSS vs DSSS -->
+                <div class="svg-container">
+                    <svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
+                        <!-- FHSS Section -->
+                        <g transform="translate(20, 20)">
+                            <text x="120" y="20" text-anchor="middle" font-weight="bold" fill="#1e40af">FHSS (Frequency
+                                Hopping)</text>
+
+                            <!-- Grid -->
+                            <line x1="30" y1="180" x2="230" y2="180" stroke="black" /> <!-- Time -->
+                            <line x1="30" y1="180" x2="30" y2="40" stroke="black" /> <!-- Freq -->
+                            <text x="240" y="185" font-size="10">Time</text>
+                            <text x="20" y="35" font-size="10">Freq</text>
+
+                            <!-- Hops -->
+                            <rect x="30" y="140" width="30" height="20" fill="#93c5fd" stroke="black" />
+                            <rect x="60" y="80" width="30" height="20" fill="#93c5fd" stroke="black" />
+                            <rect x="90" y="120" width="30" height="20" fill="#93c5fd" stroke="black" />
+                            <rect x="120" y="60" width="30" height="20" fill="#93c5fd" stroke="black" />
+                            <rect x="150" y="100" width="30" height="20" fill="#93c5fd" stroke="black" />
+
+                            <text x="130" y="210" text-anchor="middle" font-size="10" fill="#64748b">Signal hops between
+                                frequencies</text>
+                        </g>
+
+                        <!-- Divider -->
+                        <line x1="350" y1="20" x2="350" y2="230" stroke="#cbd5e1" stroke-width="2"
+                            stroke-dasharray="4" />
+
+                        <!-- DSSS Section -->
+                        <g transform="translate(380, 20)">
+                            <text x="150" y="20" text-anchor="middle" font-weight="bold" fill="#166534">DSSS (Direct
+                                Sequence)</text>
+
+                            <!-- Data -->
+                            <text x="0" y="60" font-size="10" font-weight="bold">Data (1)</text>
+                            <line x1="50" y1="55" x2="250" y2="55" stroke="#166534" stroke-width="2" />
+
+                            <!-- Code -->
+                            <text x="0" y="100" font-size="10" font-weight="bold">Code (PN)</text>
+                            <path d="M50,100 h20 v-10 h20 v10 h20 v-10 h20 v10 h20 v-10 h20 v10 h20 v-10 h20 v10 h20"
+                                fill="none" stroke="#ea580c" />
+
+                            <!-- XOR -->
+                            <text x="150" y="125" text-anchor="middle" font-weight="bold" font-size="14">XOR</text>
+
+                            <!-- Result -->
+                            <text x="0" y="150" font-size="10" font-weight="bold">Signal</text>
+                            <path d="M50,150 h20 v-10 h20 v10 h20 v-10 h20 v10 h20 v-10 h20 v10 h20 v-10 h20 v10 h20"
+                                fill="none" stroke="#2563eb" stroke-width="2" />
+
+                            <text x="150" y="210" text-anchor="middle" font-size="10" fill="#64748b">Data multiplied by
+                                high-speed chip code</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Detailed Comparison Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+
+                    <!-- FHSS CARD -->
+                    <div class="bg-white p-4 border border-blue-200 rounded">
+                        <h4 class="font-bold text-blue-800 mb-2">FHSS (Frequency Hopping)</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>Signal hops across different frequencies at fixed intervals.</li>
+                            <li>Reduces probability of interception since intruder must track hops.</li>
+                            <li>Very resistant to narrowband interference and jamming.</li>
+                            <li>Simple hardware, lower complexity compared to DSSS.</li>
+                            <li><b>Disadvantages:</b> Requires accurate synchronization, lower data rates than DSSS.
+                            </li>
+                        </ul>
+
+                        <h5 class="font-semibold text-blue-700 mt-3">Advantages</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>High resistance to jamming and interference.</li>
+                            <li>Low probability of interception.</li>
+                            <li>Better performance in frequency-selective fading.</li>
+                        </ul>
+
+                        <h5 class="font-semibold text-blue-700 mt-3">Disadvantages</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>Requires hop synchronization between transmitter & receiver.</li>
+                            <li>Limited data rates due to hopping.</li>
+                            <li>Not as robust as DSSS for high-speed communication.</li>
+                        </ul>
+                    </div>
+
+                    <!-- DSSS CARD -->
+                    <div class="bg-white p-4 border border-green-200 rounded">
+                        <h4 class="font-bold text-green-800 mb-2">DSSS (Direct Sequence)</h4>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>XOR the user data with a high-speed PN sequence (chips).</li>
+                            <li>The bandwidth is expanded by the chip rate.</li>
+                            <li>Base stations can use the same frequency (CDMA).</li>
+                            <li>Soft handoff possible: multiple base stations can receive & recover the signal.</li>
+                            <li><b>Requires precise power control</b> to avoid the near–far problem (important in CDMA).
+                            </li>
+                        </ul>
+
+                        <h5 class="font-semibold text-green-700 mt-3">Advantages of DSSS</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li><b>Security:</b> Difficult to intercept without the PN code.</li>
+                            <li><b>Interference resistance:</b> Spreads signal → narrowband interference becomes
+                                negligible.</li>
+                            <li><b>Robustness:</b> Excellent performance under multipath fading.</li>
+                            <li><b>Shared spectrum:</b> Supports multiple users with different codes (CDMA).</li>
+                            <li><b>High speed:</b> Supports higher data rates than FHSS.</li>
+                        </ul>
+
+                        <h5 class="font-semibold text-green-700 mt-3">Disadvantages of DSSS</h5>
+                        <ul class="list-disc pl-5 text-sm space-y-1">
+                            <li>Requires large bandwidth for spreading.</li>
+                            <li>Complex and costly hardware.</li>
+                            <li>Higher power consumption — not ideal for low-power devices.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Practice Calculations -->
+            <section class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                <h2 class="flex items-center gap-2 text-2xl font-bold text-blue-900 mb-4">
+                    <i class="fas fa-pencil-alt"></i> 5. Practice Question (Solved)
+                </h2>
+
+                <div class="bg-white p-4 rounded shadow-sm mb-4">
+                    <p class=" font-bold mb-2">Scenario:</p>
+                    <p class="text-sm text-slate-700">
+                        A digital system uses a <b>32-symbol signal</b>. Each symbol is transmitted in a <b>5 µsec</b>
+                        time slot.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 ">
+                    <!-- A -->
+                    <div>
+                        <p class="font-bold text-blue-700">a) Calculate Symbol Rate (Number of symbols transmitted per
+                            second.)</p>
+                        <p class="font-mono text-xs bg-gray-100 p-2 rounded mt-1">
+                            Rate = 1 / Duration<br>
+                            Rate = 1 / (5 * 10^-6)<br>
+                            Rate = 200,000 symbols/sec (200 ksymbols/s)
+                        </p>
+                    </div>
+
+                    <!-- B -->
+                    <div>
+                        <p class="font-bold text-blue-700">b) Information Content per Symbol{ Information content(in
+                            bits) = log<sub>2</sub>(Num of symbols)}</p>
+                        <p class="font-mono text-xs bg-gray-100 p-2 rounded mt-1">
+                            Bits = log<sub>2</sub>(Num Symbols)<br>
+                            Bits = log<sub>2</sub>(32)<br>
+                            Bits = 5 bits/symbol
+                        </p>
+                    </div>
+
+                    <!-- C -->
+                    <div>
+                        <p class="font-bold text-blue-700">c) Bandwidth & Capacity</p>
+                        <p class="font-mono text-xs bg-gray-100 p-2 rounded mt-1">
+                            <b>Bandwidth (Nyquist):</b> Symbol Rate / 2<br>
+                            BW = 200,000 / 2 = 100,000 Hz (100 kHz)<br><br>
+                            <b>Capacity:</b> Symbol Rate * Information content<br>
+                            C = 200,000 * 5 = 1,000,000 bps (1,000 kbps)
+                        </p>
+                    </div>
+
+                    <!-- D -->
+                    <div>
+                        <p class="font-bold text-blue-700">d) With Binary Encoder</p>
+                        <p class="text-xs mt-1 text-slate-600">
+                            If applied to a binary encoder, each symbol becomes 5 bits. The bit rate matches the
+                            calculated capacity.
+                        </p>
+                        <p class="font-mono text-xs bg-gray-100 p-2 rounded mt-1">
+                            Bandwidth remains: 100 kHz<br>
+                            Capacity remains: 1000 kbps
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 pt-6 border-t border-slate-300 text-center text-xs text-slate-500">
+            Generated Comprehensive Guide • IN 3510 Mobile & Wireless Networks • Lecture 6
+        </div>
+    </div>
+
+</body>
+
+</html>
