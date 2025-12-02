@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile & Wireless Networks - Lecture 11 Study Guide</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Document Sizing - Fixed Width, Fluid Height */
+        .doc-container {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            padding: 10mm;
+        }
+
+        /* Diagram Containers */
+        .svg-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        /* Make SVGs responsive */
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media print {
+            @page {
+                size: A3;
+                margin: 5mm;
+            }
+
+            body {
+                background-color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .doc-container {
+                box-shadow: none;
+                margin: 0;
+                width: 100%;
+                max-width: none;
+                padding: 0;
+            }
+
+            /* Avoid breaking sections inside elements */
+            section,
+            li,
+            tr,
+            .svg-container {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-8 text-slate-800 font-sans print:p-0 print:bg-white">
+
+    <!-- Control Bar (Hidden when printing) -->
+    <div class="max-w-[210mm] mx-auto mb-6 flex justify-end no-print">
+        <button onclick="window.print()"
+            class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors cursor-pointer">
+            <i class="fas fa-print"></i>
+            <span>Print / Save as PDF</span>
+        </button>
+    </div>
+
+    <!-- Page Container -->
+    <div class="doc-container shadow-2xl">
+
+        <!-- Header -->
+        <header class="border-b-4 border-blue-600 pb-4 mb-8">
+            <div class="flex justify-between items-end">
+                <div>
+                    <h1 class="text-3xl font-bold text-slate-900 uppercase tracking-tight">WLANs (Continued)</h1>
+                    <p class="text-blue-600 font-semibold text-lg">IN 3510 | Lecture 11 Comprehensive Notes</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT STARTS -->
+        <div class="space-y-8">
+
+            <!-- 1. Pros & Cons of WLANs -->
+            <section class="bg-white">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-balance-scale"></i> 1. Benefits & Disadvantages of Wireless LAN
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Benefits -->
+                    <div
+                        class="bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-xl border border-green-300 shadow">
+                        <h3 class="font-bold text-green-900 mb-3 text-lg flex items-center gap-2">
+                            <i class="fas fa-thumbs-up"></i> Benefits of Wireless LAN
+                        </h3>
+
+                        <!-- Productivity & Convenience -->
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-green-800">• Productivity, Convenience & Cost Advantages</h4>
+                            <ul class="list-disc pl-6 text-sm text-green-700 mt-1 space-y-1">
+                                <li>Installation speed and simplicity.</li>
+                                <li>Installation flexibility.</li>
+                                <li>Reduced cost-of-ownership.</li>
+                                <li>Mobility.</li>
+                                <li>Scalability.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Installation Speed -->
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-green-800">• Installation Speed & Simplicity</h4>
+                            <ul class="list-disc pl-6 text-sm text-green-700 mt-1 space-y-1">
+                                <li>No cable to pull.</li>
+                                <li>Eliminates current architecture obstacles.</li>
+                                <li>Few transmitters/receivers for multiple users.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Installation Flexibility -->
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-green-800">• Installation Flexibility</h4>
+                            <ul class="list-disc pl-6 text-sm text-green-700 mt-1 space-y-1">
+                                <li>Network goes where wires cannot.</li>
+                                <li>Not constrained by walls.</li>
+                                <li>Easy to add more devices.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Cost of Ownership -->
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-green-800">• Reduced Cost of Ownership</h4>
+                            <ul class="list-disc pl-6 text-sm text-green-700 mt-1 space-y-1">
+                                <li>Mobile devices are cheaper than workstations.</li>
+                                <li>Users can change location and stay connected.</li>
+                                <li>No wiring closets needed.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Mobility -->
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-green-800">• Mobility</h4>
+                            <ul class="list-disc pl-6 text-sm text-green-700 mt-1 space-y-1">
+                                <li>Access to real-time information.</li>
+                                <li>Supports productivity.</li>
+                                <li>Enables flexible services.</li>
+                                <li>Promotes user mobility.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Scalability -->
+                        <div>
+                            <h4 class="font-semibold text-green-800">• Scalability</h4>
+                            <ul class="list-disc pl-6 text-sm text-green-700 mt-1 space-y-1">
+                                <li>Supports various topologies.</li>
+                                <li>Easy configuration changes.</li>
+                                <li>Works over large distances.</li>
+                                <li>Useful for:
+                                    <ul class="list-disc pl-6 mt-1">
+                                        <li>Small local networks.</li>
+                                        <li>Large roaming infrastructure networks.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Disadvantages -->
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-5 rounded-xl border border-red-300 shadow">
+                        <h3 class="font-bold text-red-900 mb-3 text-lg flex items-center gap-2">
+                            <i class="fas fa-thumbs-down"></i> Disadvantages of Wireless LAN
+                        </h3>
+
+                        <!-- Cost -->
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-red-800">• Cost</h4>
+                            <ul class="list-disc pl-6 text-sm text-red-700 mt-1 space-y-1">
+                                <li>Wireless network cards cost 4× more than wired cards.</li>
+                                <li>Access Points are more expensive than hubs and cables.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Signal Bleed Over -->
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-red-800">• Signal Bleed Over</h4>
+                            <ul class="list-disc pl-6 text-sm text-red-700 mt-1 space-y-1">
+                                <li>APs may pick up signals from nearby APs.</li>
+                                <li>Overlapping signals may cause interference.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Environmental Issues -->
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-red-800">• Environmental Conditions</h4>
+                            <ul class="list-disc pl-6 text-sm text-red-700 mt-1 space-y-1">
+                                <li>Susceptible to weather and solar activity.</li>
+                                <li>Affected by buildings, trees, and terrain.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Less Capacity -->
+                        <div>
+                            <h4 class="font-semibold text-red-800">• Less Capacity</h4>
+                            <ul class="list-disc pl-6 text-sm text-red-700 mt-1 space-y-1">
+                                <li>Lower bandwidth compared to wired networks.</li>
+                                <li>Limit on how much data can be carried.</li>
+                                <li>Packet loss affects performance.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+
+            <!-- 2. Practical Applications -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-briefcase"></i> 2. Practical Use Cases
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-white border p-3 rounded shadow-sm">
+                        <span class="block font-bold text-blue-700 mb-1">Corporate</span>
+                        Mobile email, file sharing, roaming meetings.
+                    </div>
+                    <div class="bg-white border p-3 rounded shadow-sm">
+                        <span class="block font-bold text-blue-700 mb-1">Education</span>
+                        Campus connectivity, collaborative classes.
+                    </div>
+                    <div class="bg-white border p-3 rounded shadow-sm">
+                        <span class="block font-bold text-blue-700 mb-1">Finance</span>
+                        Real-time trading updates, faster trades.
+                    </div>
+                    <div class="bg-white border p-3 rounded shadow-sm">
+                        <span class="block font-bold text-blue-700 mb-1">Healthcare</span>
+                        Emergency info access, scheduling.
+                    </div>
+                    <div class="bg-white border p-3 rounded shadow-sm">
+                        <span class="block font-bold text-blue-700 mb-1">Retail</span>
+                        Electronic ordering, mobile registers.
+                    </div>
+                    <div class="bg-white border p-3 rounded shadow-sm">
+                        <span class="block font-bold text-blue-700 mb-1">Manufacturing</span>
+                        Tracking goods, factory floor links.
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Configurations & Topologies -->
+            <section>
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-6 border-b border-slate-200 pb-2">
+                    <i class="fas fa-network-wired"></i> 3. Configurations & Hardware
+                </h2>
+
+                <div class="mb-6 bg-slate-100 p-4 rounded-lg border-l-4 border-slate-500 shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-lg mb-1">Basic Hardware Requirements</h3>
+                    <p class="text-slate-600 text-sm">
+                        To build a wireless workplace, you need:
+                        <span class="font-semibold">Access Points (AP), Adapter Cards (NICs), Directional Antennas,
+                            Extension Points, and Bridges.</span>
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+
+                    <div
+                        class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="p-2 bg-slate-100 rounded-full text-slate-600"><i class="fas fa-laptop"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-800 text-base">1. Peer-to-Peer Network</h4>
+                        </div>
+                        <ul class="list-disc pl-5 space-y-2 text-slate-600">
+                            <li><b>Independent:</b> Two PCs with wireless adapters connect directly.</li>
+                            <li><b>Zero Config:</b> Requires no administration or central server.</li>
+                            <li><b>Limitation:</b> Clients only access resources on the other specific computer.</li>
+                        </ul>
+                    </div>
+
+                    <div
+                        class="bg-blue-50 border border-blue-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="p-2 bg-blue-100 rounded-full text-blue-600"><i class="fas fa-wifi"></i></div>
+                            <h4 class="font-bold text-blue-900 text-base">2. Client & Access Point (AP)</h4>
+                        </div>
+                        <ul class="list-disc pl-5 space-y-2 text-blue-800">
+                            <li><b>Range Extension:</b> Effectively doubles the communication range of PCs.</li>
+                            <li><b>Infrastructure:</b> Connects wireless clients to the main <b>wired network</b>.</li>
+                            <li><b>Resources:</b> Clients can access central servers and shared printers.</li>
+                        </ul>
+                    </div>
+
+                    <div
+                        class="bg-indigo-50 border border-indigo-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow col-span-1 md:col-span-2">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="p-2 bg-indigo-100 rounded-full text-indigo-600"><i
+                                    class="fas fa-project-diagram"></i></div>
+                            <h4 class="font-bold text-indigo-900 text-base">3. Multiple APs & Roaming</h4>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <ul class="list-disc pl-5 space-y-2 text-indigo-800">
+                                <li><b>Use Case:</b> Large facilities (campuses, warehouses) requiring wide coverage.
+                                </li>
+                                <li><b>Roaming:</b> Ability to move between AP coverage areas without losing connection.
+                                </li>
+                                <li><b>Setup:</b> Requires overlapping APs based on a site survey.</li>
+                            </ul>
+                            <div class="bg-white/60 p-3 rounded border border-indigo-100 text-indigo-900 text-xs">
+                                <p class="font-bold mb-1">Standard Range Constraints:</p>
+                                <ul class="list-none space-y-1">
+                                    <li><i class="fas fa-building mr-1"></i> Indoor: ~500 ft</li>
+                                    <li><i class="fas fa-tree mr-1"></i> Outdoor: ~1000 ft</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-amber-50 border border-amber-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="p-2 bg-amber-100 rounded-full text-amber-600"><i
+                                    class="fas fa-broadcast-tower"></i></div>
+                            <h4 class="font-bold text-amber-900 text-base">4. Using Extension Points (EP)</h4>
+                        </div>
+                        <ul class="list-disc pl-5 space-y-2 text-amber-800">
+                            <li><b>Wireless Relay:</b> Functions like an AP but is <b>not tethered</b> to the wired
+                                network.</li>
+                            <li><b>Function:</b> Relays signals from a client to a main AP or another EP.</li>
+                            <li><b>Benefit:</b> Extends network range without running cables.</li>
+                        </ul>
+                    </div>
+
+                    <div
+                        class="bg-rose-50 border border-rose-200 rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="p-2 bg-rose-100 rounded-full text-rose-600"><i
+                                    class="fas fa-satellite-dish"></i></div>
+                            <h4 class="font-bold text-rose-900 text-base">5. Directional Antennas</h4>
+                        </div>
+                        <ul class="list-disc pl-5 space-y-2 text-rose-800">
+                            <li><b>Long Distance Bridge:</b> Connects LANs in different buildings (e.g., 1 mile away).
+                            </li>
+                            <li><b>Targeted:</b> Antennas on each building target each other directly.</li>
+                            <li><b>Setup:</b> One antenna connects to the wired network; the other enables wireless in
+                                the remote building.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 4. Wi-Fi 6 (802.11ax) -->
+            <section class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                <h2 class="flex items-center gap-2 text-2xl font-bold text-blue-900 mb-4">
+                    <i class="fas fa-tachometer-alt"></i> 4. Wi-Fi 6 (802.11ax)
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Features -->
+                    <div>
+                        <h3 class="font-bold text-lg mb-2">Why Wi-Fi 6 Matters</h3>
+                        <ul class="list-disc pl-5 text-sm space-y-2 text-slate-700">
+                            <li><b>Higher Data Rates:</b> Up to 9.6 Gbps with 1024-QAM and 8x8:8SS support for 4K/8K and
+                                AR/VR applications.</li>
+                            <li><b>Increased Capacity:</b> 3-4x more throughput than 802.11ac via OFDMA and BSS
+                                coloring, ideal for dense deployments and IoT devices.</li>
+                            <li><b>Reduced Latency & Reliability:</b> Scheduled uplink/downlink OFDMA provides
+                                cellular-like QoS and deterministic performance.</li>
+                            <li><b>Improved Power Efficiency:</b> Target Wake Time (TWT) extends battery life up to 3x
+                                with optimized transmit/receive procedures.</li>
+                            <li><b>Extended Range:</b> Better outdoor coverage and high-efficiency operation in
+                                high-density environments.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Visual Metrics -->
+                    <div class="flex items-center justify-center bg-white p-4 rounded border">
+                        <div class="text-center">
+                            <span class="text-4xl font-bold text-blue-600 block mb-2">4x</span>
+                            <span class="text-sm text-gray-600">Throughput vs 802.11ac</span>
+                        </div>
+                        <div class="w-px h-16 bg-gray-300 mx-6"></div>
+                        <div class="text-center">
+                            <span class="text-4xl font-bold text-green-600 block mb-2">3x</span>
+                            <span class="text-sm text-gray-600">Battery Life (TWT)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Optional History Timeline -->
+                <div class="mt-6 bg-blue-50 p-4 rounded border border-blue-200 text-sm text-blue-800">
+                    <h4 class="font-bold mb-2">Wi-Fi Evolution:</h4>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>Wi-Fi 1 (802.11, 1997)</li>
+                        <li>Wi-Fi 2 (802.11a, 1999)</li>
+                        <li>Wi-Fi 3 (802.11b, 1999)</li>
+                        <li>Wi-Fi 4 (802.11n, 2009)</li>
+                        <li>Wi-Fi 5 (802.11ac, 2013)</li>
+                        <li>Wi-Fi 6 (802.11ax, 2019) – High Efficiency Wireless (HEW)</li>
+                    </ul>
+                </div>
+            </section>
+
+
+            <!-- 5. Practice Questions -->
+            <section class="mt-8">
+                <h2
+                    class="flex items-center gap-2 text-2xl font-bold text-blue-800 mb-4 border-b border-slate-200 pb-2">
+                    <i class="fas fa-question-circle"></i> 5. Practice Questions (MCQ)
+                </h2>
+
+                <div class="space-y-4 text-sm">
+                    <!-- Question 1 -->
+                    <div class="bg-white p-4 rounded border border-gray-200">
+                        <p class="font-bold">1. In a wireless ad-hoc network:</p>
+                        <ul class="list-disc pl-5 space-y-1 text-slate-700">
+                            <li>A) Access point is not required</li>
+                            <li>B) Access point is must</li>
+                            <li>C) Nodes are not required</li>
+                            <li>D) None of the mentioned</li>
+                        </ul>
+                        <button class="mt-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                            onclick="this.nextElementSibling.classList.toggle('hidden')">
+                            Show Answer
+                        </button>
+                        <p class="mt-2 text-green-600 font-bold hidden">Correct Answer: A</p>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-white p-4 rounded border border-gray-200">
+                        <p class="font-bold">2. What is the Access Point (AP) in wireless LAN?</p>
+                        <ul class="list-disc pl-5 space-y-1 text-slate-700">
+                            <li>A) Device that allows wireless devices to connect to a wired network</li>
+                            <li>B) Wireless devices itself</li>
+                            <li>C) Both (A) and (B)</li>
+                            <li>D) None of the mentioned</li>
+                        </ul>
+                        <button class="mt-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                            onclick="this.nextElementSibling.classList.toggle('hidden')">
+                            Show Answer
+                        </button>
+                        <p class="mt-2 text-green-600 font-bold hidden">Correct Answer: A</p>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-white p-4 rounded border border-gray-200">
+                        <p class="font-bold">3. What is WPA?</p>
+                        <ul class="list-disc pl-5 space-y-1 text-slate-700">
+                            <li>A) Wi-Fi Protected Access</li>
+                            <li>B) Wired Protected Access</li>
+                            <li>C) Wired Process Access</li>
+                            <li>D) Wi-Fi Process Access</li>
+                        </ul>
+                        <button class="mt-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                            onclick="this.nextElementSibling.classList.toggle('hidden')">
+                            Show Answer
+                        </button>
+                        <p class="mt-2 text-green-600 font-bold hidden">Correct Answer: A</p>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 pt-6 border-t border-slate-300 text-center text-xs text-slate-500">
+            Generated Comprehensive Guide • IN 3510 Mobile & Wireless Networks • Lecture 11
+        </div>
+    </div>
+
+</body>
+
+</html>
