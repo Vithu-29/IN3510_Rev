@@ -21,6 +21,42 @@ function toggleSidebar() {
     }
 }
 
+function loadLecture(file, btnId) {
+    const container = document.getElementById('app-content');
+
+    // 1. Update Button Styles
+    document.querySelectorAll('.lecture-btn').forEach(btn => {
+        // Reset all buttons
+        btn.classList.remove('bg-brand-600', 'text-white', 'border-brand-600');
+        btn.classList.add('bg-stone-50', 'text-stone-600', 'border-stone-200');
+    });
+
+    // Highlight clicked button
+    const activeBtn = document.querySelector(`button[data-id="${btnId}"]`);
+    if (activeBtn) {
+        activeBtn.classList.remove('bg-stone-50', 'text-stone-600', 'border-stone-200');
+        activeBtn.classList.add('bg-brand-600', 'text-white', 'border-brand-600');
+    }
+
+    // 2. Load Content
+    if (file) {
+        // Load the HTML file into an iframe for perfect style isolation
+        container.innerHTML = `<iframe src="${file}" class="w-full h-full border-none" title="Lecture Content"></iframe>`;
+    } else {
+        // Placeholder for unlinked lectures
+        container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-stone-400 p-8">
+                        <i class="ph ph-lock-key text-3xl mb-3"></i>
+                        <p class="text-sm font-medium">Lecture ${btnId} content is not yet linked.</p>
+                    </div>`;
+    }
+
+    // Close sidebar on mobile
+    if (window.innerWidth < 768) {
+        toggleSidebar();
+    }
+}
+
 function changeYear(year) {
     state.currentYear = year;
     state.currentQuestion = 'meta';

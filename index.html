@@ -5,59 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IN 3510/4500: Wireless Networks - Multi-Year Revision Dashboard</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Phosphor Icons (Unicode/SVG replacement) -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <!-- Chosen Palette: Warm Neutrals & Professional Accents -->
-    <!-- Background: Stone-50 (#fafaf9) -->
-    <!-- Surface: White (#ffffff) -->
-    <!-- Primary Text: Stone-800 (#292524) -->
-    <!-- Accent 1: Teal-600 (#0d9488) for correct/active states -->
-    <!-- Accent 2: Slate-600 (#475569) for technical structures -->
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0fdfa',
-                            100: '#ccfbf1',
-                            600: '#0d9488', // Teal 600
-                            800: '#115e59', // Teal 800
-                            900: '#134e4a',
-                        },
-                        teal: {
-                            600: '#0d9488',
-                            700: '#0f766e',
-                        },
-                        slate: {
-                            800: '#1e293b',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace'],
-                    }
-                }
-            }
-        }
-    </script>
-
+    <script src="assets/tailwind-config.js"></script>
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 
 <body
     class="bg-stone-50 text-stone-800 font-sans h-screen flex overflow-hidden selection:bg-teal-100 selection:text-teal-900">
 
-    <!-- Sidebar Navigation -->
     <aside
         class="w-64 bg-white border-r border-stone-200 flex-shrink-0 flex flex-col h-full shadow-sm z-10 transition-all duration-300 absolute md:relative -translate-x-full md:translate-x-0"
         id="sidebar">
+
         <div class="p-6 border-b border-slate-100 bg-slate-50">
             <div class="flex items-center gap-3 mb-1">
                 <div
@@ -68,10 +29,51 @@
                     <h1 class="font-bold text-slate-900 leading-tight">Wireless<br>Networks</h1>
                 </div>
             </div>
-            <p class="text-xs text-slate-500 mt-2">PastPaper Revision</p>
         </div>
 
-        <!-- Year Selector -->
+        <div class="px-6 pt-4 pb-2">
+            <label class="block text-xs font-semibold text-stone-400 uppercase tracking-wider mb-2">Lecture
+                Notes</label>
+            <div class="grid grid-cols-4 gap-2">
+                <button onclick="loadLecture('assets/lectures/lecture1.html', 'L1')"
+                    class="lecture-btn h-8 rounded border border-stone-200 bg-stone-50 text-stone-600 text-xs font-medium hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors focus:ring-2 focus:ring-brand-600 focus:outline-none"
+                    data-id="L1">
+                    L1
+                </button>
+
+                <button onclick="loadLecture('assets/lectures/lecture2.html', 'L2')"
+                    class="lecture-btn h-8 rounded border border-stone-200 bg-stone-50 text-stone-600 text-xs font-medium hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors"
+                    data-id="L2">L2</button>
+                <button onclick="loadLecture('assets/lectures/lecture3.html', 'L3')"
+                    class="lecture-btn h-8 rounded border border-stone-200 bg-stone-50 text-stone-600 text-xs font-medium hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors"
+                    data-id="L3">L3</button>
+                <button onclick="loadLecture('assets/lectures/lecture4.html', 'L4')"
+                    class="lecture-btn h-8 rounded border border-stone-200 bg-stone-50 text-stone-600 text-xs font-medium hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors"
+                    data-id="L4">L4</button>
+                <button onclick="loadLecture('assets/lectures/lecture5.html', 'L5')"
+                    class="lecture-btn h-8 rounded border border-stone-200 bg-stone-50 text-stone-600 text-xs font-medium hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors"
+                    data-id="L5">L5</button>
+                <button onclick="loadLecture('assets/lectures/lecture6.html', 'L6')"
+                    class="lecture-btn h-8 rounded border border-stone-200 bg-stone-50 text-stone-600 text-xs font-medium hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors"
+                    data-id="L6">L6</button>
+                <button onclick="loadLecture('assets/lectures/lecture7.html', 'L7')"
+                    class="lecture-btn h-8 rounded border border-stone-200 bg-stone-50 text-stone-600 text-xs font-medium hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors"
+                    data-id="L7">L7</button>
+                <button onclick="loadLecture('assets/lectures/lecture8.html', 'L8')"
+                    class="lecture-btn h-8 rounded border border-stone-200 bg-stone-50 text-stone-600 text-xs font-medium hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors"
+                    data-id="L8">L8</button>
+                <button onclick="loadLecture('assets/lectures/lecture9.html', 'L9')"
+                    class="lecture-btn h-8 rounded border border-stone-200 bg-stone-50 text-stone-600 text-xs font-medium hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors"
+                    data-id="L9">L9</button>
+                <button onclick="loadLecture('assets/lectures/lecture10.html', 'L10')"
+                    class="lecture-btn h-8 rounded border border-stone-200 bg-stone-50 text-stone-600 text-xs font-medium hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors"
+                    data-id="L10">L10</button>
+                <button onclick="loadLecture('assets/lectures/lecture11.html', 'L11')"
+                    class="lecture-btn h-8 rounded border border-stone-200 bg-stone-50 text-stone-600 text-xs font-medium hover:bg-brand-50 hover:text-brand-600 hover:border-brand-200 transition-colors"
+                    data-id="L11">L11</button>
+            </div>
+        </div>
+
         <div class="px-6 pt-4 pb-2 border-b border-stone-100">
             <label for="year-select"
                 class="block text-xs font-semibold text-stone-400 uppercase tracking-wider mb-2">Select Year of
@@ -85,7 +87,6 @@
         </div>
 
         <nav class="flex-1 overflow-y-auto py-4 space-y-1" id="question-nav-container">
-            <!-- Dynamic Question Modules -->
         </nav>
 
         <div class="p-4 border-t border-stone-100 bg-stone-50">
@@ -95,15 +96,12 @@
                     UM</div>
                 <div>
                     <p class="text-xs font-semibold">University of Moratuwa</p>
-                    <p class="text-[10px] text-stone-500">Multi-Year Papers</p>
                 </div>
             </div>
         </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col h-full relative overflow-hidden">
-        <!-- Mobile Header -->
+    <main class="flex-1 flex flex-col h-full relative overflow-hidden bg-stone-50">
         <header class="md:hidden h-14 bg-white border-b border-stone-200 flex items-center justify-between px-4 z-20">
             <span class="font-bold text-teal-700" id="mobile-header-title">IN 3510 / 2025</span>
             <button onclick="toggleSidebar()" class="p-2 text-stone-600 hover:bg-stone-100 rounded">
@@ -111,20 +109,16 @@
             </button>
         </header>
 
-        <!-- Dynamic Content Container -->
         <div id="app-content" class="flex-1 overflow-y-auto p-4 md:p-8 scroll-smooth">
             <!-- Content injected via JS -->
         </div>
     </main>
 
-    <!-- Overlay for mobile sidebar -->
     <div id="sidebar-overlay" onclick="toggleSidebar()"
         class="fixed inset-0 bg-black/20 z-0 hidden md:hidden glass-panel"></div>
 
-    <!-- Load external scripts -->
     <script src="assets/data.js"></script>
     <script src="assets/app.js"></script>
-
 </body>
 
 </html>
